@@ -1,6 +1,7 @@
 {
-    "main": {
-        "name": "test",
-        "num": 0
+    "CLIENT": "client",
+    "ENV": {
+        "PATH": "/bin:/usr/bin",
+        "USER": "pingu"
     }
 }
