@@ -1,7 +1,16 @@
 import os
 from util import writefile
+def set_mode(mode):
+    if mode == "performance":
+        _performance()
+    elif mode == "powersave":
+        _powersave()
+    else:
+        return
+    print("New mode: {}".format(mode))
+
 # https://wiki.debian.org/SimplePowerSave
-def powersave():
+def _powersave():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",1)
 
@@ -45,7 +54,7 @@ def powersave():
         writefile("{}/{}/device/power/control".format(net_path,dir),"auto")
 
 
-def performance():
+def _performance():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",0)
 

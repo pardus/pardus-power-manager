@@ -29,6 +29,7 @@ def listen(main):
 
 
 def send_server(data):
+    data["pid"] = str(os.getpid())
     if os.path.exists("/run/ppm"):
         with open("/run/ppm", "w") as f:
             f.write(json.dumps(data))

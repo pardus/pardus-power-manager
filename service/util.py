@@ -14,6 +14,7 @@ def listen(main):
                 continue
 
 def send_client(data):
+    data["pid"] = str(os.getpid())
     for dir in os.listdir("/run/user"):
         if os.path.exists("/run/user/{}/ppm".format(dir)):
             with open("/run/user/{}/ppm".format(dir), "w") as f:
