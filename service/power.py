@@ -1,13 +1,22 @@
 import os
 from util import writefile
+_cur_mode = None
 def set_mode(mode):
+    global _cur_mode
+    if mode == _cur_mode:
+        return
     if mode == "performance":
         _performance()
     elif mode == "powersave":
         _powersave()
     else:
         return
+    _cur_mode = mode
     print("New mode: {}".format(mode))
+
+def get_mode():
+    return _cur_mode
+
 
 # https://wiki.debian.org/SimplePowerSave
 def _powersave():

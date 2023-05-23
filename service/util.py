@@ -8,7 +8,8 @@ def listen(main):
         with open("/run/ppm","r") as f:
             try:
                 data = json.loads(f.read())
-                main(data)
+                if "pid" in data:
+                    main(data)
             except Exception as e:
                 sys.stderr.write("Json error: {}\n".format(str(e)))
                 continue

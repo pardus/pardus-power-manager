@@ -4,4 +4,6 @@ def main(data):
     print(data)
     if "new-mode" in data:
         set_mode(data["new-mode"])
-    send_client(data)
+    udata = {}
+    udata["current-mode"] = get_mode()
+    send_client(udata)
