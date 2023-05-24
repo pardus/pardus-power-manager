@@ -1,5 +1,5 @@
 import os
-from util import writefile
+from util import writefile, readfile
 _cur_mode = None
 def set_mode(mode):
     global _cur_mode

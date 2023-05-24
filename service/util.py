@@ -18,8 +18,11 @@ def listen(main):
                 continue
 
 def get_gid_by_name(name):
-    grpinfo = grp.getgrnam(name)
-    return grpinfo.gr_gid
+    try:
+        grpinfo = grp.getgrnam(name)
+        return grpinfo.gr_gid
+    except:
+        return 0
 
 def send_client(data):
     data["pid"] = str(os.getpid())
