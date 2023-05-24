@@ -17,6 +17,7 @@ class MainWindow:
         self.main_box.pack_start(self.label,False,False,0)
         self.connect_signals()
         self.window.show_all()
+        send_server({})
 
     def test(self):
         self.a = Gtk.Button("performance")

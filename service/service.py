@@ -11,7 +11,9 @@ def main(data):
     udata = {}
     udata["current-mode"] = power.get_mode()
     udata["current-backlight"] = {}
+    udata["max-backlight"] = {}
     for dev in backlight.get_devices():
         udata["current-backlight"][dev] = backlight.get_brightness(dev)
+        udata["max-backlight"][dev] = backlight.get_max_brightness(dev)
     print(udata)
     send_client(udata)
