@@ -23,6 +23,9 @@ def _powersave():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",1)
 
+    # less disk activity
+    writefile("/proc/sys/vm/dirty_writeback_centisecs",1500)
+
     # sata channel
     scsi_host_path="/sys/class/scsi_host/"
     for dir in os.listdir(scsi_host_path):
@@ -48,7 +51,6 @@ def _powersave():
     for dir in os.listdir(i2c_path):
         writefile("{}/{}/power/control".format(i2c_path,dir),"on")
 
-
     # audio card
     writefile("/sys/module/snd_hda_intel/parameters/power_save",5)
     writefile("/sys/module/snd_hda_intel/parameters/power_save_controller","Y")
@@ -62,10 +64,22 @@ def _powersave():
     for dir in os.listdir(net_path):
         writefile("{}/{}/device/power/control".format(net_path,dir),"auto")
 
+    # decrease max cpu freq
+    cpu_path="/sys/devices/system/cpu/"
+    for dir in os.listdir(cpu_path):
+        min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
+        max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
+        if min_freq != "" and max_freq != "":
+            new_freq = ( int(min_freq) + int(max_freq) ) / 2
+            writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),new_freq)
+
 
 def _performance():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",0)
+
+    # more disk activity
+    writefile("/proc/sys/vm/dirty_writeback_centisecs",500)
 
     # sata channel
     scsi_host_path="/sys/class/scsi_host/"
@@ -106,3 +120,9 @@ def _performance():
     for dir in os.listdir(net_path):
         writefile("{}/{}/device/power/control".format(net_path,dir),"on")
 
+    # increase max cpu freq
+    cpu_path="/sys/devices/system/cpu/"
+    for dir in os.listdir(cpu_path):
+        max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
+        if max_freq != "":
+            writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),max_freq)
