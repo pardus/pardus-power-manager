@@ -19,6 +19,10 @@ class MainWindow:
         self.window.show_all()
         send_server({})
 
+    def destroy_signal(self,widget=None):
+        os.unlink("{}/ppm/{}".format(os.environ["XDG_RUNTIME_DIR"],os.getpid()))
+        Gtk.main_quit()
+
     def test(self):
         self.a = Gtk.Button("performance")
         self.b = Gtk.Button("powersave")
@@ -34,7 +38,7 @@ class MainWindow:
         self.b.connect("clicked",bbb)
 
     def connect_signals(self):
-        self.window.connect("destroy",Gtk.main_quit)
+        self.window.connect("destroy",self.destroy_signal)
 
     def update(self,data):
         self.label.set_label(str(data))

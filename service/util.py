@@ -27,9 +27,14 @@ def get_gid_by_name(name):
 def send_client(data):
     data["pid"] = str(os.getpid())
     for dir in os.listdir("/run/user"):
-        if os.path.exists("/run/user/{}/ppm".format(dir)):
-            with open("/run/user/{}/ppm".format(dir), "w") as f:
-                f.write(json.dumps(data))
+        if os.path.exists("/run/user/{}/ppm/".format(dir)):
+            for fifo in os.listdir("/run/user/{}/ppm/".format(dir)):
+                if not os.path.isdir("/proc/{}".format(fifo)):
+                    os.unlink("/run/user/{}/ppm/{}".format(dir,fifo))
+                else:
+                    with open("/run/user/{}/ppm/{}".format(dir,fifo), "w") as f:
+                        f.write(json.dumps(data))
+                        f.flush()
 
 def writefile(path,data):
     try:
