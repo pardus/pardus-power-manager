@@ -1,5 +1,6 @@
 import os
 from util import writefile, readfile
+from backends.cpu import list_cpu, change_cpu_status
 _cur_mode = None
 def set_mode(mode):
     global _cur_mode
@@ -73,6 +74,12 @@ def _powersave():
             new_freq = ( int(min_freq) + int(max_freq) ) / 2
             writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),new_freq)
 
+    # disable cpu core
+    cpus = list_cpu()
+    print(cpus)
+    for cpu in range(int(len(cpus)/2), len(cpus)):
+        change_cpu_status(cpu,False)
+
 
 def _performance():
     # laptop mode
@@ -119,6 +126,12 @@ def _performance():
     net_path="/sys/class/net/"
     for dir in os.listdir(net_path):
         writefile("{}/{}/device/power/control".format(net_path,dir),"on")
+
+    # enable cpu core
+    cpus = list_cpu()
+    print(cpus)
+    for cpu in range(int(len(cpus)/2), len(cpus)):
+        change_cpu_status(cpu,True)
 
     # increase max cpu freq
     cpu_path="/sys/devices/system/cpu/"

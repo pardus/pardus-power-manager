@@ -11,11 +11,11 @@ def listen(main):
         with open("/run/ppm","r") as f:
             try:
                 data = json.loads(f.read())
-                if "pid" in data:
-                    main(data)
             except Exception as e:
                 sys.stderr.write("Json error: {}\n".format(str(e)))
                 continue
+        if "pid" in data:
+            main(data)
 
 def get_gid_by_name(name):
     try:
@@ -43,5 +43,9 @@ def writefile(path,data):
 def readfile(path):
     if not os.path.exists(path):
         return ""
-    with open(path,"r") as f:
-        return f.read()
+    try:
+        with open(path,"r") as f:
+            return f.read()
+    except Exception as e:
+        print(e)
+        return ""
