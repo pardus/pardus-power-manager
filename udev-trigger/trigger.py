@@ -8,7 +8,7 @@ data["ENV"]=os.environ.copy()
 
 if os.path.exists("/run/ppm"):
     new_mode = "performance"
-    if get_ac_online():
+    if not get_ac_online():
         new_mode = "powersave"
     data["new-mode"] = new_mode
     with open("/run/ppm", "w") as f:
