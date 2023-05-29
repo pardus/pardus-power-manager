@@ -15,7 +15,7 @@ def asynchronous(func):
 
 @asynchronous
 def listen(main):
-    ppm = "/run/user/{}/ppm/{}".format(os.getuid(),os.getpid())
+    ppm = "/run/user/{}/ppm".format(os.getuid())
     if not os.path.exists(ppm):
         os.mkdir(ppm)
     ppm = ppm+str(os.getpid())
