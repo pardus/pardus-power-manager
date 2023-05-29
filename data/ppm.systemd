@@ -1,0 +1,12 @@
+[Unit]
+Description=Pardus Power Manager
+StartLimitIntervalSec=0
+
+[Service]
+Type=ppm
+Restart=always
+RestartSec=1
+ExecStart=python3 /usr/share/pardus/power-manager/service/main.py
+
+[Install]
+WantedBy=multi-user.target
