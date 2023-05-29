@@ -9,7 +9,6 @@ install-common:
 	mkdir -p $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv client $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv service $(DESTDIR)/usr/share/pardus/power-manager
-	cp -prfv data $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv udev-trigger $(DESTDIR)/usr/share/pardus/power-manager
 
 install-none:
@@ -18,7 +17,7 @@ uninstall-none:
 
 install-systemd:
 	mkdir -p $(DESTDIR)/lib/systemd/system/
-	ln -s ../../../usr/share/pardus/power-manager/data/ppm.systemd \
+	install data/ppm.systemd \
 	    $(DESTDIR)/lib/systemd/system/ppm.service
 
 uninstall: uninstall-common uninstall-$(SERVICE)

@@ -15,7 +15,7 @@ def asynchronous(func):
 
 @asynchronous
 def listen(main):
-    ppm = "{}/ppm/".format(os.environ["XDG_RUNTIME_DIR"])
+    ppm = "/run/user/{}/ppm/{}".format(os.getuid(),os.getpid())
     if not os.path.exists(ppm):
         os.mkdir(ppm)
     ppm = ppm+str(os.getpid())

@@ -20,7 +20,7 @@ class MainWindow:
         send_server({})
 
     def destroy_signal(self,widget=None):
-        os.unlink("{}/ppm/{}".format(os.environ["XDG_RUNTIME_DIR"],os.getpid()))
+        os.unlink("/run/user/{}/ppm/{}".format(os.getuid(),os.getpid()))
         Gtk.main_quit()
 
     def test(self):
