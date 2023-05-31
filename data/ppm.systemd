@@ -6,7 +6,7 @@ StartLimitIntervalSec=0
 Type=ppm
 Restart=always
 RestartSec=1
-ExecStart=python3 /usr/share/pardus/power-manager/service/main.py
+ExecStart=/usr/libexec/pardus-power-manager
 
 [Install]
 WantedBy=multi-user.target

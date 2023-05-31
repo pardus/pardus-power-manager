@@ -1,5 +1,5 @@
 import os
-from util import writefile, readfile
+from util import writefile, readfile, listdir
 from backends.cpu import list_cpu, change_cpu_status
 _cur_mode = None
 def set_mode(mode):
@@ -29,27 +29,27 @@ def _powersave():
 
     # sata channel
     scsi_host_path="/sys/class/scsi_host/"
-    for dir in os.listdir(scsi_host_path):
+    for dir in listdir(scsi_host_path):
         if dir.startswith("host"):
             writefile("{}/{}/link_power_management_policy".format(scsi_host_path,dir),"min_power")
     # cpu governor
     cpu_path="/sys/devices/system/cpu/"
-    for dir in os.listdir(cpu_path):
+    for dir in listdir(cpu_path):
         if dir.startswith("cpu"):
             writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"powersave")
     # usb auto suspend
     usb_path="/sys/bus/usb/devices/"
-    for dir in os.listdir(usb_path):
+    for dir in listdir(usb_path):
         writefile("{}/{}/power/control".format(usb_path,dir),"on")
 
     # pci auto suspend
     pci_path="/sys/bus/pci/devices/"
-    for dir in os.listdir(pci_path):
+    for dir in listdir(pci_path):
         writefile("{}/{}/power/control".format(pci_path,dir),"on")
 
     # i2c auto suspend
     i2c_path="/sys/bus/i2c/devices/"
-    for dir in os.listdir(i2c_path):
+    for dir in listdir(i2c_path):
         writefile("{}/{}/power/control".format(i2c_path,dir),"on")
 
     # audio card
@@ -62,12 +62,12 @@ def _powersave():
 
     # network
     net_path="/sys/class/net/"
-    for dir in os.listdir(net_path):
+    for dir in listdir(net_path):
         writefile("{}/{}/device/power/control".format(net_path,dir),"auto")
 
     # decrease max cpu freq
     cpu_path="/sys/devices/system/cpu/"
-    for dir in os.listdir(cpu_path):
+    for dir in listdir(cpu_path):
         min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
         max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
         if min_freq != "" and max_freq != "":
@@ -90,28 +90,28 @@ def _performance():
 
     # sata channel
     scsi_host_path="/sys/class/scsi_host/"
-    for dir in os.listdir(scsi_host_path):
+    for dir in listdir(scsi_host_path):
         if dir.startswith("host"):
             writefile("{}/{}/link_power_management_policy".format(scsi_host_path,dir),"max_performance")
     # cpu governor
     cpu_path="/sys/devices/system/cpu/"
-    for dir in os.listdir(cpu_path):
+    for dir in listdir(cpu_path):
         if dir.startswith("cpu"):
             writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"performance")
 
     # usb auto suspend
     usb_path="/sys/bus/usb/devices/"
-    for dir in os.listdir(usb_path):
+    for dir in listdir(usb_path):
         writefile("{}/{}/power/control".format(usb_path,dir),"on")
 
     # pci auto suspend
     pci_path="/sys/bus/pci/devices/"
-    for dir in os.listdir(pci_path):
+    for dir in listdir(pci_path):
         writefile("{}/{}/power/control".format(pci_path,dir),"on")
 
     # i2c auto suspend
     i2c_path="/sys/bus/i2c/devices/"
-    for dir in os.listdir(i2c_path):
+    for dir in listdir(i2c_path):
         writefile("{}/{}/power/control".format(i2c_path,dir),"on")
 
     # audio card
@@ -124,7 +124,7 @@ def _performance():
 
     # network
     net_path="/sys/class/net/"
-    for dir in os.listdir(net_path):
+    for dir in listdir(net_path):
         writefile("{}/{}/device/power/control".format(net_path,dir),"on")
 
     # enable cpu core
@@ -135,7 +135,7 @@ def _performance():
 
     # increase max cpu freq
     cpu_path="/sys/devices/system/cpu/"
-    for dir in os.listdir(cpu_path):
+    for dir in listdir(cpu_path):
         max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
         if max_freq != "":
             writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),max_freq)

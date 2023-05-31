@@ -2,6 +2,10 @@ import os
 import sys
 import json
 import grp
+import time
+
+start_time = time.time()
+
 def listen(main):
     if not os.path.exists("/run/ppm"):
         os.mkfifo("/run/ppm")
@@ -26,6 +30,7 @@ def get_gid_by_name(name):
 
 def send_client(data):
     data["pid"] = str(os.getpid())
+    log("Send data to client")
     for dir in os.listdir("/run/user"):
         if os.path.exists("/run/user/{}/ppm/".format(dir)):
             for fifo in os.listdir("/run/user/{}/ppm/".format(dir)):
@@ -37,6 +42,7 @@ def send_client(data):
                         f.flush()
 
 def writefile(path,data):
+    log("Write file: "+ path)
     try:
         with open(path,"w") as f:
             f.write(str(data))
@@ -46,6 +52,7 @@ def writefile(path,data):
     return True
 
 def readfile(path):
+    log("Read file: "+ path)
     if not os.path.exists(path):
         return ""
     try:
@@ -54,3 +61,17 @@ def readfile(path):
     except Exception as e:
         print(e)
         return ""
+
+
+logfile = open("/var/log/ppm.log","a")
+def log(msg):
+    ftime = time.time() - start_time
+    ftime = float(int(10000*ftime))/10000
+    logfile.write("[{}]: {}\n".format(ftime, msg))
+    logfile.flush()
+
+
+def listdir(path):
+    if os.path.isdir(path):
+        return os.listdir(path)
+    return []
