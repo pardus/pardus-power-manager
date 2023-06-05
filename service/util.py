@@ -4,6 +4,8 @@ import json
 import grp
 import time
 
+from config import *
+
 start_time = time.time()
 
 def listen(main):
@@ -14,9 +16,13 @@ def listen(main):
     while True:
         with open("/run/ppm","r") as f:
             try:
-                data = json.loads(f.read())
+                data = f.read()
+                if len(data.strip()) == 0:
+                    continue
+                debug(data)
+                data = json.loads(data)
             except Exception as e:
-                sys.stderr.write("Json error: {}\n".format(str(e)))
+                log("Json error: {}\n{}".format(str(e),str(f.read()) ))
                 continue
         if "pid" in data:
             main(data)
@@ -30,10 +36,10 @@ def get_gid_by_name(name):
 
 def send_client(data):
     data["pid"] = str(os.getpid())
-    log("Send data to client")
     for dir in os.listdir("/run/user"):
         if os.path.exists("/run/user/{}/ppm/".format(dir)):
             for fifo in os.listdir("/run/user/{}/ppm/".format(dir)):
+                debug("Send data to client: {} {}".format(dir, fifo))
                 if not os.path.isdir("/proc/{}".format(fifo)):
                     os.unlink("/run/user/{}/ppm/{}".format(dir,fifo))
                 else:
@@ -42,7 +48,7 @@ def send_client(data):
                         f.flush()
 
 def writefile(path,data):
-    log("Write file: "+ path)
+    debug("Write file: "+ path)
     try:
         with open(path,"w") as f:
             f.write(str(data))
@@ -52,7 +58,7 @@ def writefile(path,data):
     return True
 
 def readfile(path):
-    log("Read file: "+ path)
+    debug("Read file: "+ path)
     if not os.path.exists(path):
         return ""
     try:
@@ -64,12 +70,18 @@ def readfile(path):
 
 
 logfile = open("/var/log/ppm.log","a")
+
 def log(msg):
     ftime = time.time() - start_time
     ftime = float(int(10000*ftime))/10000
     logfile.write("[{}]: {}\n".format(ftime, msg))
     logfile.flush()
 
+if get("debug",False):
+    debug = log
+else:
+    def debug(msg):
+        return
 
 def listdir(path):
     if os.path.isdir(path):
