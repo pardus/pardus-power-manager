@@ -9,6 +9,7 @@ install-common:
 	mkdir -p $(DESTDIR)/usr/share/pardus/power-manager
 	mkdir -p $(DESTDIR)/usr/libexec/
 	cp -prfv client $(DESTDIR)/usr/share/pardus/power-manager
+	cp -prfv common $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv service $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv udev-trigger $(DESTDIR)/usr/share/pardus/power-manager
 	install data/ppm-service.sh $(DESTDIR)/usr/libexec/pardus-power-manager
