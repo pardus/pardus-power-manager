@@ -1,1 +1,1 @@
-SUBSYSTEM=="power_supply",RUN+="/usr/libexec/ppm-trigger"
+SUBSYSTEM=="power_supply",RUN+="/bin/sh /usr/libexec/ppm-trigger"

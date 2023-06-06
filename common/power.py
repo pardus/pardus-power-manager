@@ -1,5 +1,6 @@
 import os
 import sys
+from file import *
 def get_ac_online():
     if not os.path.exists("/sys/class/power_supply/"):
         return True
