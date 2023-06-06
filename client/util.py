@@ -18,7 +18,7 @@ def listen(main):
     ppm = "/run/user/{}/ppm".format(os.getuid())
     if not os.path.exists(ppm):
         os.mkdir(ppm)
-    ppm = ppm+str(os.getpid())
+    ppm = ppm+"/"+str(os.getpid())
     if not os.path.exists(ppm):
         os.mkfifo(ppm)
     while True:
@@ -31,7 +31,8 @@ def listen(main):
                 continue
 
 
-def send_server(data):
+@asynchronous
+def send_server(data={}):
     data["pid"] = str(os.getpid())
     if os.path.exists("/run/ppm"):
         with open("/run/ppm", "w") as f:
