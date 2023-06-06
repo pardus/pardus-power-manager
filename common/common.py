@@ -1,7 +1,4 @@
-from config import *
-from logging import *
-from file import *
-from user import *
-from asyncfunc import *
-from power import *
-
+import os
+for file in os.listdir( os.path.dirname( os.path.realpath(__file__) )):
+    if file.endswith(".py") and file != os.path.basename(__file__):
+        exec("from {} import *".format(file[:-3]))
