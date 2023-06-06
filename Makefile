@@ -13,7 +13,8 @@ install-common:
 	cp -prfv service $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv udev-trigger $(DESTDIR)/usr/share/pardus/power-manager
 	echo "#!/bin/sh" > $(DESTDIR)/usr/libexec/pardus-power-manager
-	echo "eexec python3 /usr/share/pardus/power-manager/service/main.py" >> $(DESTDIR)/usr/libexec/pardus-power-manager
+	echo "exec python3 /usr/share/pardus/power-manager/service/main.py" >> $(DESTDIR)/usr/libexec/pardus-power-manager
+	chmod +x $(DESTDIR)/usr/libexec/pardus-power-manager
 
 install-none:
 
