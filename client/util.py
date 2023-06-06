@@ -1,17 +1,8 @@
 import os
 import sys
 import json
-import threading
-
-
-def asynchronous(func):
-    def wrapper(*args, **kwargs):
-        thread = threading.Thread(target=func, args=args, kwargs=kwargs)
-        thread.daemon = True
-        thread.start()
-        return thread
-    return wrapper
-
+sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
+from common import *
 
 @asynchronous
 def listen(main):

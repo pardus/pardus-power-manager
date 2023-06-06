@@ -1,15 +1,5 @@
 import os
-def readfile(path):
-    if not os.path.exists(path):
-        return ""
-    try:
-        with open(path,"r") as f:
-            return f.read()
-    except Exception as e:
-        print(e)
-        return ""
-
-
+import sys
 def get_ac_online():
     if not os.path.exists("/sys/class/power_supply/"):
         return True
@@ -41,4 +31,3 @@ def get_acpi_power_devices():
                 devices.append(device)
     return devices
 
-print(get_ac_online())

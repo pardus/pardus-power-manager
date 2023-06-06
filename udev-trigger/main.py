@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import os
 import json
-from util import get_ac_online
+import sys
+sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
+from common import *
 data={}
 data["pid"]="1"
 data["ENV"]=os.environ.copy()
