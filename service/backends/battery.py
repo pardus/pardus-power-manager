@@ -42,12 +42,8 @@ def battery_init():
     for dev in get_acpi_power_devices():
         b = battery(dev)
         acpi_battery.append(b)
-    while True:
-        battery_main()
-        time.sleep(1)
 
 def battery_main():
     for b in acpi_battery:
         b.update()
         print(b.level)
-    print("loop")
