@@ -13,7 +13,7 @@ def readfile(path):
         return ""
     try:
         with open(path,"r") as f:
-            return f.read()
+            return f.read().strip()
     except Exception as e:
         print(e)
         return ""

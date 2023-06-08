@@ -7,7 +7,7 @@ if os.fork():
     battery_init()
     while True:
         battery_main()
-        time.sleep(int(get("check-interval",60,"battery")))
+        time.sleep(int(get("battery-check-interval",60,"service")))
 else:
     while True:
         try:

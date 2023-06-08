@@ -16,7 +16,7 @@ class battery:
         if os.path.exists("{}/energy_now".format(path)):
             now= readfile("{}/energy_now".format(path))
             max= readfile("{}/energy_full".format(path))
-            self.level = int(max)/int(now)
+            self.level = int(now)/int(max) * 100
         elif os.path.exists("{}/capacity".format(path)):
             self.level = int(readfile("{}/capacity".format(path)))
         elif os.path.exists("{}/capacity_level".format(path)):
@@ -40,10 +40,13 @@ acpi_battery = []
 def battery_init():
     global acpi_battery
     for dev in get_acpi_power_devices():
-        b = battery(dev)
-        acpi_battery.append(b)
+        path="/sys/class/power_supply/{}/".format(dev)
+        devtype = readfile("{}/type".format(path)).lower()
+        if  devtype == "battery":
+            b = battery(dev)
+            acpi_battery.append(b)
 
 def battery_main():
     for b in acpi_battery:
         b.update()
-        print(b.level)
+        print(b.name,b.level)
