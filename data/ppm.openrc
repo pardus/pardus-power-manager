@@ -1,0 +1,12 @@
+#!/sbin/openrc-run
+
+name="Pardus Power Manager"
+command="/usr/libexec/pardus-power-manager"
+pidfile="/run/ppm.pid"
+command_background=true
+
+depend() {
+	after coldplug udev-postmount
+	need localmount
+}
+

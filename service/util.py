@@ -7,8 +7,9 @@ from common import *
 def listen(main):
     if not os.path.exists("/run/ppm"):
         os.mkfifo("/run/ppm")
-        os.chmod("/run/ppm", 0o775)
-        os.chown("/run/ppm", 0, get_gid_by_name("ppm"))
+        os.chmod("/run/ppm", 0o777)
+        os.chown("/run/ppm", 0, 0)
+        os.system("chattr -R -a /run/ppm")
     while True:
         with open("/run/ppm","r") as f:
             try:

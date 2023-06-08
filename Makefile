@@ -32,6 +32,10 @@ install-systemd:
 	install data/ppm.systemd \
 	    $(DESTDIR)/lib/systemd/system/ppm.service
 
+install-openrc:
+	mkdir --p $(DESTDIR)/etc/init.d/
+	install data/ppm.openrc $(DESTDIR)/etc/init.d/ppm
+
 uninstall: uninstall-common uninstall-$(SERVICE) uninstall-udev
 
 uninstall-udev:
@@ -44,3 +48,7 @@ uninstall-common:
 
 uninstall-systemd:
 	rm -f  $(DESTDIR)/lib/systemd/system/ppm.service
+
+
+uninstall-openrc:
+	rm -f $(DESTDIR)/etc/init.d/ppm
