@@ -3,7 +3,11 @@ from util import *
 from service import main
 from backends.battery import battery_init, battery_main
 from gi.repository import GLib
+if not get("enabled",True,"service"):
+    exit(0)
 if os.fork():
+    if not get("battery-events",True,"service"):
+        exit(0)
     battery_init()
     while True:
         battery_main()

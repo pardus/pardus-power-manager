@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+from pathlib import Path
 sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
 from common import *
 
@@ -11,22 +12,16 @@ def listen(main):
         os.chown("/run/ppm", 0, 0)
         os.system("chattr -R -a /run/ppm")
     while True:
-        with open("/run/ppm","r") as f:
-            try:
-                data = f.read()
-                if len(data.strip()) == 0:
-                    continue
-                debug(data)
-                data = json.loads(data)
-            except Exception as e:
-                log("Json error: {}\n{}".format(str(e),str(f.read()) ))
-                continue
+        fifo = Path("/run/ppm")
+        data = fifo.read_text()
+        data = json.loads(data)
         if "pid" in data:
             main(data)
 
 
 
 def send_client(data):
+    print(data)
     data["pid"] = str(os.getpid())
     for dir in listdir("/run/user"):
         if os.path.exists("/run/user/{}/ppm/".format(dir)):

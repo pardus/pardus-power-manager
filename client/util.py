@@ -21,11 +21,19 @@ def listen(main):
                 sys.stderr.write("Json error: {}\n".format(str(e)))
                 continue
 
-
+last_data = None
 @asynchronous
 def send_server(data={}):
-    data["pid"] = str(os.getpid())
-    if os.path.exists("/run/ppm"):
-        with open("/run/ppm", "w") as f:
-            f.write(json.dumps(data))
+    global last_data
+    if last_data == data and last_data != None:
+        return
+    last_data = data
+    print(data)
+    try:
+        data["pid"] = str(os.getpid())
+        if os.path.exists("/run/ppm"):
+            with open("/run/ppm", "w") as f:
+                f.write(json.dumps(data))
+    except Exception as e:
+        print(str(e))
 

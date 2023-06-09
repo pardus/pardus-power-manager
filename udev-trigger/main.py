@@ -9,9 +9,9 @@ data["pid"]="1"
 data["ENV"]=os.environ.copy()
 
 if os.path.exists("/run/ppm"):
-    new_mode = "performance"
+    new_mode = get("ac-mode","performance","modes")
     if not get_ac_online():
-        new_mode = "powersave"
+    new_mode = get("bat-mode","powersave","modes")
     data["new-mode"] = new_mode
     with open("/run/ppm", "w") as f:
         f.write(json.dumps(data))
