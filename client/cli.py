@@ -10,6 +10,10 @@ def usage():
 if len(sys.argv) <= 2:
     usage()
 
+if not os.path.exists("/run/ppm"):
+    print("Failed to connect ppm service")
+    exit(127)
+
 data = {}
 data["pid"] = os.getpid()
 if sys.argv[1] == "set":
@@ -20,11 +24,11 @@ if sys.argv[1] == "set":
     if sys.argv[2] == "backlight":
         data["new-backlight"] = {}
         for d in sys.argv[3:]:
-            name = d.split("=")[0]
-            value = d.split("=")[1]
-            data["new-backlight"][name] = value
+            if "=" in d:
+                name = d.split("=")[0]
+                value = d.split("=")[1]
+                data["new-backlight"][name] = value
     with open("/run/ppm","w") as f:
-        print(data)
         f.write(json.dumps(data))
 elif sys.argv[1] == "get":
     ppm = "/run/user/{}/ppm".format(os.getuid())
@@ -44,7 +48,11 @@ elif sys.argv[1] == "get":
     if sys.argv[2] == "mode":
         print(data["current-mode"])
     elif sys.argv[2] == "backlight":
+        print("[Current backlight]")
         for d in data["current-backlight"].keys():
             print("{} = {}".format(d, data["current-backlight"][d]))
+        print("[Max backlight]")
+        for d in data["max-backlight"].keys():
+            print("{} = {}".format(d, data["max-backlight"][d]))
 else:
     usage()
