@@ -1,17 +1,18 @@
 import os
 from util import writefile, readfile, listdir
 from backends.cpu import list_cpu, change_cpu_status
+from common import *
+
+
 _cur_mode = None
+
+@asynchronous
 def set_mode(mode):
     global _cur_mode
-    if mode == _cur_mode:
-        return
     if mode == "performance":
         _performance()
     elif mode == "powersave":
         _powersave()
-    else:
-        return
     _cur_mode = mode
     print("New mode: {}".format(mode))
 
@@ -58,39 +59,41 @@ def _powersave():
         for dir in listdir(i2c_path):
             writefile("{}/{}/power/control".format(i2c_path,dir),"on")
 
-    if not get("audio",True,"powersave"):
+    if get("audio",True,"powersave"):
         # audio card
         writefile("/sys/module/snd_hda_intel/parameters/power_save",5)
         writefile("/sys/module/snd_hda_intel/parameters/power_save_controller","Y")
 
 
-    if not get("turbo",True,"powersave"):
+    if get("turbo",True,"powersave"):
         # turbo boost
         writefile("/sys/devices/system/cpu/intel_pstate/no_turbo",1)
         writefile("/sys/devices/system/cpu/cpufreq/boost",0)
 
-    if not get("network",True,"powersave"):
+    if get("network",True,"powersave"):
         # network
         net_path="/sys/class/net/"
         for dir in listdir(net_path):
             writefile("{}/{}/device/power/control".format(net_path,dir),"auto")
 
-    if not get("cpufreq",True,"powersave"):
+    if get("cpufreq",True,"powersave"):
         # decrease max cpu freq
         cpu_path="/sys/devices/system/cpu/"
         for dir in listdir(cpu_path):
+            if not dir.startswith("cpu"):
+                continue
             min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
             max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
             if min_freq != "" and max_freq != "":
-                new_freq = int(max_freq) * get("freq-ratio",0.5,"powersave")
-                writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),new_freq)
+                new_freq = int(max_freq) * float(get("freq-ratio",0.5,"powersave"))
+                writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
 
-    if not get("core",True,"powersave"):
+    if get("core",True,"powersave"):
         # disable cpu core
         cpus = list_cpu()
         print(cpus)
-        dnum = int(len(cpus)) - len(cpus) * get("core-ratio",0.5,"powersave")
-        for cpu in range(dnum, len(cpus)):
+        dnum = int(len(cpus)) - len(cpus) * float(get("core-ratio",0.5,"powersave"))
+        for cpu in range(int(dnum), len(cpus)):
             change_cpu_status(cpu,False)
 
 
@@ -160,6 +163,8 @@ def _performance():
         # increase max cpu freq
         cpu_path="/sys/devices/system/cpu/"
         for dir in listdir(cpu_path):
+            if not dir.startswith("cpu"):
+                continue
             max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
             if max_freq != "":
                 writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),max_freq)
