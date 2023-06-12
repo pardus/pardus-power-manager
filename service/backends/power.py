@@ -6,7 +6,6 @@ from common import *
 
 _cur_mode = None
 
-@asynchronous
 def set_mode(mode):
     global _cur_mode
     if mode == "performance":
@@ -21,6 +20,7 @@ def get_mode():
 
 
 # https://wiki.debian.org/SimplePowerSave
+@asynchronous
 def _powersave():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",1)
@@ -96,7 +96,7 @@ def _powersave():
         for cpu in range(int(dnum), len(cpus)):
             change_cpu_status(cpu,False)
 
-
+@asynchronous
 def _performance():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",0)

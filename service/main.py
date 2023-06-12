@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from util import *
 from service import main
+from backends.power import set_mode
 from backends.battery import battery_init, battery_main
 from gi.repository import GLib
 

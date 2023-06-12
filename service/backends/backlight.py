@@ -1,5 +1,7 @@
 import os
 from util import readfile
+from common import *
+
 class backlight_devices:
     def __init__(self):
         self.name = ""
@@ -20,6 +22,7 @@ def get_brightness(device_name):
     fd = readfile("/sys/class/backlight/{}/brightness".format(device_name))
     return int(fd)
 
+@asynchronous
 def set_brightness(device_name,value):
     if not os.path.exists("/sys/class/backlight/{}/brightness".format(device_name)):
         return
