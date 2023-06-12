@@ -1,0 +1,25 @@
+#!/bin/bash
+if [[ ! -f  /etc/tlp.d/99-pardus.conf ]] ; then
+    ln -s /usr/share/pardus/power-manager/tlp/balanced.conf /etc/tlp.d/99-pardus.conf || true
+    ln -s /usr/share/pardus/power-manager/tlp/charge-full.conf /etc/tlp.d/99-charge.conf || true
+fi
+if [[ ! -f /etc/xdg/autostart/pardus-power-manager.desktop ]] ; then
+    ln -s /usr/share/pardus/power-manager/ppm-autostart.desktop /etc/xdg/autostart/ppm-autostart.desktop || true
+fi
+if [[ ! -f /lib/udev/rules.d/99-ppm.rules ]] ; then
+    ln -s /usr/share/pardus/power-manager/udev.rules /lib/udev/rules.d/99-ppm.rules || true
+fi
+if [[ ! -f "/etc/pardus/ppm.conf" ]]; then
+    mkdir -p "/etc/pardus"
+    cp "/usr/share/pardus/power-manager/ppm.conf"  "/etc/pardus/ppm.conf"
+else
+    if grep "is-app-active = false" /etc/pardus/ppm.conf ; then
+        rm -f /lib/udev/rules.d/99-ppm.rules
+        rm -f /etc/tlp.d/99-pardus.conf
+        rm -f /etc/xdg/autostart/ppm-autostart.desktop
+        rm -f /etc/tlp.d/99-charge.conf
+    fi
+fi
+if [[ -f /etc/xdg/autostart/pardus-power-manager.desktop ]] ; then
+    rm -f /etc/xdg/autostart/pardus-power-manager.desktop
+fi
