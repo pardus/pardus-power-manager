@@ -24,6 +24,10 @@ def get_brightness(device_name):
 
 @asynchronous
 def set_brightness(device_name,value):
+    if value.startswith("%"):
+        percent = int(value[1:])
+        value = (percent / 100 ) * get_max_brightness(device_name)
+
     if not os.path.exists("/sys/class/backlight/{}/brightness".format(device_name)):
         return
     fd = open("/sys/class/backlight/{}/brightness".format(device_name),"w")
