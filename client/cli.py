@@ -2,12 +2,19 @@
 import sys, os
 import json
 
-if len(sys.argv) <= 3:
+def usage():
+    print(sys.argv)
+    print("Usage: ppm [set/get] [mode/backlight] (value)")
     exit(1)
+
+if len(sys.argv) <= 2:
+    usage()
 
 data = {}
 data["pid"] = os.getpid()
 if sys.argv[1] == "set":
+    if len(sys.argv) <= 3:
+        usage()
     if sys.argv[2] == "mode":
         data["new-mode"] = sys.argv[3]
     if sys.argv[2] == "backlight":
@@ -16,6 +23,9 @@ if sys.argv[1] == "set":
             name = d.split("=")[0]
             value = d.split("=")[1]
             data["new-backlight"][name] = value
+    with open("/run/ppm","w") as f:
+        print(data)
+        f.write(json.dumps(data))
 elif sys.argv[1] == "get":
     ppm = "/run/user/{}/ppm".format(os.getuid())
     if not os.path.exists(ppm):
@@ -25,7 +35,7 @@ elif sys.argv[1] == "get":
         os.mkfifo(ppm)
     # update request
     with open("/run/ppm","w") as f:
-        f.write("{'pid':'"+str(os.getpid())+"'}")
+        f.write(json.dumps(data))
     # read from service
     data = ""
     with open(ppm,"r") as f:
@@ -35,6 +45,6 @@ elif sys.argv[1] == "get":
         print(data["current-mode"])
     elif sys.argv[2] == "backlight":
         for d in data["current-backlight"].keys():
-            print("{} = {}".format(d, data["current-backlight"][d])
+            print("{} = {}".format(d, data["current-backlight"][d]))
 else:
-    print("Usage: ppm [set/get] [mode/backlight] (value)")
+    usage()

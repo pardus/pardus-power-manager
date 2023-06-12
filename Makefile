@@ -8,6 +8,7 @@ install: install-common install-$(SERVICE) install-udev
 install-common:
 	mkdir -p $(DESTDIR)/usr/share/pardus/power-manager/
 	mkdir -p $(DESTDIR)/usr/libexec/
+	mkdir -p $(DESTDIR)/usr/bin/
 	mkdir -p $(DESTDIR)/etc/pardus/
 	cp -prfv client $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv common $(DESTDIR)/usr/share/pardus/power-manager
@@ -15,8 +16,10 @@ install-common:
 	cp -prfv udev-trigger $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prvf data/config.ini $(DESTDIR)/etc/pardus/ppm.conf
 	echo "#!/bin/sh" > $(DESTDIR)/usr/libexec/pardus-power-manager
-	echo "exec python3 /usr/share/pardus/power-manager/service/main.py" >> $(DESTDIR)/usr/libexec/pardus-power-manager
+	echo "exec python3 /usr/share/pardus/power-manager/service/main.py" > $(DESTDIR)/usr/libexec/pardus-power-manager
+	echo "exec python3 /usr/share/pardus/power-manager/client/cli.py \$$@" > $(DESTDIR)/usr/bin/ppm
 	chmod +x $(DESTDIR)/usr/libexec/pardus-power-manager
+	chmod +x $(DESTDIR)/usr/bin/ppm
 
 install-none:
 

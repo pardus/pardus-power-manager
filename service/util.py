@@ -13,6 +13,7 @@ def listen(main):
     while True:
         fifo = Path("/run/ppm")
         data = fifo.read_text().strip()
+        print(data)
         if data != "":
             data = json.loads(data)
             if "pid" in data:
