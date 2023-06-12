@@ -4,10 +4,19 @@ from service import main
 from backends.battery import battery_init, battery_main
 from gi.repository import GLib
 
-import traceback
-singleinstance()
+
 if not get("enabled",True,"service"):
     exit(0)
+
+import traceback
+singleinstance()
+
+# set initial mode state
+mode = get("ac-mode","performance","modes")
+if not get_ac_online():
+    mode = get("bat-mode","powersave","modes")
+set_mode(mode)
+
 if os.fork():
     if not get("battery-events",True,"service"):
         exit(0)
