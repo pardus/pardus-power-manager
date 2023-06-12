@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
 from common import *
-
 def listen(main):
     if not os.path.exists("/run/ppm"):
         os.mkfifo("/run/ppm")
@@ -13,10 +12,11 @@ def listen(main):
         os.system("chattr -R -a /run/ppm")
     while True:
         fifo = Path("/run/ppm")
-        data = fifo.read_text()
-        data = json.loads(data)
-        if "pid" in data:
-            main(data)
+        data = fifo.read_text().strip()
+        if data != "":
+            data = json.loads(data)
+            if "pid" in data:
+                main(data)
 
 
 

@@ -3,6 +3,9 @@ from util import *
 from service import main
 from backends.battery import battery_init, battery_main
 from gi.repository import GLib
+
+import traceback
+
 if not get("enabled",True,"service"):
     exit(0)
 if os.fork():
@@ -17,4 +20,4 @@ else:
         try:
             listen(main)
         except Exception as e:
-            log(str(e))
+            log(traceback.format_exc())
