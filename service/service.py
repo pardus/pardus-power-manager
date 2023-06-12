@@ -6,8 +6,8 @@ def main(data):
     if "new-mode" in data:
         power.set_mode(data["new-mode"])
     if "new-backlight" in data:
-        for dev in data[new-backlight]:
-             backlight.set_brightness(dev, data[new-backlight][dev])
+        for dev in data["new-backlight"]:
+             backlight.set_brightness(dev, data["new-backlight"][dev])
     udata = {}
     udata["current-mode"] = power.get_mode()
     udata["current-backlight"] = {}
