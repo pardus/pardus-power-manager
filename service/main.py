@@ -5,7 +5,7 @@ from backends.battery import battery_init, battery_main
 from gi.repository import GLib
 
 import traceback
-
+singleinstance()
 if not get("enabled",True,"service"):
     exit(0)
 if os.fork():

@@ -22,3 +22,12 @@ def listdir(path):
     if os.path.isdir(path):
         return os.listdir(path)
     return []
+
+
+def singleinstance():
+    try:
+        import socket
+        s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        s.bind('\0ppm_notify_lock')
+    except socket.error as e:
+        sys.exit (0)
