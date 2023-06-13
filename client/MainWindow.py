@@ -44,8 +44,8 @@ class MainWindow:
     def update(self,data):
         print(data)
         self.update_lock = True
-        if "current-mode" in data:
-            cur_mode = data["current-mode"]
+        if "mode" in data:
+            cur_mode = data["mode"]
             self.builder.get_object("ui_button_performance").set_active(cur_mode == "performance")
             self.builder.get_object("ui_button_powersave").set_active(cur_mode == "powersave")
         self.update_lock = False

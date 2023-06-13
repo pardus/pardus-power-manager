@@ -46,7 +46,7 @@ elif sys.argv[1] == "get":
         data = f.read()
     data = json.loads(data)
     if sys.argv[2] == "mode":
-        print(data["current-mode"])
+        print(data["mode"])
     elif sys.argv[2] == "backlight":
         for d in data["backlight"].keys():
             print("[{}]".format(d))
