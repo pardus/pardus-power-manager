@@ -24,6 +24,9 @@ def get_brightness(device_name):
 
 @asynchronous
 def set_brightness(device_name,value):
+    if device_name == "all":
+        for dev in get_devices():
+            set_brightness(dev, value)
     if value.startswith("%"):
         percent = int(value[1:])
         value = (percent / 100 ) * get_max_brightness(device_name)

@@ -6,8 +6,9 @@ class battery:
 
     def __init__(self,name):
         self.name = name
-        self.level=100
-        self.status="unknown"
+        self.level = 100
+        self.status = "unknown"
+        self.health = 100
         self.update()
 
     def update(self):
@@ -34,6 +35,11 @@ class battery:
         # stat us
         if os.path.exists("{}/status".format(path)):
             self.status = readfile("{}/status".format(path)).lower()
+        # battery health
+        if os.path.exists("{}/energy_full_design".format(path)):
+            max= readfile("{}/energy_full".format(path))
+            hmax= readfile("{}/energy_full_design".format(path))
+            self.health = int(max) * 100 / int(hmax)
 
 
 acpi_battery = []
@@ -49,4 +55,4 @@ def battery_init():
 def battery_main():
     for b in acpi_battery:
         b.update()
-        print(b.name,b.level)
+        print(b.name,b.level,b.health)
