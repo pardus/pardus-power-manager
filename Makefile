@@ -13,6 +13,7 @@ install-common:
 	cp -prfv client $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv common $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv service $(DESTDIR)/usr/share/pardus/power-manager
+	cp -prfv data $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv udev-trigger $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prvf data/config.ini $(DESTDIR)/etc/pardus/ppm.conf
 	echo "#!/bin/sh" > $(DESTDIR)/usr/libexec/pardus-power-manager
