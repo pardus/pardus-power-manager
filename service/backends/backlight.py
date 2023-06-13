@@ -30,6 +30,20 @@ def set_brightness(device_name,value):
     if value.startswith("%"):
         percent = int(value[1:])
         value = (percent / 100 ) * get_max_brightness(device_name)
+    elif value.startswith("+%"):
+        percent = int(value[2:])
+        fval = get_max_brightness(device_name) * percent / 100
+        value = get_brightness(device_name) + fval
+    elif value.startswith("-%"):
+        percent = int(value[2:])
+        fval = get_max_brightness(device_name) * percent / 100
+        value = get_brightness(device_name) - fval
+    elif value.startswith("+"):
+        fval = int(value[1:])
+        value = get_brightness(device_name) + fval
+    elif value.startswith("-"):
+        fval = int(value[1:])
+        value = get_brightness(device_name) - fval
 
     if not os.path.exists("/sys/class/backlight/{}/brightness".format(device_name)):
         return
