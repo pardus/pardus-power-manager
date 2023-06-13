@@ -40,19 +40,3 @@ class battery:
             max= readfile("{}/energy_full".format(path))
             hmax= readfile("{}/energy_full_design".format(path))
             self.health = int(max) * 100 / int(hmax)
-
-
-acpi_battery = []
-def battery_init():
-    global acpi_battery
-    for dev in get_acpi_power_devices():
-        path="/sys/class/power_supply/{}/".format(dev)
-        devtype = readfile("{}/type".format(path)).lower()
-        if  devtype == "battery":
-            b = battery(dev)
-            acpi_battery.append(b)
-
-def battery_main():
-    for b in acpi_battery:
-        b.update()
-        print(b.name,b.level,b.health)

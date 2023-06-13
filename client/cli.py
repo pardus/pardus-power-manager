@@ -48,11 +48,15 @@ elif sys.argv[1] == "get":
     if sys.argv[2] == "mode":
         print(data["current-mode"])
     elif sys.argv[2] == "backlight":
-        print("[Current backlight]")
-        for d in data["current-backlight"].keys():
-            print("{} = {}".format(d, data["current-backlight"][d]))
-        print("[Max backlight]")
-        for d in data["max-backlight"].keys():
-            print("{} = {}".format(d, data["max-backlight"][d]))
+        for d in data["backlight"].keys():
+            print("[{}]".format(d))
+            print("max={}".format(data["backlight"][d]["max"]))
+            print("current={}".format(data["backlight"][d]["current"]))
+    elif sys.argv[2] == "battery":
+        for d in data["battery"].keys():
+            print("[{}]".format(d))
+            print("level={}".format(data["battery"][d]["level"]))
+            print("status={}".format(data["battery"][d]["status"]))
+            print("health={}".format(data["battery"][d]["health"]))
 else:
     usage()
