@@ -58,6 +58,6 @@ class battery:
             if now_energy != self.__last_energy:
                 diff_time = now - self.__last_update
                 diff_energy = self.__last_energy - now_energy
-                self.power_usage = diff_energy / diff_time
+                self.power_usage = 3.6 * (diff_energy / diff_time )
             self.__last_energy = now_energy
             self.__last_update = now

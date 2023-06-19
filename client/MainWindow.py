@@ -84,7 +84,7 @@ class MainWindow:
             ret += "Level = {}%\n".format(int(level))
             ret += "Health = {}%\n".format(int(health))
             if int(usage) > 0:
-                ret += "Usage = {}mA\n".format(int(usage/1000))
+                ret += "Usage = {}W\n".format(int(usage/1000))
         ret += "\n"
         for d in data["backlight"].keys():
             max = data["backlight"][d]["max"]
