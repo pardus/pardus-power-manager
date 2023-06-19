@@ -82,11 +82,20 @@ def _powersave():
         for dir in listdir(cpu_path):
             if not dir.startswith("cpu"):
                 continue
-            min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
-            max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
-            if min_freq != "" and max_freq != "":
-                new_freq = int(max_freq) * float(get("freq-ratio",0.5,"powersave"))
+            freq_file = "{}/{}/cpufreq/scaling_available_frequencies".format(cpu_path,dir)
+            if os.path.exists(freq_file):
+                freqs = readfile(freq_file).split(" ")
+                ratio = float(get("freq-ratio",0.5,"powersave"))
+                if ratio > 1.0:
+                    ratio = 1.0
+                new_freq = freqs[int((len(freqs) -1) * ratio)]
                 writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
+            else:
+                min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
+                max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
+                if min_freq != "" and max_freq != "":
+                    new_freq = int(max_freq) * float(get("freq-ratio",0.5,"powersave"))
+                    writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
 
     if get("core",True,"powersave"):
         # disable cpu core
