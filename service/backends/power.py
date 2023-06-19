@@ -78,6 +78,9 @@ def _powersave():
 
     if get("cpufreq",True,"powersave"):
         # decrease max cpu freq
+        ratio = float(get("freq-ratio",0.5,"powersave"))
+        if ratio > 1.0:
+            ratio = 1.0
         cpu_path="/sys/devices/system/cpu/"
         for dir in listdir(cpu_path):
             if not dir.startswith("cpu"):
@@ -85,23 +88,24 @@ def _powersave():
             freq_file = "{}/{}/cpufreq/scaling_available_frequencies".format(cpu_path,dir)
             if os.path.exists(freq_file):
                 freqs = readfile(freq_file).split(" ")
-                ratio = float(get("freq-ratio",0.5,"powersave"))
-                if ratio > 1.0:
-                    ratio = 1.0
-                new_freq = freqs[int((len(freqs) -1) * ratio)]
-                writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
+                if len(freqs) > 0 and freqs[0] != '':
+                    new_freq = freqs[int((len(freqs) -1) * ratio)]
+                    writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
             else:
                 min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
                 max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
                 if min_freq != "" and max_freq != "":
-                    new_freq = int(max_freq) * float(get("freq-ratio",0.5,"powersave"))
+                    new_freq = int(max_freq) * ratio
                     writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
 
     if get("core",True,"powersave"):
         # disable cpu core
         cpus = list_cpu()
-        print(cpus)
         dnum = int(len(cpus)) - len(cpus) * float(get("core-ratio",0.5,"powersave"))
+        if len(cpus) <= 4:
+            dnum = len(cpus)
+        elif dnum < 4:
+            dnum = 4
         for cpu in range(int(dnum), len(cpus)):
             change_cpu_status(cpu,False)
 
