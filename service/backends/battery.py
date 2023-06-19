@@ -1,10 +1,15 @@
 import gi
 from gi.repository import GLib
 from util import *
+import time
+
 
 class battery:
 
     def __init__(self,name):
+        self.__last_update = 0
+        self.__last_energy = 0
+        self.power_usage = 0
         self.name = name
         self.level = 100
         self.status = "unknown"
@@ -40,3 +45,14 @@ class battery:
             max= readfile("{}/energy_full".format(path))
             hmax= readfile("{}/energy_full_design".format(path))
             self.health = int(max) * 100 / int(hmax)
+        # battery power usage
+        now = int(time.time())
+        if self.__last_update == 0:
+            self.__last_update = now
+            self.__last_energy = int(readfile("{}/energy_now".format(path)))
+        else:
+            now_energy = int(readfile("{}/energy_now".format(path)))
+            if now_energy != self.__last_energy:
+                diff_time = now - self.__last_update
+                diff_energy = self.__last_energy - now_energy
+                self.power_usage = diff_energy / diff_time

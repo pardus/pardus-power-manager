@@ -58,5 +58,6 @@ elif sys.argv[1] == "get":
             print("level={}".format(data["battery"][d]["level"]))
             print("status={}".format(data["battery"][d]["status"]))
             print("health={}".format(data["battery"][d]["health"]))
+            print("health={}".format(data["battery"][d]["power_usage"]))
 else:
     usage()

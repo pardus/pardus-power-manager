@@ -29,6 +29,7 @@ def main(data):
         udata["battery"][dev.name]["level"] = dev.level
         udata["battery"][dev.name]["status"] = dev.status
         udata["battery"][dev.name]["health"] = dev.health
+        udata["battery"][dev.name]["power_usage"] = dev.power_usage
     print(udata)
     send_client(udata)
 
