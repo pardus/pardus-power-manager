@@ -1,20 +1,16 @@
 import gi, os
 gi.require_version("Gtk","3.0")
 from gi.repository import Gtk
-try:
-    gi.require_version('AppIndicator3', '0.1')
-    from gi.repository import AppIndicator3 as appindicator
-except:
-    # fall back to Ayatana
-    gi.require_version('AyatanaAppIndicator3', '0.1')
-    from gi.repository import AyatanaAppIndicator3 as appindicator
+
+from util import send_server
 
 class Indicator:
 
     def __init__(self):
-        self.indicator = appindicator.Indicator.new(
-            "appindicator", "system-upgrade", appindicator.IndicatorCategory.APPLICATION_STATUS)
-        self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
+        self.indicator = Gtk.StatusIcon()
+        self.indicator.connect("activate", self.menu_popup_event)
+        self.indicator.connect("popup-menu", self.menu_popup_event)
+
 
         self.menu = Gtk.Menu()
         
@@ -36,10 +32,10 @@ class Indicator:
         self.menu.append(self.quit)
         
         self.menu.show_all()
-        self.indicator.set_menu(self.menu)
 
-    def menu_popup_event(self):
-        print("aaaa")
+    def menu_popup_event(self, icon = None, button = 3, time = 0):
+        send_server()
+        self.menu.popup(None, None, None, self.indicator, button, time)
 
     def set_window(self, window):
         self.window = window
