@@ -1,4 +1,4 @@
-import gi, os
+import gi, os, time
 gi.require_version("Gtk","3.0")
 from gi.repository import Gtk
 
@@ -8,7 +8,7 @@ class Indicator:
 
     def __init__(self):
         self.indicator = Gtk.StatusIcon()
-        self.indicator.connect("activate", self.menu_popup_event)
+        self.indicator.connect("activate", self.open_window_event)
         self.indicator.connect("popup-menu", self.menu_popup_event)
 
 
