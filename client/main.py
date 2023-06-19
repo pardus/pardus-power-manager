@@ -2,7 +2,7 @@
 from util import *
 from MainWindow import *
 
-import os
+import os, sys
 
 if not os.path.exists("/run/ppm"):
     print("Failed to connect ppm service")
@@ -20,10 +20,11 @@ if os.path.exists(client_dir):
             no_show = True
         else:
             os.unlink(client_dir + fifo)
-    if no_show:
+    if no_show and not "--window" in sys.argv:
      exit(0)
 
 main = MainWindow()
-
+if "--window" in sys.argv:
+    main.window.show()
 listen(main)
 Gtk.main()

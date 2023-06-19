@@ -10,7 +10,7 @@ class Indicator:
         self.indicator = Gtk.StatusIcon()
         self.indicator.connect("activate", self.open_window_event)
         self.indicator.connect("popup-menu", self.menu_popup_event)
-
+        self.indicator.set_from_icon_name("pardus-pm")
 
         self.menu = Gtk.Menu()
         
@@ -22,7 +22,7 @@ class Indicator:
         self.status.set_sensitive(False)
 
         self.open_window = Gtk.MenuItem()
-        self.open_window.set_label("Open")
+        self.open_window.set_label("Settings")
         self.open_window.connect('activate', self.open_window_event)
         self.menu.append(self.open_window)
 
@@ -55,7 +55,11 @@ class Indicator:
         self.client = client
 
     def set_status(self, message):
-        self.status.set_label(message)
+        if message.strip() == "":
+            self.status.hide()
+        else:
+            self.status.show()
+        self.status.set_label(message.strip())
 
     def open_window_event(self, widget):
         self.client.window.show()
