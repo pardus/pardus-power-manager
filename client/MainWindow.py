@@ -4,16 +4,22 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk
 print(os.getpid())
 from util import send_server
+from indicator import Indicator
 
 class MainWindow:
     def __init__(self):
+        self.indicator = Indicator()
+        self.init()
+        send_server()
+
+    def init(self):
         self.builder = Gtk.Builder()
         self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
         self.window = self.builder.get_object("ui_window_main")
-        self.window.show_all()
+        self.indicator.set_window(self.window)
         self.connect_signals()
         self.update_lock = False
-        send_server()
+        
 
     def powersave_button_event(self,widget=None):
         if self.update_lock:
@@ -31,8 +37,8 @@ class MainWindow:
 
 
     def destroy_signal(self,widget=None):
-        os.unlink("/run/user/{}/ppm/{}".format(os.getuid(),os.getpid()))
-        Gtk.main_quit()
+        self.window.hide()
+        self.init()
 
 
     def connect_signals(self):
@@ -44,6 +50,8 @@ class MainWindow:
     def update(self,data):
         print(data)
         self.update_lock = True
+        if "show" in data:
+            self.window.show()
         if "mode" in data:
             cur_mode = data["mode"]
             self.builder.get_object("ui_button_performance").set_active(cur_mode == "performance")
