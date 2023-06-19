@@ -3,21 +3,24 @@ import os
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk
 print(os.getpid())
-from util import send_server
+from util import send_server, get
 from indicator import Indicator
 
 class MainWindow:
     def __init__(self):
         self.indicator = Indicator()
         self.init()
+        self.current_mode = "performance"
         send_server()
+        self.update_request_loop()
 
     def init(self):
         self.builder = Gtk.Builder()
         self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
         self.window = self.builder.get_object("ui_window_main")
-        self.indicator.set_window(self.window)
+        self.indicator.set_client(self)
         self.connect_signals()
+        self.update_request_loop_enabled = False
         self.update_lock = False
         
 
@@ -46,6 +49,13 @@ class MainWindow:
         self.builder.get_object("ui_button_powersave").connect("clicked",self.powersave_button_event)
         self.builder.get_object("ui_button_performance").connect("clicked",self.performance_button_event)
 
+    def update_request_loop(self):
+        data = {}
+        data["update"] = "gui-loop"
+        send_server(data)
+        interval = int(get("update-interval",60))*1000
+        GLib.timeout_add(interval,self.update_request_loop)
+
 
     def update(self,data):
         print(data)
@@ -53,7 +63,33 @@ class MainWindow:
         if "show" in data:
             self.window.show()
         if "mode" in data:
-            cur_mode = data["mode"]
-            self.builder.get_object("ui_button_performance").set_active(cur_mode == "performance")
-            self.builder.get_object("ui_button_powersave").set_active(cur_mode == "powersave")
+            self.current_mode = data["mode"]
+            self.builder.get_object("ui_button_performance").set_active(self.current_mode == "performance")
+            self.builder.get_object("ui_button_powersave").set_active(self.current_mode == "powersave")
+            if self.current_mode == "powersave":
+                self.indicator.power_mode.set_label("Disable Powersave")
+            else:
+                self.indicator.power_mode.set_label("Enable Powersave")
+        self.indicator.set_status(self.data_to_msg(data))
         self.update_lock = False
+
+    def data_to_msg(self, data):
+        ret = ""
+        for d in data["battery"].keys():
+            real_name = data["battery"][d]["real_name"]
+            level = data["battery"][d]["level"]
+            health = data["battery"][d]["health"]
+            usage = data["battery"][d]["power_usage"]
+            ret += "[Battery:{}]\n".format(real_name)
+            ret += "Level = {}%\n".format(int(level))
+            ret += "Health = {}%\n".format(int(health))
+            if int(usage) > 0:
+                ret += "Usage = {}mA\n".format(int(usage/1000))
+        ret += "\n"
+        for d in data["backlight"].keys():
+            max = data["backlight"][d]["max"]
+            cur = data["backlight"][d]["current"]
+            percent = cur * 100 / max
+            ret += "[Backlight:{}]\n".format(d)
+            ret += "Level = {}%\n".format(int(percent))
+        return ret[:-1]

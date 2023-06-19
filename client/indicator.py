@@ -26,6 +26,11 @@ class Indicator:
         self.open_window.connect('activate', self.open_window_event)
         self.menu.append(self.open_window)
 
+        self.power_mode = Gtk.MenuItem()
+        self.power_mode.set_label("Disable Powersave")
+        self.power_mode.connect('activate', self.power_mode_event)
+        self.menu.append(self.power_mode)
+
         self.quit = Gtk.MenuItem()
         self.quit.set_label("Exit")
         self.quit.connect('activate', self.quit_event)
@@ -33,18 +38,27 @@ class Indicator:
         
         self.menu.show_all()
 
+    def power_mode_event(self, widget):
+        if self.client.current_mode == "performance":
+            self.client.powersave_button_event(widget)
+        else:
+            self.client.performance_button_event(widget)
+
     def menu_popup_event(self, icon = None, button = 3, time = 0):
-        send_server()
+        data = {}
+        data["update"] = "indicator"
+        send_server(data)
         self.menu.popup(None, None, None, self.indicator, button, time)
 
-    def set_window(self, window):
-        self.window = window
+
+    def set_client(self, client):
+        self.client = client
 
     def set_status(self, message):
         self.status.set_label(message)
 
     def open_window_event(self, widget):
-        self.window.show()
+        self.client.window.show()
 
     def quit_event(self, widget):
         os.unlink("/run/user/{}/ppm/{}".format(os.getuid(),os.getpid()))

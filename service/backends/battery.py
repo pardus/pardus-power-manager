@@ -15,6 +15,9 @@ class battery:
         self.status = "unknown"
         self.health = 100
         self.update()
+        path="/sys/class/power_supply/{}/".format(self.name)
+        self.real_name = readfile("{}/manufacturer".format(path))
+        self.real_name += " " +readfile("{}/model_name".format(path))
 
     def update(self):
         path="/sys/class/power_supply/{}/".format(self.name)

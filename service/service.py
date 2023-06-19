@@ -27,6 +27,7 @@ def main(data):
     for dev in acpi_battery:
         udata["battery"][dev.name] = {}
         udata["battery"][dev.name]["level"] = dev.level
+        udata["battery"][dev.name]["real_name"] = dev.real_name
         udata["battery"][dev.name]["status"] = dev.status
         udata["battery"][dev.name]["health"] = dev.health
         udata["battery"][dev.name]["power_usage"] = dev.power_usage
