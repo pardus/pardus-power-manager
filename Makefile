@@ -7,6 +7,8 @@ install: install-common install-$(SERVICE) install-udev
 
 install-common:
 	mkdir -p $(DESTDIR)/usr/share/pardus/power-manager/
+	mkdir -p $(DESTDIR)/etc/xdg/autostart/
+	mkdir -p $(DESTDIR)/usr/share/applications/
 	mkdir -p $(DESTDIR)/usr/libexec/
 	mkdir -p $(DESTDIR)/usr/bin/
 	mkdir -p $(DESTDIR)/etc/pardus/
@@ -19,6 +21,8 @@ install-common:
 	echo "#!/bin/sh" > $(DESTDIR)/usr/libexec/pardus-power-manager
 	echo "exec python3 /usr/share/pardus/power-manager/service/main.py" >> $(DESTDIR)/usr/libexec/pardus-power-manager
 	echo "exec python3 /usr/share/pardus/power-manager/client/cli.py \$$@" > $(DESTDIR)/usr/bin/ppm
+	cp data/ppm.desktop $(DESTDIR)/etc/xdg/autostart/
+	ln -s ../../../etc/xdg/autostart/ppm.desktop $(DESTDIR)/usr/share/applications/ppm.desktop || true
 	chmod +x $(DESTDIR)/usr/libexec/pardus-power-manager
 	chmod +x $(DESTDIR)/usr/bin/ppm
 
