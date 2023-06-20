@@ -9,3 +9,6 @@ depend() {
 	need localmount
 }
 
+stop() {
+   rm -f /run/ppm
+}

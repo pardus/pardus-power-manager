@@ -25,6 +25,9 @@ def _powersave():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",1)
 
+    # platform profile
+    writefile("/sys/firmware/acpi/platform_profile","low-power")
+
     # less disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",1500)
 
@@ -113,6 +116,10 @@ def _powersave():
 def _performance():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",0)
+
+    # platform profile
+    writefile("/sys/firmware/acpi/platform_profile","performance")
+
 
     # more disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",500)
