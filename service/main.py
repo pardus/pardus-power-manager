@@ -6,12 +6,13 @@ import time
 import os
 import json
 
-if not get("enabled",True,"service"):
+if not get("enabled",True,"service") or os.path.exists("/run/ppm"):
     exit(0)
 
 import traceback
 singleinstance()
 
+log_begin()
 log("Starting Pardus Power Manager Service")
 
 if os.fork():
@@ -22,7 +23,6 @@ if os.fork():
         data["pid"] = os.getpid()
         data["update"] = "service"
         writefile("/run/ppm",json.dumps(data))
-
 
 # set initial mode state
 mode = get("ac-mode","performance","modes")

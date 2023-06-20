@@ -9,7 +9,9 @@ else:
     logfile = open("{}/.cache/ppm.log".format(os.environ["HOME"]),"a")
 
 start_time = time.time()
-logfile.write("##### {} #####\n".format(datetime.datetime.now()))
+
+def log_begin():
+    logfile.write("##### {} #####\n".format(datetime.datetime.now()))
 
 def log(msg):
     ftime = time.time() - start_time
