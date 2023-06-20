@@ -2,14 +2,27 @@
 from util import *
 from service import main
 from backends.power import set_mode
-from gi.repository import GLib
-
+import time
+import os
+import json
 
 if not get("enabled",True,"service"):
     exit(0)
 
 import traceback
 singleinstance()
+
+log("Starting Pardus Power Manager Service")
+
+if os.fork():
+    interval = int(get("update-interval",60))
+    while True:
+        time.sleep(interval)
+        data = {}
+        data["pid"] = os.getpid()
+        data["update"] = "service"
+        writefile("/run/ppm",json.dumps(data))
+
 
 # set initial mode state
 mode = get("ac-mode","performance","modes")

@@ -2,8 +2,9 @@ from util import *
 import backends.power as power
 import backends.backlight as backlight
 import backends.battery as battery
+
 def main(data):
-    print(data)
+    debug("Reading /run/ppm fifo")
     # mode switch
     if "new-mode" in data:
         power.set_mode(data["new-mode"])
@@ -31,7 +32,6 @@ def main(data):
         udata["battery"][dev.name]["status"] = dev.status
         udata["battery"][dev.name]["health"] = dev.health
         udata["battery"][dev.name]["power_usage"] = dev.power_usage
-    print(udata)
     send_client(udata)
 
 

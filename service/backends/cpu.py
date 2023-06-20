@@ -8,6 +8,7 @@ def list_cpu():
     return ret
 
 def change_cpu_status(core, status):
+    log("New core status: {} = {}".format(core, status))
     if not os.path.exists("/sys/devices/system/cpu/cpu"+str(core)+"/online"):
         return False
     f = open("/sys/devices/system/cpu/cpu"+str(core)+"/online", "w")

@@ -13,7 +13,7 @@ def set_mode(mode):
     elif mode == "powersave":
         _powersave()
     _cur_mode = mode
-    print("New mode: {}".format(mode))
+    log("New mode: {}".format(mode))
 
 def get_mode():
     return _cur_mode

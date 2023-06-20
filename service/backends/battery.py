@@ -20,6 +20,7 @@ class battery:
         self.real_name += " " +readfile("{}/model_name".format(path))
 
     def update(self):
+        debug("Update battery information for: {}".format(self.name))
         path="/sys/class/power_supply/{}/".format(self.name)
         # battery level
         if os.path.exists("{}/energy_now".format(path)):

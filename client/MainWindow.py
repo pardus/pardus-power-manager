@@ -12,7 +12,6 @@ class MainWindow:
         self.init()
         self.current_mode = "performance"
         send_server()
-        self.update_request_loop()
 
     def init(self):
         self.builder = Gtk.Builder()
@@ -20,7 +19,6 @@ class MainWindow:
         self.window = self.builder.get_object("ui_window_main")
         self.indicator.set_client(self)
         self.connect_signals()
-        self.update_request_loop_enabled = False
         self.update_lock = False
         
 
@@ -48,14 +46,6 @@ class MainWindow:
         self.window.connect("destroy",self.destroy_signal)
         self.builder.get_object("ui_button_powersave").connect("clicked",self.powersave_button_event)
         self.builder.get_object("ui_button_performance").connect("clicked",self.performance_button_event)
-
-    def update_request_loop(self):
-        data = {}
-        data["update"] = "gui-loop"
-        send_server(data)
-        interval = int(get("update-interval",60))*1000
-        GLib.timeout_add(interval,self.update_request_loop)
-
 
     def update(self,data):
         print(data)
