@@ -1,4 +1,4 @@
-import gi, os, time
+import gi, os, time, subprocess
 gi.require_version("Gtk","3.0")
 from gi.repository import Gtk
 
@@ -39,10 +39,12 @@ class Indicator:
         self.menu.show_all()
 
     def power_mode_event(self, widget):
-        if self.client.current_mode == "performance":
-            self.client.powersave_button_event(widget)
+        data = {}
+        if self.current_mode == "performance":
+            data["new-mode"] = "powersave"
         else:
-            self.client.performance_button_event(widget)
+            data["new-mode"] = "performance"
+        send_server(data)
 
     def menu_popup_event(self, icon = None, button = 3, time = 0):
         data = {}
@@ -50,9 +52,39 @@ class Indicator:
         send_server(data)
         self.menu.popup(None, None, None, self.indicator, button, time)
 
+    def update(self,data):
+        print(data)
+        self.update_lock = True
+        if "mode" in data:
+            self.current_mode = data["mode"]
+            if self.current_mode == "powersave":
+                self.power_mode.set_label("Disable Powersave")
+            else:
+                self.power_mode.set_label("Enable Powersave")
+        self.set_status(self.data_to_msg(data))
+        self.update_lock = False
 
-    def set_client(self, client):
-        self.client = client
+    def data_to_msg(self, data):
+        ret = ""
+        for d in data["battery"].keys():
+            real_name = data["battery"][d]["real_name"]
+            level = data["battery"][d]["level"]
+            health = data["battery"][d]["health"]
+            usage = data["battery"][d]["power_usage"]
+            ret += "[Battery:{}]\n".format(real_name)
+            ret += "Level = {}%\n".format(int(level))
+            ret += "Health = {}%\n".format(int(health))
+            if int(usage) > 0:
+                ret += "Usage = {}W\n".format(int(usage/1000))
+        ret += "\n"
+        for d in data["backlight"].keys():
+            max = data["backlight"][d]["max"]
+            cur = data["backlight"][d]["current"]
+            percent = cur * 100 / max
+            ret += "[Backlight:{}]\n".format(d)
+            ret += "Level = {}%\n".format(int(percent))
+        return ret[:-1]
+
 
     def set_status(self, message):
         if message.strip() == "":
@@ -62,7 +94,8 @@ class Indicator:
         self.status.set_label(message.strip())
 
     def open_window_event(self, widget):
-        self.client.window.show()
+        mainwindow_file = os.path.dirname(os.path.abspath(__file__)) + "/settings.py"
+        subprocess.run(["pkexec", mainwindow_file])
 
     def quit_event(self, widget):
         os.unlink("/run/user/{}/ppm/{}".format(os.getuid(),os.getpid()))

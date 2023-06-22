@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from util import *
-from MainWindow import *
+from indicator import *
 
 import os, sys
 
@@ -20,11 +20,7 @@ if os.path.exists(client_dir):
             no_show = True
         else:
             os.unlink(client_dir + fifo)
-    if no_show and not "--window" in sys.argv:
-     exit(0)
 
-main = MainWindow()
-if "--window" in sys.argv:
-    main.window.show()
+main = Indicator()
 listen(main)
 Gtk.main()
