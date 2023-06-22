@@ -1,6 +1,9 @@
 import gi, os, time, subprocess
 gi.require_version("Gtk","3.0")
+gi.require_version("Notify", "0.7")
+
 from gi.repository import Gtk
+from gi.repository import Notify
 
 from util import send_server
 
@@ -12,7 +15,10 @@ class Indicator:
         self.indicator.connect("popup-menu", self.menu_popup_event)
         self.indicator.set_from_icon_name("pardus-pm")
 
+        Notify.init("Pardus Power Manager")
+
         self.menu = Gtk.Menu()
+        self.current_mode = "performance"
         
         self.menu.connect("popped-up",self.menu_popup_event)
 
@@ -35,7 +41,7 @@ class Indicator:
         self.quit.set_label("Exit")
         self.quit.connect('activate', self.quit_event)
         self.menu.append(self.quit)
-        
+
         self.menu.show_all()
 
     def power_mode_event(self, widget):
@@ -56,11 +62,13 @@ class Indicator:
         print(data)
         self.update_lock = True
         if "mode" in data:
-            self.current_mode = data["mode"]
-            if self.current_mode == "powersave":
-                self.power_mode.set_label("Disable Powersave")
-            else:
-                self.power_mode.set_label("Enable Powersave")
+            if self.current_mode != data["mode"]:
+                self.current_mode = data["mode"]
+                self.send_notification("Power profile changed: "+self.current_mode)
+                if self.current_mode == "powersave":
+                    self.power_mode.set_label("Disable Powersave")
+                else:
+                    self.power_mode.set_label("Enable Powersave")
         self.set_status(self.data_to_msg(data))
         self.update_lock = False
 
@@ -92,6 +100,11 @@ class Indicator:
         else:
             self.status.show()
         self.status.set_label(message.strip())
+
+    def send_notification(self,msg):
+        notification = Notify.Notification.new(msg)
+        notification.show()
+
 
     def open_window_event(self, widget):
         subprocess.run(["pkexec", "/usr/share/pardus/power-manager/settings/main.py"])
