@@ -14,6 +14,7 @@ install-common:
 	mkdir -p $(DESTDIR)/etc/pardus/
 	mkdir -p $(DESTDIR)/usr/share/polkit-1/actions
 	cp -prfv client $(DESTDIR)/usr/share/pardus/power-manager
+	cp -prfv settings $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv common $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv service $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv data $(DESTDIR)/usr/share/pardus/power-manager

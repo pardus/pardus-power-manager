@@ -94,8 +94,7 @@ class Indicator:
         self.status.set_label(message.strip())
 
     def open_window_event(self, widget):
-        mainwindow_file = os.path.dirname(os.path.abspath(__file__)) + "/settings.py"
-        subprocess.run(["pkexec", mainwindow_file])
+        subprocess.run(["pkexec", "/usr/share/pardus/power-manager/settings/main.py"])
 
     def quit_event(self, widget):
         os.unlink("/run/user/{}/ppm/{}".format(os.getuid(),os.getpid()))

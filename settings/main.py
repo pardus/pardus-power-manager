@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-import gi
-import os
+import gi, os, sys, subprocess
 gi.require_version('Gtk', '3.0')
 
 from gi.repository import GLib, Gtk
-from util import get
+sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
+from common import *
 
 class MainWindow:
     def __init__(self):
@@ -17,6 +17,9 @@ class MainWindow:
         self.window.connect("destroy",Gtk.main_quit)
 
 if __name__ == "__main__":
+    if os.getuid() != 0:
+        subprocess.run(["pkexec", "/usr/share/pardus/power-manager/settings/main.py"])
+        exit(0)
     main = MainWindow()
     main.window.show()
     Gtk.main()
