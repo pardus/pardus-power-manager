@@ -104,12 +104,12 @@ def _powersave():
     if get("core",True,"powersave"):
         # disable cpu core
         cpus = list_cpu()
-        dnum = int(len(cpus)) - len(cpus) * float(get("core-ratio",0.5,"powersave"))
+        dnum = len(cpus) * float(get("core-ratio",0.5,"powersave"))
         if len(cpus) <= 4:
             dnum = len(cpus)
-        elif dnum < 4:
+        elif len(cpus) - dnum < 4:
             dnum = 4
-        for cpu in range(int(dnum), len(cpus)):
+        for cpu in range(len(cpus) - int(dnum), len(cpus)):
             change_cpu_status(cpu,False)
 
 @asynchronous

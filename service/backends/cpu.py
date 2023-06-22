@@ -1,4 +1,5 @@
 import os
+from common import *
 def list_cpu():
     i = 0
     ret = []
