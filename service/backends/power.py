@@ -1,6 +1,7 @@
 import os
 from util import writefile, readfile, listdir
 from backends.cpu import list_cpu, change_cpu_status
+from backends.backlight import set_brightness
 from common import *
 
 
@@ -8,11 +9,15 @@ _cur_mode = None
 
 def set_mode(mode):
     global _cur_mode
+    backlight="%100"
     if mode == "performance":
         _performance()
+        backlight = get("backlight-performance","%100","modes")
     elif mode == "powersave":
         _powersave()
+        backlight = get("backlight-powersave","%50","modes")
     _cur_mode = mode
+    set_brightness("all", backlight)
     log("New mode: {}".format(mode))
 
 def get_mode():
@@ -31,55 +36,55 @@ def _powersave():
     # less disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",1500)
 
-    if get("scsi",True,"powersave"):
+    if get("scsi",True,"power"):
         # sata channel
         scsi_host_path="/sys/class/scsi_host/"
         for dir in listdir(scsi_host_path):
             if dir.startswith("host"):
                 writefile("{}/{}/link_power_management_policy".format(scsi_host_path,dir),"min_power")
 
-    if get("governor",True,"powersave"):
+    if get("governor",True,"power"):
         # cpu governor
         cpu_path="/sys/devices/system/cpu/"
         for dir in listdir(cpu_path):
             if dir.startswith("cpu"):
                 writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"powersave")
-    if get("usb-suspend",True,"powersave"):
+    if get("usb-suspend",True,"power"):
         # usb auto suspend
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
             writefile("{}/{}/power/control".format(usb_path,dir),"on")
 
-    if get("pci-suspend",True,"powersave"):
+    if get("pci-suspend",True,"power"):
         # pci auto suspend
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
             writefile("{}/{}/power/control".format(pci_path,dir),"on")
 
-    if get("i2c-suspend",True,"powersave"):
+    if get("i2c-suspend",True,"power"):
         # i2c auto suspend
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
             writefile("{}/{}/power/control".format(i2c_path,dir),"on")
 
-    if get("audio",True,"powersave"):
+    if get("audio",True,"power"):
         # audio card
         writefile("/sys/module/snd_hda_intel/parameters/power_save",5)
         writefile("/sys/module/snd_hda_intel/parameters/power_save_controller","Y")
 
 
-    if get("turbo",True,"powersave"):
+    if get("turbo",True,"power"):
         # turbo boost
         writefile("/sys/devices/system/cpu/intel_pstate/no_turbo",1)
         writefile("/sys/devices/system/cpu/cpufreq/boost",0)
 
-    if get("network",True,"powersave"):
+    if get("network",True,"power"):
         # network
         net_path="/sys/class/net/"
         for dir in listdir(net_path):
             writefile("{}/{}/device/power/control".format(net_path,dir),"auto")
 
-    if get("cpufreq",True,"powersave"):
+    if get("cpufreq",True,"power"):
         # decrease max cpu freq
         ratio = float(get("freq-ratio",0.5,"powersave"))
         if ratio > 1.0:
@@ -101,7 +106,7 @@ def _powersave():
                     new_freq = int(max_freq) * ratio
                     writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
 
-    if get("core",True,"powersave"):
+    if get("core",True,"power"):
         # disable cpu core
         cpus = list_cpu()
         dnum = len(cpus) * float(get("core-ratio",0.5,"powersave"))
@@ -118,68 +123,68 @@ def _performance():
     writefile("/proc/sys/vm/laptop_mode",0)
 
     # platform profile
-    writefile("/sys/firmware/acpi/platform_profile","performance")
+    writefile("/sys/firmware/acpi/platform_profile","power"):
 
 
     # more disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",500)
 
-    if get("scsi",True,"performance"):
+    if get("scsi",True,"power")::
         # sata channel
         scsi_host_path="/sys/class/scsi_host/"
         for dir in listdir(scsi_host_path):
             if dir.startswith("host"):
                 writefile("{}/{}/link_power_management_policy".format(scsi_host_path,dir),"max_performance")
 
-    if get("governor",True,"performance"):
+    if get("governor",True,"power")::
         # cpu governor
         cpu_path="/sys/devices/system/cpu/"
         for dir in listdir(cpu_path):
             if dir.startswith("cpu"):
-                writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"performance")
+                writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"power"):
 
-    if get("usb",True,"performance"):
+    if get("usb",True,"power")::
         # usb auto suspend
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
             writefile("{}/{}/power/control".format(usb_path,dir),"on")
 
-    if get("pci",True,"performance"):
+    if get("pci",True,"power")::
         # pci auto suspend
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
             writefile("{}/{}/power/control".format(pci_path,dir),"on")
 
-    if get("i2c",True,"performance"):
+    if get("i2c",True,"power")::
         # i2c auto suspend
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
             writefile("{}/{}/power/control".format(i2c_path,dir),"on")
 
-    if get("audio",True,"performance"):
+    if get("audio",True,"power")::
         # audio card
         writefile("/sys/module/snd_hda_intel/parameters/power_save",0)
         writefile("/sys/module/snd_hda_intel/parameters/power_save_controller","N")
 
-    if get("turbo",True,"performance"):
+    if get("turbo",True,"power")::
         # turbo boost
         writefile("/sys/devices/system/cpu/intel_pstate/no_turbo",0)
         writefile("/sys/devices/system/cpu/cpufreq/boost",1)
 
-    if get("network",True,"performance"):
+    if get("network",True,"power")::
         # network
         net_path="/sys/class/net/"
         for dir in listdir(net_path):
             writefile("{}/{}/device/power/control".format(net_path,dir),"on")
 
-    if get("core",True,"performance"):
+    if get("core",True,"power")::
         # enable cpu core
         cpus = list_cpu()
         print(cpus)
         for cpu in range(0, len(cpus)):
             change_cpu_status(cpu,True)
 
-    if get("cpufreq",True,"performance"):
+    if get("cpufreq",True,"power")::
         # increase max cpu freq
         cpu_path="/sys/devices/system/cpu/"
         for dir in listdir(cpu_path):

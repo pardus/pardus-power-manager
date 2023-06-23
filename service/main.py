@@ -17,7 +17,7 @@ log_begin()
 log("Starting Pardus Power Manager Service")
 
 if os.fork():
-    interval = int(get("update-interval",60))
+    interval = int(get("update-interval",60, "service"))
     while True:
         time.sleep(interval)
         data = {}
@@ -31,7 +31,7 @@ if not get_ac_online():
     mode = get("bat-mode","powersave","modes")
 set_mode(mode)
 
-if get("disable-3d-controller",False):
+if get("disable-3d-controller",False,"service"):
     disable_3d_controller()
 
 while True:
