@@ -2,6 +2,7 @@
 from util import *
 from service import main
 from backends.power import set_mode
+from backends.gpu import disable_3d_controller
 import time
 import os
 import json
@@ -29,6 +30,10 @@ mode = get("ac-mode","performance","modes")
 if not get_ac_online():
     mode = get("bat-mode","powersave","modes")
 set_mode(mode)
+
+if get("disable-3d-controller",False):
+    disable_3d_controller()
+
 while True:
     try:
         listen(main)
