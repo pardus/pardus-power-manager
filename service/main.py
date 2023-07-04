@@ -9,9 +9,6 @@ import json
 if not get("enabled",True,"service") or os.path.exists("/run/ppm"):
     exit(0)
 
-if "ppm.disable" in readfile("/proc/cmdline"):
-    exit(0)
-
 import traceback
 singleinstance()
 
