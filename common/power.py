@@ -32,3 +32,19 @@ def get_acpi_power_devices():
                 devices.append(device)
     return devices
 
+
+def get_3d_controller_pci():
+    for fdir in os.listdir("/sys/class/drm/"):
+        if fdir.startswith("card") and fdir[4:].isnumeric():
+            ctx = readfile("/sys/class/drm//{}/device/class".format(fdir))
+            if ctx.startswith("0x0302"):
+                return os.readlink("/sys/class/drm//{}/device".format(fdir))[-12:]
+    return None
+
+def remove_pci(id):
+    if os.path.exits("/sys/bus/pci/devices/{}/driver".format(id)):
+        module = os.readlink("/sys/bus/pci/devices/{}/driver/module".format(id))
+        module = os.part.basename(module)
+        os.system("rmmod -f '{}'"/format(module))
+    writefile("/sys/bus/pci/devices/{}/remove".format(id))
+    os.system("udevadm control --reload")

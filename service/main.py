@@ -10,6 +10,9 @@ import json
 if not get("enabled",True,"service") or os.path.exists("/run/ppm"):
     exit(0)
 
+if "ppm.disable" in readfile("/proc/cmdline"):
+    exit(0)
+
 import traceback
 singleinstance()
 
@@ -31,8 +34,10 @@ if not get_ac_online():
     mode = get("bat-mode","powersave","modes")
 set_mode(mode)
 
-if get("disable-3d-controller",False,"service"):
-    disable_3d_controller()
+# disable 3d controller if available
+if get("disable-3d-controller",False):
+    pci = get_3d_controller_pci()
+    remove_pci(pci)
 
 while True:
     try:

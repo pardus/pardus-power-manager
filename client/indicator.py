@@ -18,7 +18,7 @@ class Indicator:
         Notify.init("Pardus Power Manager")
 
         self.menu = Gtk.Menu()
-        self.current_mode = "performance"
+        self.current_mode = None
         
         self.menu.connect("popped-up",self.menu_popup_event)
 
@@ -63,8 +63,9 @@ class Indicator:
         self.update_lock = True
         if "mode" in data:
             if self.current_mode != data["mode"]:
+                if self.current_mode != None:
+                    self.send_notification("Power profile changed: " + data["mode"])
                 self.current_mode = data["mode"]
-                self.send_notification("Power profile changed: "+self.current_mode)
                 if self.current_mode == "powersave":
                     self.power_mode.set_label("Disable Powersave")
                 else:
@@ -84,6 +85,8 @@ class Indicator:
             ret += "Health = {}%\n".format(int(health))
             if int(usage) > 0:
                 ret += "Usage = {}W\n".format(int(usage/1000))
+            elif int(usage) < 0:
+                ret += "Charge = {}W\n".format(int((-1*usage)/1000))
         ret += "\n"
         for d in data["backlight"].keys():
             max = data["backlight"][d]["max"]
