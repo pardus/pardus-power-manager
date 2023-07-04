@@ -2,7 +2,6 @@
 from util import *
 from service import main
 from backends.power import set_mode
-from backends.gpu import disable_3d_controller
 import time
 import os
 import json
@@ -35,7 +34,7 @@ if not get_ac_online():
 set_mode(mode)
 
 # disable 3d controller if available
-if get("disable-3d-controller",False):
+if get("disable-3d-controller",False, "service"):
     pci = get_3d_controller_pci()
     remove_pci(pci)
 
