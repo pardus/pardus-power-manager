@@ -348,7 +348,7 @@
               <placeholder/>
             </child>
             <child>
-              <object class="GtkButton" id="ui_button_cancel">
+              <object class="GtkButton" id="ui_button_save1">
                 <property name="label" translatable="yes">Cancel</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
