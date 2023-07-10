@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ ! -f /etc/pardus/ppm.conf ] ; then
+    mkdir -p /etc/pardus/ppm.conf.d/
+    cp /usr/share/pardus/power-manager/data/config.ini /etc/pardus/ppm.conf
+fi
+systemctl enable ppm || true
+systemctl start ppm || true
