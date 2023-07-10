@@ -6,6 +6,7 @@ from gi.repository import Gtk
 from gi.repository import Notify
 
 from util import send_server
+from common import *
 
 class Indicator:
 
@@ -109,6 +110,7 @@ class Indicator:
         notification.show()
 
 
+    @asynchronous
     def open_window_event(self, widget):
         subprocess.run(["pkexec", "/usr/share/pardus/power-manager/settings/main.py"])
 
