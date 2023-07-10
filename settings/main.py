@@ -10,6 +10,8 @@ from gi.repository import GLib, Gtk
 sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
 from common import *
 
+from reboot_dialog import RebootDialog
+
 def fint(ctx):
     ret = ""
     for c in ctx:
@@ -79,14 +81,25 @@ class MainWindow:
         ac_w = self.o("ui_combobox_acmode")
         bat_w = self.o("ui_combobox_batmode")
         t = ac_w.get_active_iter()
-        print(t)
         data["modes"]["ac-mode"] = ac_w.get_model()[t][1]
         t = bat_w.get_active_iter()
         data["modes"]["bat-mode"] = bat_w.get_model()[t][1]
         # backlight
         data["modes"]["backlight-powersave"] = "%"+str(int(self.o("ui_spinbutton_powersave").get_value()))
         data["modes"]["backlight-performance"] = "%"+str(int(self.o("ui_spinbutton_performance").get_value()))
-        print(data)
+        self.write_settings(data)
+
+    def write_settings(self,data):
+        ctx = ""
+        for section in data:
+            ctx += "[" + section + "]\n"
+            for var in data[section]:
+                ctx += str(var) + "=" + str(data[section][var]) +"\n"
+            ctx += "\n"
+        writefile("/etc/pardus/ppm.conf.d/99-ppm-settings,conf",ctx)
+        print(ctx)
+        self.window.hide()
+        RebootDialog()
 
 if __name__ == "__main__":
     if os.getuid() != 0 and "--test" not in sys.argv:
