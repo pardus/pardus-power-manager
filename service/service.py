@@ -17,6 +17,7 @@ def main(data):
     for b in acpi_battery:
         b.update()
         if "update" in data and data["update"] == "service":
+            reload_config()
             if b.level <= int(get("powersave_threshold","25","modes")):
                 power.set_mode("powersave")
     # client update
