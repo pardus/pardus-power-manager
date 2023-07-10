@@ -16,6 +16,10 @@ def main(data):
         battery_init()
     for b in acpi_battery:
         b.update()
+        if b.level <= int(get("powersave_threshold","25","modes")):
+            power.set_mode("powersave")
+        if b.level >= int(get("performance_threshold","80","modes")):
+            power.set_mode("performance")
     # client update
     udata = {}
     udata["mode"] = power.get_mode()
