@@ -16,12 +16,12 @@ cmdargs = {}
 with open("/proc/cmdline") as f:
     for word in f.read().split(" "):
         if word.startswith("ppm.") and "=" in word:
-            v = variable.split(".")
+            v = word.split(".")
             if len(v) >= 3:
-                variable = v[0]
-                value = v[1]
-                sec = [1]
-                var = v[2]
+                sec = v[1]
+                variable = v[2]
+                var = variable.split("=")[0]
+                value = variable.split("=")[1]
                 if sec not in cmdargs:
                     cmdargs[sec] = {}
                 cmdargs[sec][var] = value
