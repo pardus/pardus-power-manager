@@ -19,7 +19,6 @@ install-common:
 	cp -prfv service $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv data $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv udev-trigger $(DESTDIR)/usr/share/pardus/power-manager
-	cp -prvf data/config.ini $(DESTDIR)/etc/pardus/ppm.conf
 	echo "#!/bin/sh" > $(DESTDIR)/usr/libexec/pardus-power-manager
 	cp -prvf data/ppm.policy $(DESTDIR)/usr/share/polkit-1/actions
 	echo "exec python3 /usr/share/pardus/power-manager/service/main.py" >> $(DESTDIR)/usr/libexec/pardus-power-manager
