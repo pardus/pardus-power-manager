@@ -1,0 +1,10 @@
+#!/bin/bash
+if [[ -f  /etc/pardus/ppm.conf ]] ; then
+    # remove old version of ppm
+    rm -rf /etc/xdg/autostart/ppm-autostart.desktop || true
+    rm -rf /lib/udev/rules.d/99-ppm.rules || true
+    rm -rf /etc/pardus/ppm.conf || true
+    rm -f /etc/tlp.d/99-pardus.conf || true
+    rm -f /etc/tlp.d/99-charge.conf || true
+    rm -f /etc/xdg/autostart/pardus-power-manager.desktop || true
+fi
