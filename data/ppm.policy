@@ -7,9 +7,9 @@
 <message xml:lang="tr">Güç yöneticisi için yetkilendirme gerekiyor</message>
 <icon_name>preferences-system</icon_name>
 <defaults>
-<allow_any>auth_admin</allow_any>
-<allow_inactive>auth_admin</allow_inactive>
-<allow_active>auth_admin</allow_active>
+<allow_any>yes</allow_any>
+<allow_inactive>yes</allow_inactive>
+<allow_active>yes</allow_active>
 </defaults>
 <annotate key="org.freedesktop.policykit.exec.path">/usr/share/pardus/power-manager/settings/main.py</annotate>
 <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
