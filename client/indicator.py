@@ -23,11 +23,6 @@ class Indicator:
         
         self.menu.connect("popped-up",self.menu_popup_event)
 
-        self.status = Gtk.MenuItem()
-        self.status.set_label("")
-        self.menu.append(self.status)
-        self.status.set_sensitive(False)
-
         self.open_window = Gtk.MenuItem()
         self.open_window.set_label("Settings")
         self.open_window.connect('activate', self.open_window_event)
@@ -71,6 +66,8 @@ class Indicator:
                     self.power_mode.set_label("Disable Powersave")
                 else:
                     self.power_mode.set_label("Enable Powersave")
+        if "show" in data:
+            self.open_window_event(None)
         self.update_lock = False
 
     def send_notification(self,msg):
