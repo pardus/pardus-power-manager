@@ -67,6 +67,10 @@ class MainWindow:
         l = ["performance", "powersave", "ignore"]
         self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
         self.o("ui_combobox_batmode").set_active(l.index(get("bat-mode","powersave","modes")))
+        pcis = list_3d_controller()
+        if not self.o("ui_switch_gpu").get_state() and len(pcis) == 0:
+            self.o("ui_switch_gpu").hide()
+            self.o("ui_label_gpu").hide()
 
     def widget_changes_event_init(self):
         self.o("ui_switch_service").connect("state-set",self.save_settings)
@@ -108,7 +112,7 @@ class MainWindow:
                 ctx += str(var) + "=" + str(data[section][var]) +"\n"
             ctx += "\n"
         print(ctx)
-        writefile("/etc/pardus/ppm.conf.d/99-ppm-settings,conf",ctx)
+        writefile("/etc/pardus/ppm.conf.d/99-ppm-settings.conf",ctx)
 
 if __name__ == "__main__":
     if os.getuid() != 0 and "--test" not in sys.argv:
