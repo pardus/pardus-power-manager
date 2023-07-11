@@ -34,7 +34,7 @@ class MainWindow:
         store = Gtk.ListStore(str, str)
         store.append([_("Performance"),"performance"])
         store.append([_("Powersave"),"powersave"])
-        store.append([_("Ignore"),"ignore"])
+        store.append([_("Do Noting"),"ignore"])
         self.o("ui_combobox_acmode").set_model(store)
         self.o("ui_combobox_batmode").set_model(store)
         cellrenderertext = Gtk.CellRendererText()
@@ -44,34 +44,23 @@ class MainWindow:
         self.o("ui_combobox_batmode").add_attribute(cellrenderertext, "text", 0)
 
     def spinbutton_init(self):
-        self.o("ui_spinbutton_powersave").set_range(0,100)
-        self.o("ui_spinbutton_performance").set_range(0,100)
-        self.o("ui_spinbutton_powersave").set_increments(1,1)
-        self.o("ui_spinbutton_performance").set_increments(1,1)
-        self.o("ui_spinbutton_powersave").set_digits(0)
-        self.o("ui_spinbutton_performance").set_digits(0)
+        self.o("ui_spinbutton_switch_to_performance").set_range(0,100)
+        self.o("ui_spinbutton_switch_to_performance").set_increments(1,1)
+        self.o("ui_spinbutton_switch_to_performance").set_digits(0)
 
 
     def value_init(self):
         self.o("ui_switch_service").set_state(get("enabed",True,"service"))
-        self.o("ui_switch_gpu").set_state(get("disable-3d-controller",False,"service"))
-        self.o("ui_spinbutton_powersave").set_value(fint(get("backlight-powersave","%50","modes")))
-        self.o("ui_spinbutton_performance").set_value(fint(get("backlight-performance","%100","modes")))
+        self.o("ui_spinbutton_switch_to_performance").set_value(fint(get("powersave_threshold","25","modes")))
         l = ["performance", "powersave", "ignore"]
         self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
         self.o("ui_combobox_batmode").set_active(l.index(get("bat-mode","powersave","modes")))
-        pcis = list_3d_controller()
-        if not self.o("ui_switch_gpu").get_state() and len(pcis) == 0:
-            self.o("ui_switch_gpu").hide()
-            self.o("ui_label_gpu").hide()
 
     def widget_changes_event_init(self):
         self.o("ui_switch_service").connect("notify::active",self.save_settings)
-        self.o("ui_switch_gpu").connect("notify::active",self.save_settings)
         self.o("ui_combobox_acmode").connect("changed",self.save_settings)
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
-        self.o("ui_spinbutton_powersave").connect("value-changed",self.save_settings)
-        self.o("ui_spinbutton_performance").connect("value-changed",self.save_settings)
+        self.o("ui_spinbutton_switch_to_performance").connect("value-changed",self.save_settings)
 
     def o(self,name):
         return self.builder.get_object(name)
@@ -81,7 +70,6 @@ class MainWindow:
         # service
         data["service"] = {}
         data["service"]["enabled"] = self.o("ui_switch_service").get_state()
-        data["service"]["disable-3d-controller"] = self.o("ui_switch_gpu").get_state()
         # modes
         data["modes"] = {}
         ac_w = self.o("ui_combobox_acmode")
@@ -93,8 +81,7 @@ class MainWindow:
         if t:
             data["modes"]["bat-mode"] = bat_w.get_model()[t][1]
         # backlight
-        data["modes"]["backlight-powersave"] = "%"+str(int(self.o("ui_spinbutton_powersave").get_value()))
-        data["modes"]["backlight-performance"] = "%"+str(int(self.o("ui_spinbutton_performance").get_value()))
+        data["modes"]["powersave_threshold"] = str(self.o("ui_spinbutton_switch_to_performance").get_value())
         self.write_settings(data)
 
     def write_settings(self,data):

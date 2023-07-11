@@ -71,39 +71,7 @@ class Indicator:
                     self.power_mode.set_label("Disable Powersave")
                 else:
                     self.power_mode.set_label("Enable Powersave")
-        self.set_status(self.data_to_msg(data))
         self.update_lock = False
-
-    def data_to_msg(self, data):
-        ret = ""
-        for d in data["battery"].keys():
-            real_name = data["battery"][d]["real_name"]
-            level = data["battery"][d]["level"]
-            health = data["battery"][d]["health"]
-            usage = data["battery"][d]["power_usage"]
-            ret += "[Battery:{}]\n".format(real_name)
-            ret += "Level = {}%\n".format(int(level))
-            ret += "Health = {}%\n".format(int(health))
-            if int(usage) > 0:
-                ret += "Usage = {}W\n".format(int(usage/1000))
-            elif int(usage) < 0:
-                ret += "Charge = {}W\n".format(int((-1*usage)/1000))
-        ret += "\n"
-        for d in data["backlight"].keys():
-            max = data["backlight"][d]["max"]
-            cur = data["backlight"][d]["current"]
-            percent = cur * 100 / max
-            ret += "[Backlight:{}]\n".format(d)
-            ret += "Level = {}%\n".format(int(percent))
-        return ret[:-1]
-
-
-    def set_status(self, message):
-        if message.strip() == "":
-            self.status.hide()
-        else:
-            self.status.show()
-        self.status.set_label(message.strip())
 
     def send_notification(self,msg):
         notification = Notify.Notification.new(msg)

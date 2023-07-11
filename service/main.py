@@ -30,11 +30,6 @@ if not get_ac_online():
     mode = get("bat-mode","powersave","modes")
 set_mode(mode)
 
-# disable 3d controller if available
-if get("disable-3d-controller",False, "service"):
-    pci = get_3d_controller_pci()
-    remove_pci(pci)
-
 while True:
     try:
         listen(main)
