@@ -18,13 +18,6 @@ def fint(ctx):
     return int(ret)
 
 
-try:
-    import socket
-    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    s.bind('\0ppm_settings_lock')
-except socket.error as e:
-    sys.exit (0)
-
 
 class MainWindow:
     def __init__(self):
@@ -73,8 +66,8 @@ class MainWindow:
             self.o("ui_label_gpu").hide()
 
     def widget_changes_event_init(self):
-        self.o("ui_switch_service").connect("state-set",self.save_settings)
-        self.o("ui_switch_gpu").connect("state-set",self.save_settings)
+        self.o("ui_switch_service").connect("notify::active",self.save_settings)
+        self.o("ui_switch_gpu").connect("notify::active",self.save_settings)
         self.o("ui_combobox_acmode").connect("changed",self.save_settings)
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
         self.o("ui_spinbutton_powersave").connect("value-changed",self.save_settings)
@@ -118,6 +111,13 @@ if __name__ == "__main__":
     if os.getuid() != 0 and "--test" not in sys.argv:
         subprocess.run(["pkexec", "/usr/share/pardus/power-manager/settings/main.py"])
         exit(0)
+    try:
+        import socket
+        s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        s.bind('\0ppm_settings_lock')
+    except socket.error as e:
+        sys.exit (0)
+
     main = MainWindow()
     main.window.show()
     Gtk.main()
