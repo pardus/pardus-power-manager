@@ -7,7 +7,7 @@ def main(data):
     debug("Reading /run/ppm fifo")
     # mode switch
     if "new-mode" in data:
-        if data["new-mode"] in ["powersave", "performance"]
+        if data["new-mode"] in ["powersave", "performance"]:
             power.set_mode(data["new-mode"])
     if "new-backlight" in data:
         for dev in data["new-backlight"]:
