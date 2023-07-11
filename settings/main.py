@@ -18,6 +18,14 @@ def fint(ctx):
     return int(ret)
 
 
+try:
+    import socket
+    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    s.bind('\0ppm_settings_lock')
+except socket.error as e:
+    sys.exit (0)
+
+
 class MainWindow:
     def __init__(self):
         self.builder = Gtk.Builder()
@@ -27,6 +35,7 @@ class MainWindow:
         self.spinbutton_init()
         self.value_init()
         self.widget_changes_event_init()
+        self.window.connect("destroy",Gtk.main_quit)
 
     def combobox_init(self):
         store = Gtk.ListStore(str, str)
