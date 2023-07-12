@@ -6,6 +6,11 @@ import time
 import os
 import json
 
+from util import *
+
+if is_virtual_machine():
+    exit(0)
+
 if not get("enabled",True,"service") or os.path.exists("/run/ppm"):
     exit(0)
 
