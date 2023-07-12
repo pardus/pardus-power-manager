@@ -46,6 +46,7 @@ class Indicator:
         self.menu.show_all()
         self.indicator.set_menu(self.menu)
         self.indicator.set_icon("ppm-performance")
+        self.indicator.set_title("Pardus Power Manager")
         data = {}
         data["update"]="client"
         send_server(data)
