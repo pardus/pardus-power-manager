@@ -27,7 +27,7 @@ class Indicator:
 
         self.menu = Gtk.Menu()
         self.current_mode = None
-        
+
         self.open_window = Gtk.MenuItem()
         self.open_window.set_label("Settings")
         self.open_window.connect('activate', self.open_window_event)
