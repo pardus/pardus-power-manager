@@ -5,8 +5,12 @@ from indicator import *
 import os, sys
 
 if not os.path.exists("/run/ppm"):
-    print("Failed to connect ppm service")
-    exit(127)
+    if "--autostart" in sys.argv:
+        print("Failed to connect ppm service")
+        exit(127)
+    else:
+        subprocess.run(["pkexec", "/usr/share/pardus/power-manager/settings/main.py"])
+        exit(0)
 
 client_dir = "/run/user/{}/ppm/".format(os.getuid())
 no_show = False
