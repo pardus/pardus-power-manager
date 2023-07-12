@@ -46,6 +46,9 @@ class Indicator:
         self.menu.show_all()
         self.indicator.set_menu(self.menu)
         self.indicator.set_icon("ppm-performance")
+        data = {}
+        data["update"]="client"
+        send_server(data)
 
     def power_mode_event(self, widget):
         data = {}
