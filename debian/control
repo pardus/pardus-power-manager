@@ -3,6 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Ali Rıza KESKİN <ali.riza.keskin@pardus.org.tr>
 Build-Depends: make
+Breaks: tlp
 Standards-Version: 4.3.0
 Homepage: https://pardus.org.tr
 
@@ -12,5 +13,6 @@ Depends: ${misc:Depends},
          libc6,
          python3 (>=3.5),
          python3-gi,
+         gir1.2-gtk-3.0,
 Description: Pardus power manager.
  Pardus power manager.
