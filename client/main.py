@@ -10,9 +10,6 @@ from gi.repository import Gtk, Gio, GLib
 if not os.path.exists("/run/ppm") and "--test" not in sys.argv:
     print("Failed to connect ppm service")
     exit(127)
-if "--autostart" not in sys.argv and "--test" not in sys.argv:
-    subprocess.run(["pkexec", "/usr/share/pardus/power-manager/settings/main.py"])
-    exit(0)
 
 client_dir = "/run/user/{}/ppm/".format(os.getuid())
 no_show = False
@@ -54,12 +51,10 @@ class Application(Gtk.Application):
         )
 
     def do_activate(self):
-        if not self.indicator:
-            self.indicator = Indicator()
-            listen(self.indicator)
-            if "--autostart" not in sys.argv:
-                self.indicator.open_window_event(None)
-        else:
+        print("Client started")
+        self.indicator = Indicator()
+        listen(self.indicator)
+        if "--autostart" not in sys.argv:
             self.indicator.open_window_event(None)
 
     def do_command_line(self, command_line):
@@ -72,5 +67,5 @@ class Application(Gtk.Application):
 
 app = Application()
 app.run(sys.argv)
-
+Gtk.main()
 
