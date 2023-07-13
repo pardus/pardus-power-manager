@@ -20,7 +20,7 @@ class Indicator:
 
     def __init__(self):
         self.indicator = appindicator.Indicator.new(
-            "appindicator", "pardus-power-manager", appindicator.IndicatorCategory.APPLICATION_STATUS)
+            "pardus-power-manager", "ppm-performance", appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
 
         Notify.init("Pardus Power Manager")
