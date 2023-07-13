@@ -9,6 +9,7 @@ def _(msg):
 from gi.repository import GLib, Gtk
 sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
 from common import *
+from control import *
 
 def fint(ctx):
     ret = ""
@@ -70,6 +71,10 @@ class MainWindow:
         # service
         data["service"] = {}
         data["service"]["enabled"] = self.o("ui_switch_service").get_state()
+        if data["service"]["enabled"]:
+            service_start()
+        else:
+            service_stop()
         # modes
         data["modes"] = {}
         ac_w = self.o("ui_combobox_acmode")
@@ -91,7 +96,6 @@ class MainWindow:
             for var in data[section]:
                 ctx += str(var) + "=" + str(data[section][var]) +"\n"
             ctx += "\n"
-        print(ctx)
         writefile("/etc/pardus/ppm.conf.d/99-ppm-settings.conf",ctx)
 
 if __name__ == "__main__":
