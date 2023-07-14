@@ -28,6 +28,7 @@ class MainWindow:
         self.combobox_init()
         self.spinbutton_init()
         self.value_init()
+        self.power_buttons_init()
         self.widget_changes_event_init()
         self.window.connect("destroy",Gtk.main_quit)
 
