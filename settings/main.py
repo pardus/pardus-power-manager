@@ -56,6 +56,7 @@ class MainWindow:
         l = ["performance", "powersave", "ignore"]
         self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
         self.o("ui_combobox_batmode").set_active(l.index(get("bat-mode","powersave","modes")))
+        self.o("ui_box_main").set_sensitive(get("enabled",True,"service"))
 
     def widget_changes_event_init(self):
         self.o("ui_switch_service").connect("notify::active",self.save_settings)
@@ -72,14 +73,16 @@ class MainWindow:
             data = {}
             data["pid"] = os.getpid()
             data["new-mode"] = "powersave"
-            with open("/run/ppm","w") as f:
-                f.write(json.dumps(data))
+            if os.path.exists("/run/ppm"):
+                with open("/run/ppm","w") as f:
+                    f.write(json.dumps(data))
         def performance_event(widget):
             data = {}
             data["pid"] = os.getpid()
             data["new-mode"] = "performance"
-            with open("/run/ppm","w") as f:
-                f.write(json.dumps(data))
+            if os.path.exists("/run/ppm"):
+                with open("/run/ppm","w") as f:
+                    f.write(json.dumps(data))
         self.o("ui_button_powersave").connect("clicked",powersave_event)
         self.o("ui_button_performance").connect("clicked",performance_event)
 
@@ -89,6 +92,7 @@ class MainWindow:
         # service
         data["service"] = {}
         data["service"]["enabled"] = self.o("ui_switch_service").get_state()
+        self.o("ui_box_main").set_sensitive(data["service"]["enabled"])
         if data["service"]["enabled"]:
             service_start()
         else:
