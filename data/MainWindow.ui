@@ -65,7 +65,7 @@
                 <property name="valign">center</property>
                 <property name="homogeneous">True</property>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="ui_button_powersave">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
@@ -108,7 +108,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="ui_button_performance">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>

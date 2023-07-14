@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import gi, os, sys, subprocess
+import gi, os, sys, subprocess, json
 gi.require_version('Gtk', '3.0')
 
 # FIXME: remove this
@@ -65,6 +65,24 @@ class MainWindow:
 
     def o(self,name):
         return self.builder.get_object(name)
+
+
+    def power_buttons_init(self):
+        def powersave_event(widget):
+            data = {}
+            data["pid"] = os.getpid()
+            data["new-mode"] = "powersave"
+            with open("/run/ppm","w") as f:
+                f.write(json.dumps(data))
+        def performance_event(widget):
+            data = {}
+            data["pid"] = os.getpid()
+            data["new-mode"] = "performance"
+            with open("/run/ppm","w") as f:
+                f.write(json.dumps(data))
+        self.o("ui_button_powersave").connect("clicked",powersave_event)
+        self.o("ui_button_performance").connect("clicked",performance_event)
+
 
     def save_settings(self, a=None, b=None):
         data = {}

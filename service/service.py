@@ -22,7 +22,7 @@ def main(data):
         b.update()
         if "update" in data and data["update"] == "service":
             reload_config()
-            if b.level <= int(get("powersave_threshold","25","modes")):
+            if float(b.level) <= float(get("powersave_threshold","25","modes")):
                 power.set_mode("powersave")
     # client update
     udata = {}
