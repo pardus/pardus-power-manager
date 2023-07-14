@@ -11,8 +11,11 @@ from util import *
 if is_virtual_machine():
     exit(0)
 
-if not get("enabled",True,"service") or os.path.exists("/run/ppm"):
+if not get("enabled",True,"service"):
     exit(0)
+
+if os.path.exists("/run/ppm"):
+    os.unlink("/run/ppm")
 
 import traceback
 singleinstance()

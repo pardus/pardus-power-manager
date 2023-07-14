@@ -69,6 +69,7 @@ class MainWindow:
 
 
     def power_buttons_init(self):
+        @asynchronous
         def powersave_event(widget):
             data = {}
             data["pid"] = os.getpid()
@@ -76,6 +77,7 @@ class MainWindow:
             if os.path.exists("/run/ppm"):
                 with open("/run/ppm","w") as f:
                     f.write(json.dumps(data))
+        @asynchronous
         def performance_event(widget):
             data = {}
             data["pid"] = os.getpid()
