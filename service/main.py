@@ -8,9 +8,6 @@ import json
 
 from util import *
 
-if is_virtual_machine():
-    exit(0)
-
 if not get("enabled",True,"service"):
     exit(0)
 
