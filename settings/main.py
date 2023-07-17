@@ -69,25 +69,26 @@ class MainWindow:
         return self.builder.get_object(name)
 
 
+    @asynchronous
+    def powersave_event(self,widget):
+        data = {}
+        data["pid"] = os.getpid()
+        data["new-mode"] = "powersave"
+        if os.path.exists("/run/ppm"):
+            with open("/run/ppm","w") as f:
+                f.write(json.dumps(data))
+    @asynchronous
+    def performance_event(self,widget):
+        data = {}
+        data["pid"] = os.getpid()
+        data["new-mode"] = "performance"
+        if os.path.exists("/run/ppm"):
+            with open("/run/ppm","w") as f:
+                f.write(json.dumps(data))
+
     def power_buttons_init(self):
-        @asynchronous
-        def powersave_event(widget):
-            data = {}
-            data["pid"] = os.getpid()
-            data["new-mode"] = "powersave"
-            if os.path.exists("/run/ppm"):
-                with open("/run/ppm","w") as f:
-                    f.write(json.dumps(data))
-        @asynchronous
-        def performance_event(widget):
-            data = {}
-            data["pid"] = os.getpid()
-            data["new-mode"] = "performance"
-            if os.path.exists("/run/ppm"):
-                with open("/run/ppm","w") as f:
-                    f.write(json.dumps(data))
-        self.o("ui_button_powersave").connect("clicked",powersave_event)
-        self.o("ui_button_performance").connect("clicked",performance_event)
+        self.o("ui_button_powersave").connect("clicked",self.powersave_event)
+        self.o("ui_button_performance").connect("clicked",self.performance_event)
 
 
     def save_settings(self, a=None, b=None):
@@ -99,6 +100,7 @@ class MainWindow:
         if data["service"]["enabled"]:
             service_start()
         else:
+            self.performance_event(None)
             service_stop()
         # modes
         data["modes"] = {}
@@ -125,7 +127,7 @@ class MainWindow:
 
 if __name__ == "__main__":
     if os.getuid() != 0 and "--test" not in sys.argv:
-        subprocess.run(["pkexec", "/usr/share/pardus/power-manager/settings/main.py"])
+        subprocess.run(["pkexec", __file__])
         exit(0)
     try:
         import socket
