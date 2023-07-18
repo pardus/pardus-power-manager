@@ -1,17 +1,12 @@
 import os
-import subprocess
 def service_stop():
     if os.path.exists("/run/ppm"):
         os.unlink("/run/ppm")
     if os.path.exists("/lib/systemd/systemd"):
-        subprocess.run(["systemctl", "stop", "ppm"])
-    elif os.path.exists("/sbin/rc-service"):
-        subprocess.run(["rc-service", "ppm", "stop"])
+        os.system("systemctl stop ppm")
 
 def service_start():
     if os.path.exists("/run/ppm"):
         os.unlink("/run/ppm")
     if os.path.exists("/lib/systemd/systemd"):
-        subprocess.run(["systemctl", "start", "ppm"])
-    elif os.path.exists("/sbin/rc-service"):
-        subprocess.run(["rc-service", "ppm", "start"])
+        os.system("systemctl start ppm")

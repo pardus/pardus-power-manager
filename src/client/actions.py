@@ -2,7 +2,7 @@
 import sys, os, json
 sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
 from common import *
-
+os.environ["PATH"]="/bin:/sbin:/usr/bin:/usr/sbin"
 def write_settings(data):
     ctx = ""
     for section in data:
