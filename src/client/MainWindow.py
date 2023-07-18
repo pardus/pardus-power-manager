@@ -64,9 +64,9 @@ class MainWindow:
         self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
         self.window = self.builder.get_object("ui_window_main")
         self.window = self.builder.get_object("ui_window_main")
-        self.value_init()
         self.combobox_init()
         self.spinbutton_init()
+        self.value_init()
         self.connect_signal()
         self.__window_status = False
 
@@ -146,10 +146,10 @@ class MainWindow:
         data["service"]["enabled"] = self.o("ui_switch_service").get_state()
         self.o("ui_box_main").set_sensitive(data["service"]["enabled"])
         if data["service"]["enabled"]:
-            subprocess.run(["pkexec", actions_file, "stop_service"])
+            subprocess.run(["pkexec", actions_file, "start_service"])
         else:
             self.performance_event(None)
-            subprocess.run(["pkexec", actions_file, "start_service"])
+            subprocess.run(["pkexec", actions_file, "stop_service"])
         # modes
         data["modes"] = {}
         ac_w = self.o("ui_combobox_acmode")
