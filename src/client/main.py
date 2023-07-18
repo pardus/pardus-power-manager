@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from util import *
-from indicator import *
+from MainWindow import *
 import os, sys
 
 import gi
@@ -31,7 +31,7 @@ class Application(Gtk.Application):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, application_id="tr.org.pardus.power-manager",
                          flags=Gio.ApplicationFlags(8), **kwargs)
-        self.indicator = None
+        self.main = None
 
         self.add_main_option(
             "test",
@@ -52,10 +52,10 @@ class Application(Gtk.Application):
 
     def do_activate(self):
         print("Client started")
-        self.indicator = Indicator()
-        listen(self.indicator)
+        self.main = MainWindow()
+        listen(self.main)
         if "--autostart" not in sys.argv:
-            self.indicator.open_window_event(None)
+            self.main.open_window_event(None)
 
     def do_command_line(self, command_line):
         options = command_line.get_options_dict()

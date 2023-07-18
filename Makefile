@@ -15,7 +15,6 @@ install-common:
 	mkdir -p $(DESTDIR)/usr/share/polkit-1/actions
 	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/scalable/status/
 	cp -prfv src/client $(DESTDIR)/usr/share/pardus/power-manager
-	cp -prfv src/settings $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv src/common $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv src/service $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv data $(DESTDIR)/usr/share/pardus/power-manager
