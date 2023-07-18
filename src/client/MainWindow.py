@@ -22,6 +22,8 @@ from common import *
 def _(msg):
     return msg
 
+actions_file = os.path.dirname(os.path.abspath(__file__)) + "/actions.py"
+
 class MainWindow:
 
     def __init__(self):
@@ -138,7 +140,6 @@ class MainWindow:
 
     def save_settings(self, a=None, b=None):
         data = {}
-        actions_file = os.path.dirname(os.path.abspath(__file__)) + "/actions.py"
         # service
         data["service"] = {}
         data["service"]["enabled"] = self.o("ui_switch_service").get_state()
@@ -160,10 +161,14 @@ class MainWindow:
             data["modes"]["bat-mode"] = bat_w.get_model()[t][1]
         # backlight
         data["modes"]["powersave_threshold"] = str(self.o("ui_spinbutton_switch_to_performance").get_value())
+        self.write_settings(data)
+
+    @asynchronous
+    def write_settings(self, data):
         cfgfile = "/tmp/{}.ppm.conf".format(os.getuid())
         writefile(cfgfile,json.dumps(data))
         subprocess.run(["pkexec", actions_file, "save",cfgfile])
-
+        os.unlink(cfgfile)
 
 ###### utility functions ######
 
