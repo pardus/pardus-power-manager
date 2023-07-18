@@ -68,6 +68,7 @@ class MainWindow:
         self.combobox_init()
         self.spinbutton_init()
         self.connect_signal()
+        self.__window_status = False
 
     def connect_signal(self):
         self.window.connect("delete-event", self.window_delete_event)
@@ -202,10 +203,18 @@ class MainWindow:
 
     def window_delete_event(self, widget=None, event=None):
         self.window.hide()
+        self.__window_status = False
+        self.open_window.set_label("Show")
         return True
 
     def open_window_event(self, widget):
-        self.window.show_all()
+        self.__window_status = not self.__window_status
+        if self.__window_status:
+            self.open_window.set_label("Hide")
+            self.window.show_all()
+        else:
+            self.open_window.set_label("Show")
+            self.window.hide()
 
     def quit_event(self, widget):
         os.unlink("/run/user/{}/ppm/{}".format(os.getuid(),os.getpid()))
