@@ -7,10 +7,6 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 
-if not os.path.exists("/run/ppm") and "--test" not in sys.argv and not is_virtual_machine():
-    print("Failed to connect ppm service")
-    exit(127)
-
 client_dir = "/run/user/{}/ppm/".format(os.getuid())
 no_show = False
 if os.path.exists(client_dir):

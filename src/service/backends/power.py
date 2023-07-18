@@ -10,9 +10,7 @@ _cur_mode = None
 def set_mode(mode):
     global _cur_mode
     backlight="%100"
-    if is_virtual_machine():
-        print("Virtual Machine detected. Ignore...")
-    elif mode == "performance":
+    if mode == "performance":
         _performance()
         backlight = get("backlight-performance","%100","modes")
     elif mode == "powersave":

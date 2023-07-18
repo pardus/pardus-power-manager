@@ -103,7 +103,7 @@ class MainWindow:
 
     def value_init(self):
         self.o("ui_switch_service").set_state(get("enabled",True,"service"))
-        self.o("ui_spinbutton_switch_to_performance").set_value(fint(get("powersave_threshold","25","modes")))
+        self.o("ui_spinbutton_switch_to_performance").set_value(float(get("powersave_threshold","25","modes")))
         l = ["performance", "powersave", "ignore"]
         self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
         self.o("ui_combobox_batmode").set_active(l.index(get("bat-mode","powersave","modes")))
