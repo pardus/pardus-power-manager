@@ -63,7 +63,7 @@ class MainWindow:
         self.builder = Gtk.Builder()
         self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
         self.window = self.builder.get_object("ui_window_main")
-        self.window.set_icon("pardus-power-manager")
+        self.window.set_icon_name("pardus-power-manager")
         self.combobox_init()
         self.spinbutton_init()
         self.value_init()
