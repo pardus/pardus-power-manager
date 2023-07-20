@@ -14,6 +14,7 @@ install-common:
 	mkdir -p $(DESTDIR)/etc/pardus/
 	mkdir -p $(DESTDIR)/usr/share/polkit-1/actions
 	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/scalable/status/
+	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/
 	cp -prfv src/client $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv src/common $(DESTDIR)/usr/share/pardus/power-manager
 	cp -prfv src/service $(DESTDIR)/usr/share/pardus/power-manager
@@ -24,8 +25,9 @@ install-common:
 	cp -pfv data/*.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/status/
 	echo "exec python3 /usr/share/pardus/power-manager/service/main.py" >> $(DESTDIR)/usr/libexec/pardus-power-manager
 	echo "exec python3 /usr/share/pardus/power-manager/client/cli.py \$$@" > $(DESTDIR)/usr/bin/ppm
-	cp data/ppm-settings.desktop $(DESTDIR)/usr/share/applications/
+	cp data/ppm-client.desktop $(DESTDIR)/usr/share/applications/tr.org.pardus.power-manager.desktop
 	cp data/ppm-autostart.desktop $(DESTDIR)/etc/xdg/autostart/
+	cp data/pardus-power-manager.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/
 	chmod +x $(DESTDIR)/usr/libexec/pardus-power-manager
 	chmod +x $(DESTDIR)/usr/bin/ppm
 
@@ -58,7 +60,7 @@ uninstall-udev:
 uninstall-common:
 	rm -rf $(DESTDIR)/usr/share/pardus/power-manager
 	rm -f $(DESTDIR)/usr/libexec/pardus-power-manager
-	rm -rf $(DESTDIR)/usr/share/applications/ppm-settings.desktop
+	rm -rf $(DESTDIR)/usr/share/applications/tr.org.pardus.power-manager.desktop
 	rm -rf $(DESTDIR)/etc/xdg/autostart/data/ppm-autostart.desktop
 
 uninstall-systemd:

@@ -8,7 +8,7 @@ from common import *
 def listen(main):
     ppm = "/run/user/{}/ppm".format(os.getuid())
     if not os.path.exists(ppm):
-        os.mkdir(ppm)
+        os.makedirs(ppm)
     ppm = ppm+"/"+str(os.getpid())
     if not os.path.exists(ppm):
         os.mkfifo(ppm)

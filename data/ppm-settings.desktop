@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Icon=pardus-power-manager
-Name=Pardus Power Manager
-Exec=/usr/share/pardus/power-manager/client/main.py
-Comment=Pardus Power Manager Settings
