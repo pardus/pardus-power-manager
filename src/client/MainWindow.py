@@ -166,6 +166,9 @@ class MainWindow:
         # backlight
         data["modes"]["powersave_threshold"] = str(self.o("ui_spinbutton_switch_to_performance").get_value())
         self.write_settings(data)
+        fdata = {}
+        fdata["update"]="client"
+        send_server(fdata)
 
     @asynchronous
     def write_settings(self, data):
