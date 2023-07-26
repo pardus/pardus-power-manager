@@ -22,11 +22,13 @@ def main(data):
         battery_init()
     for b in acpi_battery:
         b.update()
-        if "update" in data and data["update"] == "service":
+        if "update" in data:
             reload_config()
-            if float(b.level) <= float(get("powersave_threshold","25","modes")):
-                power.set_mode("powersave")
-            b.set_stop_threshold(get("charge_stop_enabled",False,"modes"))
+            if data["update"] == "service":
+                if float(b.level) <= float(get("powersave_threshold","25","modes")):
+                    power.set_mode("powersave")
+            elif data["update"] == "client":
+                b.set_stop_threshold(get("charge_stop_enabled",False,"modes"))
 
     # client update
     udata = {}
