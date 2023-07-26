@@ -1,5 +1,5 @@
-# Automatically added by dh_installsystemd/13.11.4
-if [ -z "${DPKG_ROOT:-}" ] && [ "$1" = remove ] && [ -d /run/systemd/system ] ; then
+# Automatically added by dh_installsystemd/13.3.4
+if [ -d /run/systemd/system ] && [ "$1" = remove ]; then
 	deb-systemd-invoke stop 'ppm.service' >/dev/null || true
 fi
 # End automatically added section

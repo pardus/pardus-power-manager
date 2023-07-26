@@ -11,11 +11,12 @@ from util import *
 if not get("enabled",True,"service"):
     exit(0)
 
+import traceback
+singleinstance()
+
 if os.path.exists("/run/ppm"):
     os.unlink("/run/ppm")
 
-import traceback
-singleinstance()
 
 log_begin()
 log("Starting Pardus Power Manager Service")
