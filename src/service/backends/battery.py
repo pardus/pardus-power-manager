@@ -18,6 +18,15 @@ class battery:
         self.real_name = readfile("{}/manufacturer".format(path))
         self.real_name += " " +readfile("{}/model_name".format(path))
 
+    def set_stop_threshold(self,enabled=False):
+        path="/sys/class/power_supply/{}/".format(self.name)
+        for f in ["charge_control_end_threshold", "charge_stop_threshold"]:
+            if os.path.exists(path+f):
+                if enabled:
+                    writefile(path+f, "80")
+                else:
+                    writefile(path+f, "100")
+
     def update(self):
         debug("Update battery information for: {}".format(self.name))
         path="/sys/class/power_supply/{}/".format(self.name)

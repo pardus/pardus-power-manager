@@ -8,6 +8,7 @@ paused = False
 def main(data):
     global paused
     debug("Reading /run/ppm fifo")
+
     # mode switch
     if "new-mode" in data:
         if data["new-mode"] in ["powersave", "performance"]:
@@ -15,6 +16,7 @@ def main(data):
     if "new-backlight" in data:
         for dev in data["new-backlight"]:
              backlight.set_brightness(dev, data["new-backlight"][dev])
+
     # battery events
     if acpi_battery == None:
         battery_init()
@@ -24,6 +26,8 @@ def main(data):
             reload_config()
             if float(b.level) <= float(get("powersave_threshold","25","modes")):
                 power.set_mode("powersave")
+            b.set_stop_threshold(get("charge_stop_enabled",False,"modes"))
+
     # client update
     udata = {}
     udata["mode"] = power.get_mode()
@@ -50,4 +54,5 @@ def battery_init():
         devtype = readfile("{}/type".format(path)).lower()
         if  devtype == "battery":
             b = battery.battery(dev)
+            b.set_stop_threshold(get("charge_stop_enabled",False,"modes"))
             acpi_battery.append(b)
