@@ -75,7 +75,6 @@ class MainWindow:
         self.o("ui_button_powersave").connect("clicked",self.powersave_event)
         self.o("ui_button_performance").connect("clicked",self.performance_event)
         self.o("ui_switch_service").connect("notify::active",self.save_settings)
-        self.o("ui_switch_charge").connect("notify::active",self.save_settings)
         self.o("ui_combobox_acmode").connect("changed",self.save_settings)
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
         self.o("ui_spinbutton_switch_to_performance").connect("value-changed",self.save_settings)
@@ -104,7 +103,6 @@ class MainWindow:
 
     def value_init(self):
         self.o("ui_switch_service").set_state(get("enabled",True,"service"))
-        self.o("ui_switch_charge").set_state(get("charge_stop_enabled",False,"modes"))
         self.o("ui_spinbutton_switch_to_performance").set_value(float(get("powersave_threshold","25","modes")))
         l = ["performance", "powersave", "ignore"]
         self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
@@ -162,7 +160,6 @@ class MainWindow:
         t = bat_w.get_active_iter()
         if t:
             data["modes"]["bat-mode"] = bat_w.get_model()[t][1]
-        data["modes"]["charge_stop_enabled"] = self.o("ui_switch_charge").get_state()
         # backlight
         data["modes"]["powersave_threshold"] = str(self.o("ui_spinbutton_switch_to_performance").get_value())
         self.write_settings(data)
