@@ -3,10 +3,10 @@ import backends.power as power
 import backends.backlight as backlight
 import backends.battery as battery
 
-paused = False
 
 def main(data):
-    global paused
+    if os.path.exists("/usr/share/pardus/power-manager/pause-service"):
+        return
     debug("Reading /run/ppm fifo")
 
     # mode switch
