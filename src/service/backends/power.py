@@ -111,7 +111,7 @@ def _powersave():
         cpus = list_cpu()
         dnum = len(cpus) * float(get("core-ratio",0.5,"powersave"))
         if len(cpus) <= 4:
-            dnum = len(cpus)
+            dnum = 0
         elif len(cpus) - dnum < 4:
             dnum = 4
         for cpu in range(len(cpus) - int(dnum), len(cpus)):
