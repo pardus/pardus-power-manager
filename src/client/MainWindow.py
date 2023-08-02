@@ -55,9 +55,6 @@ class MainWindow:
         self.indicator.set_menu(self.menu)
         self.indicator.set_icon("ppm-performance")
         self.indicator.set_title("Pardus Power Manager")
-        data = {}
-        data["update"]="client"
-        send_server(data)
         
         # settings page
         self.builder = Gtk.Builder()
@@ -69,6 +66,9 @@ class MainWindow:
         self.value_init()
         self.connect_signal()
         self.__window_status = False
+        data = {}
+        data["update"]="client"
+        send_server(data)
 
     def connect_signal(self):
         self.window.connect("delete-event", self.window_delete_event)
