@@ -33,6 +33,10 @@ except:
         return msg
 actions_file = os.path.dirname(os.path.abspath(__file__)) + "/actions.py"
 
+# string for translation
+_("powersave")
+_("performance")
+
 class MainWindow:
 
     def __init__(self):
@@ -56,7 +60,7 @@ class MainWindow:
         self.menu.append(self.power_mode)
 
         self.quit = Gtk.MenuItem()
-        self.quit.set_label("Exit")
+        self.quit.set_label(_("Exit"))
         self.quit.connect('activate', self.quit_event)
         self.menu.append(self.quit)
 
@@ -136,13 +140,13 @@ class MainWindow:
         if "mode" in data:
             if self.current_mode != data["mode"]:
                 if self.current_mode != None:
-                    self.send_notification("Power profile changed: " + data["mode"])
+                    self.send_notification(_("Power profile changed: ") + _(data["mode"]))
                 self.current_mode = data["mode"]
                 if self.current_mode == "powersave":
-                    self.power_mode.set_label("Disable Powersave")
+                    self.power_mode.set_label(_("Disable Powersave"))
                     self.indicator.set_icon("ppm-powersave")
                 else:
-                    self.power_mode.set_label("Enable Powersave")
+                    self.power_mode.set_label(_("Enable Powersave"))
                     self.indicator.set_icon("ppm-performance")
         if "show" in data:
             self.open_window_event(None)
@@ -218,16 +222,16 @@ class MainWindow:
     def window_delete_event(self, widget=None, event=None):
         self.window.hide()
         self.__window_status = False
-        self.open_window.set_label("Show")
+        self.open_window.set_label(_("Show"))
         return True
 
     def open_window_event(self, widget):
         self.__window_status = not self.__window_status
         if self.__window_status:
-            self.open_window.set_label("Hide")
+            self.open_window.set_label(_("Hide"))
             self.window.show_all()
         else:
-            self.open_window.set_label("Show")
+            self.open_window.set_label(_("Show"))
             self.window.hide()
 
     def quit_event(self, widget):

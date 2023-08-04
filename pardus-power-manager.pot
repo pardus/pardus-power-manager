@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-04 08:45+0000\n"
+"POT-Creation-Date: 2023-08-04 16:36+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,14 +53,46 @@ msgstr ""
 msgid "Pardus Power Manager"
 msgstr ""
 
-#: src/client/MainWindow.py:96
+#: src/client/MainWindow.py:37
+msgid "powersave"
+msgstr ""
+
+#: src/client/MainWindow.py:38
+msgid "performance"
+msgstr ""
+
+#: src/client/MainWindow.py:63
+msgid "Exit"
+msgstr ""
+
+#: src/client/MainWindow.py:100
 msgid "Performance"
 msgstr ""
 
-#: src/client/MainWindow.py:97
+#: src/client/MainWindow.py:101
 msgid "Powersave"
 msgstr ""
 
-#: src/client/MainWindow.py:98
+#: src/client/MainWindow.py:102
 msgid "Do Noting"
+msgstr ""
+
+#: src/client/MainWindow.py:143
+msgid "Power profile changed: "
+msgstr ""
+
+#: src/client/MainWindow.py:146
+msgid "Disable Powersave"
+msgstr ""
+
+#: src/client/MainWindow.py:149
+msgid "Enable Powersave"
+msgstr ""
+
+#: src/client/MainWindow.py:225 src/client/MainWindow.py:234
+msgid "Show"
+msgstr ""
+
+#: src/client/MainWindow.py:231
+msgid "Hide"
 msgstr ""
