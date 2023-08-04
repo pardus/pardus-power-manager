@@ -18,10 +18,19 @@ except:
 from util import send_server
 from common import *
 
-# TODO: remove this
-def _(msg):
-    return msg
+try:
+    import locale
+    from locale import gettext as _
 
+    # Translation Constants:
+    APPNAME = "pardus-power-manager"
+    TRANSLATIONS_PATH = "/usr/share/locale"
+    locale.bindtextdomain(APPNAME, TRANSLATIONS_PATH)
+    locale.textdomain(APPNAME)
+except:
+    # locale load issue fix
+    def _(msg):
+        return msg
 actions_file = os.path.dirname(os.path.abspath(__file__)) + "/actions.py"
 
 class MainWindow:

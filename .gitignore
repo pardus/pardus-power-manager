@@ -1,4 +1,11 @@
 __pycache__
-.pyc
+*.pyc
+*.mo
 data/MainWindow.ui~
 debian/pardus-power-manager/
+debian/.debhelper/generated/pardus-lightdm-greeter/installed-by-dh_installdocs
+debian/debhelper-build-stamp
+debian/files
+debian/pardus-power-manager.debhelper.log
+debian/pardus-power-manager.substvars
+debian/.debhelper

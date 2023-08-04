@@ -1,11 +1,32 @@
 SERVICE=systemd
 
-build:
-	: do nothing
+build: buildmo
+
+buildmo:
+	@echo "Building the mo files"
+	for file in `ls po/*.po`; do \
+		lang=`echo $$file | sed 's@po/@@' | sed 's/\.po//'`; \
+		msgfmt -o po/$$lang.mo $$file; \
+	done
+
+pot:
+	xgettext -o pardus-power-manager.pot --from-code="utf-8" src/data/MainWindow.ui `find src -type f -iname "*.py"`
+	for file in `ls po/*.po`; do \
+	    msgmerge $$file pardus-power-manager.pot -o $$file.new ; \
+	    echo POT: $$file; \
+	    rm -f $$file ; \
+	    mv $$file.new $$file ; \
+	done
+
+clean:
+	find -iname "__pycache__" | xargs rm -rfv
+	find -iname "*.pyc" | xargs rm -rfv
+	find -iname "*.ui~" | xargs rm -rfv
+	find -iname "*.mo" | xargs rm -rfv
 
 install: install-common install-$(SERVICE) install-udev
 
-install-common:
+install-common: installmo
 	mkdir -p $(DESTDIR)/usr/share/pardus/power-manager/
 	mkdir -p $(DESTDIR)/etc/xdg/autostart/
 	mkdir -p $(DESTDIR)/usr/share/applications/
@@ -30,6 +51,14 @@ install-common:
 	cp data/pardus-power-manager.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/
 	chmod +x $(DESTDIR)/usr/libexec/pardus-power-manager
 	chmod +x $(DESTDIR)/usr/bin/ppm
+
+installmo:
+	for file in `ls po/*.po`; do \
+	    lang=`echo $$file | sed 's@po/@@' | sed 's/\.po//'`; \
+	    mkdir -p $(DESTDIR)/usr/share/locale/$$lang/LC_MESSAGES/; \
+	    install po/$$lang.mo $(DESTDIR)/usr/share/locale/$$lang/LC_MESSAGES/pardus-power-manager.mo ;\
+	done
+
 
 install-none:
 
