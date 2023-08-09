@@ -9,4 +9,4 @@ Exec=/usr/share/pardus/power-manager/client/main.py
 Icon=pardus-power-manager
 Terminal=False
 Type=Application
-Categories=Application;System;
+Categories=Application;System;X-Pardus-Apps;
