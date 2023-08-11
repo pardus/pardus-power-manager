@@ -67,7 +67,7 @@ class MainWindow:
         self.menu.show_all()
         self.indicator.set_menu(self.menu)
         self.indicator.set_icon("pardus-pm-powersave-symbolic")
-        self.indicator.set_title("Pardus Power Manager")
+        self.indicator.set_title(_("Pardus Power Manager"))
         
         # settings page
         self.builder = Gtk.Builder()

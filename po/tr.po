@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-04 16:36+0300\n"
+"POT-Creation-Date: 2023-08-11 18:12+0300\n"
 "PO-Revision-Date: 2022-10-18 11:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -49,7 +49,7 @@ msgstr "%"
 msgid "TÜBİTAK ULAKBİM | 2023"
 msgstr "TÜBİTAK ULAKBİM | 2023"
 
-#: src/data/MainWindow.ui:374
+#: src/data/MainWindow.ui:374 src/client/MainWindow.py:70
 msgid "Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi"
 
@@ -61,9 +61,13 @@ msgstr "güç tasarrufu"
 msgid "performance"
 msgstr "performans"
 
+#: src/client/MainWindow.py:58 src/client/MainWindow.py:146
+msgid "Disable Powersave"
+msgstr "Güç tasarrufunu kapat"
+
 #: src/client/MainWindow.py:63
 msgid "Exit"
-msgstr ""
+msgstr "Çıkış"
 
 #: src/client/MainWindow.py:100
 msgid "Performance"
@@ -80,11 +84,6 @@ msgstr "Hiçbir şey yapma"
 #: src/client/MainWindow.py:143
 msgid "Power profile changed: "
 msgstr "Güç profili değişti: "
-
-#: src/client/MainWindow.py:146
-#, fuzzy
-msgid "Disable Powersave"
-msgstr "Güç tasarrufunu kapat"
 
 #: src/client/MainWindow.py:149
 msgid "Enable Powersave"
