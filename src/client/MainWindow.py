@@ -41,7 +41,7 @@ class MainWindow:
 
     def __init__(self):
         self.indicator = appindicator.Indicator.new(
-            "pardus-power-manager", "ppm-performance", appindicator.IndicatorCategory.APPLICATION_STATUS)
+            "pardus-power-manager", "pardus-pm-performance-symbolic", appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
 
         Notify.init("Pardus Power Manager")
@@ -55,7 +55,7 @@ class MainWindow:
         self.menu.append(self.open_window)
 
         self.power_mode = Gtk.MenuItem()
-        self.power_mode.set_label("Disable Powersave")
+        self.power_mode.set_label(_("Disable Powersave"))
         self.power_mode.connect('activate', self.power_mode_event)
         self.menu.append(self.power_mode)
 
@@ -66,7 +66,7 @@ class MainWindow:
 
         self.menu.show_all()
         self.indicator.set_menu(self.menu)
-        self.indicator.set_icon("ppm-performance")
+        self.indicator.set_icon("pardus-pm-powersave-symbolic")
         self.indicator.set_title("Pardus Power Manager")
         
         # settings page
@@ -144,10 +144,10 @@ class MainWindow:
                 self.current_mode = data["mode"]
                 if self.current_mode == "powersave":
                     self.power_mode.set_label(_("Disable Powersave"))
-                    self.indicator.set_icon("ppm-powersave")
+                    self.indicator.set_icon("pardus-pm-powersave-symbolic")
                 else:
                     self.power_mode.set_label(_("Enable Powersave"))
-                    self.indicator.set_icon("ppm-performance")
+                    self.indicator.set_icon("pardus-pm-performance-symbolic")
         if "show" in data:
             self.open_window_event(None)
         self.update_lock = False
