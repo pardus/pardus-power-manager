@@ -165,6 +165,8 @@ class MainWindow:
                     cur = data["backlight"][dev]["current"]
                     print(max, cur)
                     self.o("ui_scale_brightness").set_value((cur*100)/max)
+            else:
+                self.o("ui_box_brightness").hide()
         if "show" in data:
             self.open_window_event(None)
         self.update_lock = False
