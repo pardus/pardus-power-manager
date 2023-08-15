@@ -41,6 +41,13 @@ class MainWindow:
 
     def __init__(self):
         self.__is_init = False
+        self.__window_status = False
+        self.open_window = Gtk.MenuItem()
+        self.power_mode = Gtk.MenuItem()
+        self.quit = Gtk.MenuItem()
+        self.builder = Gtk.Builder()
+        self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
+        self.window = self.builder.get_object("ui_window_main")
         data = {}
         data["update"]="client"
         send_server(data)
@@ -57,16 +64,17 @@ class MainWindow:
         self.menu = Gtk.Menu()
         self.current_mode = None
 
-        self.open_window = Gtk.MenuItem()
-        self.open_window.set_label(_("Show"))
+        if not self.__window_status:
+             self.open_window.set_label(_("Show"))
+        else:
+             self.open_window.set_label(_("Hide"))
         self.open_window.connect('activate', self.open_window_event)
         self.menu.append(self.open_window)
 
-        self.power_mode = Gtk.MenuItem()
         self.power_mode.connect('activate', self.power_mode_event)
         self.menu.append(self.power_mode)
 
-        self.quit = Gtk.MenuItem()
+
         self.quit.set_label(_("Exit"))
         self.quit.connect('activate', self.quit_event)
         self.menu.append(self.quit)
@@ -76,15 +84,11 @@ class MainWindow:
         self.indicator.set_title(_("Pardus Power Manager"))
 
         # settings page
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
-        self.window = self.builder.get_object("ui_window_main")
         self.window.set_icon_name("pardus-power-manager")
         self.combobox_init()
         self.spinbutton_init()
         self.value_init()
         self.connect_signal()
-        self.__window_status = False
         self.__is_init = True
 
     def connect_signal(self):
@@ -94,6 +98,7 @@ class MainWindow:
         self.o("ui_switch_service").connect("notify::active",self.save_settings)
         self.o("ui_combobox_acmode").connect("changed",self.save_settings)
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
+        self.o("ui_scale_brightness").connect("value-changed",self.set_brightness)
         self.o("ui_spinbutton_switch_to_performance").connect("value-changed",self.save_settings)
 
 
@@ -153,9 +158,25 @@ class MainWindow:
                 else:
                     self.power_mode.set_label(_("Enable Powersave"))
                     self.indicator.set_icon("pardus-pm-performance-symbolic")
+        if "backlight" in data:
+            if len(data["backlight"]) > 0 :
+                for dev in data["backlight"].keys():
+                    max = data["backlight"][dev]["max"]
+                    cur = data["backlight"][dev]["current"]
+                    print(max, cur)
+                    self.o("ui_scale_brightness").set_value((cur*100)/max)
         if "show" in data:
             self.open_window_event(None)
         self.update_lock = False
+
+    def set_brightness(self, widget):
+        if self.update_lock:
+            return
+        value = widget.get_value()
+        data = {}
+        data["new-backlight"] = {}
+        data["new-backlight"]["all"]="%"+str(int(value))
+        send_server(data)
 
 ###### settings saver ######
 
@@ -235,6 +256,7 @@ class MainWindow:
         if self.__window_status:
             self.open_window.set_label(_("Hide"))
             self.window.show_all()
+            self.window.present()
         else:
             self.open_window.set_label(_("Show"))
             self.window.hide()
