@@ -58,6 +58,7 @@ class MainWindow:
         self.current_mode = None
 
         self.open_window = Gtk.MenuItem()
+        self.open_window.set_label(_("Show"))
         self.open_window.connect('activate', self.open_window_event)
         self.menu.append(self.open_window)
 
@@ -66,6 +67,7 @@ class MainWindow:
         self.menu.append(self.power_mode)
 
         self.quit = Gtk.MenuItem()
+        self.quit.set_label(_("Exit"))
         self.quit.connect('activate', self.quit_event)
         self.menu.append(self.quit)
 
