@@ -40,6 +40,14 @@ _("performance")
 class MainWindow:
 
     def __init__(self):
+        self.__is_init = False
+        data = {}
+        data["update"]="client"
+        send_server(data)
+
+    def init(self):
+        if self.__is_init:
+            return
         self.indicator = appindicator.Indicator.new(
             "pardus-power-manager", "pardus-pm-performance-symbolic", appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
@@ -50,25 +58,21 @@ class MainWindow:
         self.current_mode = None
 
         self.open_window = Gtk.MenuItem()
-        self.open_window.set_label("Show")
         self.open_window.connect('activate', self.open_window_event)
         self.menu.append(self.open_window)
 
         self.power_mode = Gtk.MenuItem()
-        self.power_mode.set_label(_("Disable Powersave"))
         self.power_mode.connect('activate', self.power_mode_event)
         self.menu.append(self.power_mode)
 
         self.quit = Gtk.MenuItem()
-        self.quit.set_label(_("Exit"))
         self.quit.connect('activate', self.quit_event)
         self.menu.append(self.quit)
 
         self.menu.show_all()
         self.indicator.set_menu(self.menu)
-        self.indicator.set_icon("pardus-pm-powersave-symbolic")
         self.indicator.set_title(_("Pardus Power Manager"))
-        
+
         # settings page
         self.builder = Gtk.Builder()
         self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
@@ -79,9 +83,7 @@ class MainWindow:
         self.value_init()
         self.connect_signal()
         self.__window_status = False
-        data = {}
-        data["update"]="client"
-        send_server(data)
+        self.__is_init = True
 
     def connect_signal(self):
         self.window.connect("delete-event", self.window_delete_event)
@@ -135,6 +137,7 @@ class MainWindow:
         send_server(data)
 
     def update(self,data):
+        self.init()
         print(data)
         self.update_lock = True
         if "mode" in data:
