@@ -257,7 +257,7 @@ class MainWindow:
         self.__window_status = not self.__window_status
         if self.__window_status:
             self.open_window.set_label(_("Hide"))
-            self.window.show_all()
+            self.window.show()
             self.window.present()
         else:
             self.open_window.set_label(_("Show"))
