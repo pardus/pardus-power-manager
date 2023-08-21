@@ -100,7 +100,12 @@ class MainWindow:
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
         self.o("ui_scale_brightness").connect("value-changed",self.set_brightness)
         self.o("ui_spinbutton_switch_to_performance").connect("value-changed",self.save_settings)
+        self.o("ui_button_about").connect("clicked",self.__about_event)
 
+
+    def __about_event(self, widget):
+        self.o("ui_about_dialog").run()
+        self.o("ui_about_dialog").hide()
 
 ###### widget init ######
 
