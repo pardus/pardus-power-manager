@@ -83,6 +83,9 @@ class MainWindow:
         self.indicator.set_menu(self.menu)
         self.indicator.set_title(_("Pardus Power Manager"))
 
+        # about dialog
+        self.o("ui_about_dialog").set_program_name(_("Pardus Power Manager"))
+
         # settings page
         self.window.set_icon_name("pardus-power-manager")
         self.combobox_init()
