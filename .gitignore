@@ -8,4 +8,4 @@ debian/debhelper-build-stamp
 debian/files
 debian/pardus-power-manager.debhelper.log
 debian/pardus-power-manager.substvars
-debian/.debhelper
+debian/.debhelper/
