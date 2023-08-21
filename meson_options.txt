@@ -1,0 +1,2 @@
+option('service', type : 'string', value : 'systemd', description : 'Service Manager')
+

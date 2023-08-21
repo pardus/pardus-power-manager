@@ -9,7 +9,8 @@ Simple power manager tools written python.
 ## How to install from source
 ```shell
 # install source
-make install
+meson setup build --prefix=/usr
+ninja -C build install
 # enable systemd service (if available)
 systemctl enable ppm
 # reboot required

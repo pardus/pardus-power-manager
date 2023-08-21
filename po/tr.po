@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-11 18:12+0300\n"
+"POT-Creation-Date: 2023-08-21 07:37+0000\n"
 "PO-Revision-Date: 2022-10-18 11:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,39 +17,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: src/data/MainWindow.ui:41
+#: src/data/MainWindow.ui:46
 msgid "Service:"
 msgstr "Servis:"
 
-#: src/data/MainWindow.ui:95
+#: src/data/MainWindow.ui:100
 msgid "POWERSAVE"
 msgstr "GÜÇ TASARRUFU"
 
-#: src/data/MainWindow.ui:138
+#: src/data/MainWindow.ui:143
 msgid "PERFORMANCE"
 msgstr "PERFORMANS"
 
-#: src/data/MainWindow.ui:180
+#: src/data/MainWindow.ui:185
 msgid "On Power:"
 msgstr "Güçte:"
 
-#: src/data/MainWindow.ui:219
+#: src/data/MainWindow.ui:224
 msgid "on Battery:"
 msgstr "Pilde:"
 
-#: src/data/MainWindow.ui:266
+#: src/data/MainWindow.ui:271
 msgid "Switch to Powersave :"
 msgstr "Güç Tasarrufuna Geç:"
 
-#: src/data/MainWindow.ui:282
+#: src/data/MainWindow.ui:287
 msgid "%"
 msgstr "%"
 
-#: src/data/MainWindow.ui:346
+#: src/data/MainWindow.ui:330
+msgid "Screen Brightness:"
+msgstr ""
+
+#: src/data/MainWindow.ui:393
 msgid "TÜBİTAK ULAKBİM | 2023"
 msgstr "TÜBİTAK ULAKBİM | 2023"
 
-#: src/data/MainWindow.ui:374 src/client/MainWindow.py:70
+#: src/data/MainWindow.ui:421 src/client/MainWindow.py:84
 msgid "Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi"
 
@@ -61,38 +65,39 @@ msgstr "güç tasarrufu"
 msgid "performance"
 msgstr "performans"
 
-#: src/client/MainWindow.py:58 src/client/MainWindow.py:146
-msgid "Disable Powersave"
-msgstr "Güç tasarrufunu kapat"
-
-#: src/client/MainWindow.py:63
-msgid "Exit"
-msgstr "Çıkış"
-
-#: src/client/MainWindow.py:100
-msgid "Performance"
-msgstr "Performans"
-
-#: src/client/MainWindow.py:101
-msgid "Powersave"
-msgstr "Güç tasarrufu"
-
-#: src/client/MainWindow.py:102
-msgid "Do Noting"
-msgstr "Hiçbir şey yapma"
-
-#: src/client/MainWindow.py:143
-msgid "Power profile changed: "
-msgstr "Güç profili değişti: "
-
-#: src/client/MainWindow.py:149
-msgid "Enable Powersave"
-msgstr "Güç tasarrufunu aç"
-
-#: src/client/MainWindow.py:225 src/client/MainWindow.py:234
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:253
+#: src/client/MainWindow.py:263
 msgid "Show"
 msgstr "Göster"
 
-#: src/client/MainWindow.py:231
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:259
 msgid "Hide"
 msgstr "Gizle"
+
+#: src/client/MainWindow.py:78
+msgid "Exit"
+msgstr "Çıkış"
+
+#: src/client/MainWindow.py:109
+msgid "Performance"
+msgstr "Performans"
+
+#: src/client/MainWindow.py:110
+msgid "Powersave"
+msgstr "Güç tasarrufu"
+
+#: src/client/MainWindow.py:111
+msgid "Do Noting"
+msgstr "Hiçbir şey yapma"
+
+#: src/client/MainWindow.py:153
+msgid "Power profile changed: "
+msgstr "Güç profili değişti: "
+
+#: src/client/MainWindow.py:156
+msgid "Disable Powersave"
+msgstr "Güç tasarrufunu kapat"
+
+#: src/client/MainWindow.py:159
+msgid "Enable Powersave"
+msgstr "Güç tasarrufunu aç"
