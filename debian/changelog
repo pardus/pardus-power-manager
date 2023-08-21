@@ -1,7 +1,130 @@
 pardus-power-manager (2.0.0) unstable; urgency=medium
 
-  [ aliriza ]
-  * packaging test
+  [ Ali Riza Keskin ]
+  * fix backlight
+  * fix service start script
+  * connect service check added
+  * backlight set percent
+  * client ui begin
+  * move to glade
+  * power profile button events
+  * battery health level
+  * battery check function changed
+  * fix key error n json
+  * battery level change +-percentage
+  * power usage read
+  * minor fix
+  * appindicator
+  * ayatana replaced with Gtk status icon
+  * fix status icon
+  * statusicon improvements
+  * cpu freq set for lod cpus
+  * cpu suspend fix for less then 4core
+  * application launcher
+  * statusicon fix
+  * fix watt calculate
+  * update interval move to service
+  * fix logging init and multiple service clone bug
+  * platform profile settings
+  * settings split
+  * fix application icon
+  * notification
+  * fix core disabler
+  * 3d controller disabler backend
+  * power mode backlight
+  * fix
+  * merge
+  * remove unused file
+  * fixes
+  * config from /proc/cmdline
+  * settings page
+  * remove useless config
+  * settings page functionality
+  * settings variable fill on start
+  * fix gitignore
+  * reboot dialog added
+  * reboot dialog added
+  * service enable when package installed
+  * preinst script for upgrade new ppm
+  * preinst postinst fixes for upgrade from 21
+  * settings page update
+  * settings page update
+  * mode treshold
+  * battery threshold added. default is %25
+  * config fix
+  * postinstall
+  * async settings page open on indicator
+  * reload configx
+  * save button removed from settings and reboot dialog removed
+  * single instance settings application
+  * disable secondary gpu options hide when not available
+  * switch fix
+  * fix
+  * syntax fix
+  * remove gpu stuff and fix translation and remove useless part of indicator
+  * ppm setting application fix
+  * indicator improvements
+  * initial indicator status update
+  * fix client startup when service is disabled
+  * readme
+  * packaging stuff
+  * gtk application
+  * gtk application fix
+  * vm disable service
+  * ppm indicator tittle
+  * indicator fix
+  * service stop when disabled
+  * minor fixes and remove usage static
+  * fixes
+  * settings page improvement
+  * fixes
+  * power mode buttons on settings
+  * glade fix
+  * service stop button change mode as performance then stop service
+  * virtual machine service fix
+  * src directory
+  * merge settings with client
+  * settings save async
+  * show hide menu item
+  * service switch
+  * fixes
+  * remove buggy openrc service start-stop action
+  * readme for src
+  * fix application launcher category
+  * fix icon set window
+  * fix service restart issue
+  * cli fixes and stop treshold
+  * service update event improvement
+  * postinstall fix for nosystemd
+  * postinstall fix for nosystemd
+  * charge limit options
+  * update service after settings write
+  * fixes
+  * power manager service switch fix
+  * 4 core ignore core suspend fix
+  * fix initial status of indicator
+  * translation
+  * translation update
+  * category update
+  * update app icon
+  * update app icon
+  * fix symbolic icons
+  * fix translation
+  * button icons
+  * update icons
+  * update app icon
+  * init from update signal
+  * minor fix
+  * backlight switcher added
+  * backlight switcher added
+  * fix brightness bar glich
+  * add missing dependencies
+  * move to meson and translation build improvement
+  * fix rules
+  * about dialog added
+  * update translation
+  * program name set for about dialog
+  * make dependency replaced with meson
+  * Fix typo
 
- -- Fatih Altun <fatih.altun@pardus.org.tr>  Wed, 20 Jul 2022 15:48:24 +0300
-
+ -- Fatih Altun <fatih.altun@pardus.org.tr>  Mon, 21 Aug 2023 17:47:37 +0300
