@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-21 07:37+0000\n"
+"POT-Creation-Date: 2023-08-21 14:26+0000\n"
 "PO-Revision-Date: 2022-10-18 11:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -47,7 +47,7 @@ msgstr "%"
 
 #: src/data/MainWindow.ui:330
 msgid "Screen Brightness:"
-msgstr ""
+msgstr "Ekran Parlaklığı:"
 
 #: src/data/MainWindow.ui:393
 msgid "TÜBİTAK ULAKBİM | 2023"
@@ -57,6 +57,17 @@ msgstr "TÜBİTAK ULAKBİM | 2023"
 msgid "Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi"
 
+#: src/data/MainWindow.ui:448
+msgid "Power manager"
+msgstr "Güç Yöneticisi"
+
+#: src/data/MainWindow.ui:450
+msgid ""
+"This program comes with absolutely no warranty.\n"
+"See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
+"Public License, version 3 or later</a> for details."
+msgstr ""
+
 #: src/client/MainWindow.py:37
 msgid "powersave"
 msgstr "güç tasarrufu"
@@ -65,12 +76,12 @@ msgstr "güç tasarrufu"
 msgid "performance"
 msgstr "performans"
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:253
-#: src/client/MainWindow.py:263
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:258
+#: src/client/MainWindow.py:268
 msgid "Show"
 msgstr "Göster"
 
-#: src/client/MainWindow.py:70 src/client/MainWindow.py:259
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:264
 msgid "Hide"
 msgstr "Gizle"
 
@@ -78,26 +89,26 @@ msgstr "Gizle"
 msgid "Exit"
 msgstr "Çıkış"
 
-#: src/client/MainWindow.py:109
+#: src/client/MainWindow.py:114
 msgid "Performance"
 msgstr "Performans"
 
-#: src/client/MainWindow.py:110
+#: src/client/MainWindow.py:115
 msgid "Powersave"
 msgstr "Güç tasarrufu"
 
-#: src/client/MainWindow.py:111
+#: src/client/MainWindow.py:116
 msgid "Do Noting"
 msgstr "Hiçbir şey yapma"
 
-#: src/client/MainWindow.py:153
+#: src/client/MainWindow.py:158
 msgid "Power profile changed: "
 msgstr "Güç profili değişti: "
 
-#: src/client/MainWindow.py:156
+#: src/client/MainWindow.py:161
 msgid "Disable Powersave"
 msgstr "Güç tasarrufunu kapat"
 
-#: src/client/MainWindow.py:159
+#: src/client/MainWindow.py:164
 msgid "Enable Powersave"
 msgstr "Güç tasarrufunu aç"
