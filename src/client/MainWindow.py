@@ -177,6 +177,13 @@ class MainWindow:
                 self.o("ui_box_brightness").hide()
         if "show" in data:
             self.open_window_event(None)
+        if self.current_mode == "powersave":
+            self.o("ui_button_powersave").set_sensitive(False)
+            self.o("ui_button_performance").set_sensitive(True)
+        else:
+            self.o("ui_button_powersave").set_sensitive(True)
+            self.o("ui_button_performance").set_sensitive(False)
+
         self.update_lock = False
 
     def set_brightness(self, widget):
@@ -236,7 +243,6 @@ class MainWindow:
 
 ###### buttons event ######
 
-    @asynchronous
     def powersave_event(self,widget):
         data = {}
         data["pid"] = os.getpid()
@@ -244,7 +250,9 @@ class MainWindow:
         if os.path.exists("/run/ppm"):
             with open("/run/ppm","w") as f:
                 f.write(json.dumps(data))
-    @asynchronous
+        self.o("ui_button_powersave").set_sensitive(False)
+        self.o("ui_button_performance").set_sensitive(True)
+
     def performance_event(self,widget):
         data = {}
         data["pid"] = os.getpid()
@@ -252,6 +260,8 @@ class MainWindow:
         if os.path.exists("/run/ppm"):
             with open("/run/ppm","w") as f:
                 f.write(json.dumps(data))
+        self.o("ui_button_powersave").set_sensitive(True)
+        self.o("ui_button_performance").set_sensitive(False)
 
 ###### Window functions ######
 
