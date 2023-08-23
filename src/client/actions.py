@@ -16,14 +16,6 @@ def write_settings(data):
 print(sys.argv)
 if len(sys.argv) == 1:
     exit(1)
-if sys.argv[1] == "stop_service":
-    writefile("/usr/share/pardus/power-manager/pause-service","1")
-    os.system("systemctl stop ppm")
-if sys.argv[1] == "start_service":
-    if os.path.exists("/usr/share/pardus/power-manager/pause-service"):
-        os.unlink("/usr/share/pardus/power-manager/pause-service")
-    os.system("systemctl start ppm")
 if sys.argv[1] == "save":
-    data = readfile(sys.argv[2])
-    data = json.loads(data)
+    data = json.loads(sys.argv[2])
     write_settings(data)
