@@ -98,7 +98,6 @@ class MainWindow:
         self.window.connect("delete-event", self.window_delete_event)
         self.o("ui_button_powersave").connect("clicked",self.powersave_event)
         self.o("ui_button_performance").connect("clicked",self.performance_event)
-        self.o("ui_switch_service").connect("notify::active",self.save_settings)
         self.o("ui_combobox_acmode").connect("changed",self.save_settings)
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
         self.o("ui_scale_brightness").connect("value-changed",self.set_brightness)
@@ -132,14 +131,10 @@ class MainWindow:
 
 
     def value_init(self):
-        self.o("ui_switch_service").set_state(get("enabled",True,"service"))
-        if os.path.exists("/usr/share/pardus/power-manager/pause-service"):
-            self.o("ui_switch_service").set_state(False)
         self.o("ui_spinbutton_switch_to_performance").set_value(float(get("powersave_threshold","25","modes")))
         l = ["performance", "powersave", "ignore"]
         self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
         self.o("ui_combobox_batmode").set_active(l.index(get("bat-mode","powersave","modes")))
-        self.o("ui_box_main").set_sensitive(get("enabled",True,"service"))
 
 ###### mode functions ######
 
@@ -201,8 +196,7 @@ class MainWindow:
         data = {}
         # service
         data["service"] = {}
-        data["service"]["enabled"] = self.o("ui_switch_service").get_state()
-        self.o("ui_box_main").set_sensitive(data["service"]["enabled"])
+        data["service"]["enabled"] = True
         # modes
         data["modes"] = {}
         ac_w = self.o("ui_combobox_acmode")
@@ -218,18 +212,11 @@ class MainWindow:
         self.write_settings(data)
         fdata = {}
         fdata["update"]="client"
-        if data["service"]["enabled"]:
-            subprocess.run(["pkexec", actions_file, "start_service"])
-        else:
-            self.performance_event(None)
-            subprocess.run(["pkexec", actions_file, "stop_service"])
         send_server(fdata)
 
     @asynchronous
     def write_settings(self, data):
-        cfgfile = "/tmp/{}.ppm.conf".format(os.getuid())
-        writefile(cfgfile,json.dumps(data))
-        subprocess.run(["pkexec", actions_file, "save",cfgfile])
+        subprocess.run(["pkexec", actions_file, "save", json.dumps(data)])
         os.unlink(cfgfile)
 
 ###### utility functions ######
