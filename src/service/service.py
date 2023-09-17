@@ -9,13 +9,7 @@ def main(data):
         return
     debug("Reading /run/ppm fifo")
 
-    # mode switch
-    if "new-mode" in data:
-        if data["new-mode"] in ["powersave", "performance"]:
-            power.set_mode(data["new-mode"])
-    if "new-backlight" in data:
-        for dev in data["new-backlight"]:
-             backlight.set_brightness(dev, data["new-backlight"][dev])
+    events_blocked = False
 
     # battery events
     if acpi_battery == None:
@@ -27,8 +21,18 @@ def main(data):
             if data["update"] == "service":
                 if float(b.level) <= float(get("powersave_threshold","25","modes")):
                     power.set_mode("powersave")
+                    events_blocked = True
             elif data["update"] == "client":
                 b.set_stop_threshold(get("charge_stop_enabled",False,"modes"))
+
+    if not events_blocked:
+        # mode switch
+        if "new-mode" in data:
+            if data["new-mode"] in ["powersave", "performance"]:
+                power.set_mode(data["new-mode"])
+        if "new-backlight" in data:
+            for dev in data["new-backlight"]:
+                backlight.set_brightness(dev, data["new-backlight"][dev])
 
     # client update
     udata = {}

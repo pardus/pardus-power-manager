@@ -100,6 +100,7 @@ class MainWindow:
         self.o("ui_button_performance").connect("clicked",self.performance_event)
         self.o("ui_combobox_acmode").connect("changed",self.save_settings)
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
+        self.o("ui_checkbox_battery_treshold").connect("toggled",self.save_settings)
         self.o("ui_scale_brightness").connect("value-changed",self.set_brightness)
         self.o("ui_spinbutton_switch_to_performance").connect("value-changed",self.save_settings)
         self.o("ui_button_about").connect("clicked",self.__about_event)
@@ -132,6 +133,7 @@ class MainWindow:
 
     def value_init(self):
         self.o("ui_spinbutton_switch_to_performance").set_value(float(get("powersave_threshold","25","modes")))
+        self.o("ui_checkbox_battery_treshold").set_active(get("charge_stop_enabled","False","modes").lower() == "true")
         l = ["performance", "powersave", "ignore"]
         self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
         self.o("ui_combobox_batmode").set_active(l.index(get("bat-mode","powersave","modes")))
@@ -207,6 +209,7 @@ class MainWindow:
         t = bat_w.get_active_iter()
         if t:
             data["modes"]["bat-mode"] = bat_w.get_model()[t][1]
+        data["modes"]["charge_stop_enabled"] = str(self.o("ui_checkbox_battery_treshold").get_active())
         # backlight
         data["modes"]["powersave_threshold"] = str(self.o("ui_spinbutton_switch_to_performance").get_value())
         self.write_settings(data)
@@ -217,7 +220,6 @@ class MainWindow:
     @asynchronous
     def write_settings(self, data):
         subprocess.run(["pkexec", actions_file, "save", json.dumps(data)])
-        os.unlink(cfgfile)
 
 ###### utility functions ######
 
@@ -231,24 +233,20 @@ class MainWindow:
 ###### buttons event ######
 
     def powersave_event(self,widget):
+        self.o("ui_button_powersave").set_sensitive(False)
+        self.o("ui_button_performance").set_sensitive(True)
         data = {}
         data["pid"] = os.getpid()
         data["new-mode"] = "powersave"
-        if os.path.exists("/run/ppm"):
-            with open("/run/ppm","w") as f:
-                f.write(json.dumps(data))
-        self.o("ui_button_powersave").set_sensitive(False)
-        self.o("ui_button_performance").set_sensitive(True)
+        send_server(data)
 
     def performance_event(self,widget):
+        self.o("ui_button_powersave").set_sensitive(True)
+        self.o("ui_button_performance").set_sensitive(False)
         data = {}
         data["pid"] = os.getpid()
         data["new-mode"] = "performance"
-        if os.path.exists("/run/ppm"):
-            with open("/run/ppm","w") as f:
-                f.write(json.dumps(data))
-        self.o("ui_button_powersave").set_sensitive(True)
-        self.o("ui_button_performance").set_sensitive(False)
+        send_server(data)
 
 ###### Window functions ######
 
