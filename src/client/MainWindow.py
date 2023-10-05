@@ -90,6 +90,8 @@ class MainWindow:
         self.spinbutton_init()
         self.value_init()
         self.connect_signal()
+        if not charge_stop_available():
+            self.o("ui_checkbox_battery_treshold").hide()
         self.__is_init = True
 
     def connect_signal(self):

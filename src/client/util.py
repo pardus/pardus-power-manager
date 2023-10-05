@@ -32,3 +32,11 @@ def send_server(data={}):
     except Exception as e:
         print(str(e))
 
+
+def charge_stop_available():
+    for name in os.listdir("/sys/class/power_supply"):
+        path="/sys/class/power_supply/{}/".format(name)
+        for f in ["charge_control_end_threshold", "charge_stop_threshold"]:
+            if os.path.exists(path+f):
+                return True
+    return False
