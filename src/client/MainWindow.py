@@ -48,19 +48,17 @@ class MainWindow:
         self.builder = Gtk.Builder()
         self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
         self.window = self.builder.get_object("ui_window_main")
-        data = {}
-        data["update"]="client"
-        send_server(data)
-
-    def init(self):
-        if self.__is_init:
-            return
         self.indicator = appindicator.Indicator.new(
             "pardus-power-manager", "pardus-pm-performance-symbolic", appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
+        self.indicator.set_icon("pardus-pm-powersave-symbolic")
 
         Notify.init("Pardus Power Manager")
 
+    @asynchronous
+    def init(self):
+        if self.__is_init:
+            return
         self.menu = Gtk.Menu()
         self.current_mode = None
 
@@ -148,6 +146,7 @@ class MainWindow:
             data["new-mode"] = "performance"
         send_server(data)
 
+    @asynchronous
     def update(self,data):
         self.init()
         print(data)
