@@ -15,7 +15,7 @@ except:
     gi.require_version('AyatanaAppIndicator3', '0.1')
     from gi.repository import AyatanaAppIndicator3 as appindicator
 
-from util import send_server
+from util import send_server, charge_stop_available
 from common import *
 
 try:
