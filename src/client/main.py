@@ -52,6 +52,10 @@ class Application(Gtk.Application):
         listen(self.main)
         if "--autostart" not in sys.argv:
             self.main.open_window_event(None)
+        data = {}
+        data["update"]="client"
+        send_server(data)
+
 
     def do_command_line(self, command_line):
         options = command_line.get_options_dict()
