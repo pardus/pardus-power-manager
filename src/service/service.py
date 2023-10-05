@@ -19,6 +19,8 @@ def main(data):
         if "update" in data:
             reload_config()
             if data["update"] == "service":
+                if b.status == "charging":
+                    continue
                 if float(b.level) <= float(get("powersave_threshold","25","modes")):
                     power.set_mode("powersave")
                     events_blocked = True
