@@ -91,7 +91,7 @@ class MainWindow:
         self.value_init()
         self.connect_signal()
         if not charge_stop_available():
-            self.o("ui_checkbox_battery_treshold").hide()
+            self.o("ui_checkbox_battery_treshold").set_visible(False)
         self.__is_init = True
 
     def connect_signal(self):
@@ -172,7 +172,7 @@ class MainWindow:
                     print(max, cur)
                     self.o("ui_scale_brightness").set_value((cur*100)/max)
             else:
-                self.o("ui_box_brightness").hide()
+                self.o("ui_box_brightness").set_visible(False)
         if "show" in data:
             self.open_window_event(None)
         if self.current_mode == "powersave":
