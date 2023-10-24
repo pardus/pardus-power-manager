@@ -12,6 +12,7 @@ def listen(main):
     ppm = ppm+"/"+str(os.getpid())
     if not os.path.exists(ppm):
         os.mkfifo(ppm)
+        os.chmod(ppm, 0o222)
     while True:
         with open(ppm,"r") as f:
             try:
