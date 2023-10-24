@@ -8,8 +8,6 @@
     <property name="page-increment">10</property>
   </object>
   <object class="GtkWindow" id="ui_window_main">
-    <property name="width-request">400</property>
-    <property name="height-request">400</property>
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
     <child>
@@ -23,14 +21,16 @@
           <object class="GtkBox" id="ui_box_main">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-bottom">8</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">5</property>
+            <property name="spacing">13</property>
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
+                <property name="spacing">13</property>
                 <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="ui_button_powersave">
@@ -131,6 +131,8 @@
                 <property name="can-focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
+                <property name="margin-top">8</property>
+                <property name="margin-bottom">8</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">13</property>
                 <property name="homogeneous">True</property>
@@ -138,7 +140,7 @@
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="orientation">vertical</property>
+                    <property name="spacing">8</property>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
@@ -177,12 +179,12 @@
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="orientation">vertical</property>
+                    <property name="spacing">8</property>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">on Battery:</property>
+                        <property name="label" translatable="yes">On Battery:</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -224,7 +226,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">center</property>
-                <property name="spacing">5</property>
+                <property name="spacing">8</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
@@ -241,6 +243,7 @@
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="spacing">8</property>
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
@@ -317,6 +320,8 @@
                   <object class="GtkScale" id="ui_scale_brightness">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="margin-start">34</property>
+                    <property name="margin-end">34</property>
                     <property name="adjustment">adjustment1</property>
                     <property name="lower-stepper-sensitivity">on</property>
                     <property name="upper-stepper-sensitivity">on</property>
@@ -368,6 +373,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-top">5</property>
                 <property name="label" translatable="yes">TÜBİTAK ULAKBİM | 2023</property>
                 <attributes>
                   <attribute name="weight" value="light"/>
@@ -418,7 +424,7 @@
     <property name="icon-name">pardus-power-manager</property>
     <property name="type-hint">dialog</property>
     <property name="program-name">Pardus Power Manager</property>
-    <property name="version">2.0.0</property>
+    <property name="version">2.0.1</property>
     <property name="copyright">© 2023 Pardus</property>
     <property name="comments" translatable="yes">Power manager</property>
     <property name="website">https://github.com/pardus/pardus-power-manager</property>
