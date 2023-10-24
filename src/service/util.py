@@ -7,9 +7,8 @@ from common import *
 def listen(main):
     if not os.path.exists("/run/ppm"):
         os.mkfifo("/run/ppm")
-        os.chmod("/run/ppm", 0o777)
+        os.chmod("/run/ppm", 0o222)
         os.chown("/run/ppm", 0, 0)
-        os.system("chattr -R -a /run/ppm")
     while True:
         fifo = Path("/run/ppm")
         data = fifo.read_text().strip()
@@ -18,8 +17,6 @@ def listen(main):
             data = json.loads(data)
             if "pid" in data:
                 main(data)
-
-
 
 def send_client(data):
     print(data)
