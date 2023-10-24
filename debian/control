@@ -3,12 +3,12 @@ Section: utils
 Priority: optional
 Maintainer: Ali Rıza KESKİN <ali.riza.keskin@pardus.org.tr>
 Build-Depends: meson, ninja-build
-Breaks: tlp, power-profiles-daemon
 Standards-Version: 4.3.0
 Homepage: https://pardus.org.tr
 
 Package: pardus-power-manager
 Architecture: all
+Breaks: tlp, power-profiles-daemon
 Depends: ${misc:Depends},
          libc6,
          python3 (>=3.5),
