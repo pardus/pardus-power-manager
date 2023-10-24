@@ -34,7 +34,7 @@ msgid "On Power:"
 msgstr ""
 
 #: src/data/MainWindow.ui:224
-msgid "on Battery:"
+msgid "On Battery:"
 msgstr ""
 
 #: src/data/MainWindow.ui:271
