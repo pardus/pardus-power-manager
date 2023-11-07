@@ -9,6 +9,8 @@ _cur_mode = None
 
 def set_mode(mode):
     global _cur_mode
+    if _cur_mode == mode:
+        return
     backlight="%100"
     if mode == "performance":
         _performance()
