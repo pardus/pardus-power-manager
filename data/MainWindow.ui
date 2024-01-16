@@ -374,7 +374,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="margin-top">5</property>
-                <property name="label" translatable="yes">TÜBİTAK ULAKBİM | 2023</property>
+                <property name="label">TÜBİTAK ULAKBİM | 2024</property>
                 <attributes>
                   <attribute name="weight" value="light"/>
                 </attributes>
@@ -425,7 +425,7 @@
     <property name="type-hint">dialog</property>
     <property name="program-name">Pardus Power Manager</property>
     <property name="version">2.0.1</property>
-    <property name="copyright">© 2023 Pardus</property>
+    <property name="copyright">© 2024 Pardus</property>
     <property name="comments" translatable="yes">Power manager</property>
     <property name="website">https://github.com/pardus/pardus-power-manager</property>
     <property name="license" translatable="yes">This program comes with absolutely no warranty.
