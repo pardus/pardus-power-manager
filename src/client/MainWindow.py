@@ -148,7 +148,7 @@ class MainWindow:
             data["new-mode"] = "performance"
         send_server(data)
 
-    @asynchronous
+    @idle
     def update(self,data):
         self.init()
         print(data)
@@ -173,7 +173,7 @@ class MainWindow:
                     self.o("ui_scale_brightness").set_value((cur*100)/max)
             else:
                 self.o("ui_box_brightness").set_visible(False)
-        if "show" in data:
+        if "show" in data and data["show"] == str(os.getuid()):
             self.open_window_event(None)
         if self.current_mode == "powersave":
             self.o("ui_button_powersave").set_sensitive(False)

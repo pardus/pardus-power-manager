@@ -3,25 +3,22 @@ from util import *
 from MainWindow import *
 import os, sys
 
-import gi
+import gi, json
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GLib
 
 client_dir = "/run/user/{}/ppm/".format(os.getuid())
 no_show = False
 if os.path.exists(client_dir):
-    data = {}
-    data["pid"] = os.getpid()
-    data["show"] = "1"
-    for fifo in listdir(client_dir):
-        if os.path.exists("/proc/{}".format(fifo)):
-            writefile(client_dir + fifo, json.dumps(data))
-            no_show = True
-        else:
-            os.unlink(client_dir + fifo)
+    if len(os.listdir(client_dir)) > 0:
+        data = {}
+        data["pid"] = os.getpid()
+        data["show"] = str(os.getuid())
+        no_show = True
+        with open("/run/ppm","w") as f:
+            f.write(json.dumps(data))
 if no_show:
     exit(0)
-
 
 class Application(Gtk.Application):
     def __init__(self, *args, **kwargs):

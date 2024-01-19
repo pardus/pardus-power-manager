@@ -7,3 +7,11 @@ def asynchronous(func):
         return thread
     return wrapper
 
+
+from gi.repository import GObject
+
+def idle(func):
+    def wrapper(*args, **kwargs):
+        GObject.idle_add(func, *args, **kwargs)
+    return wrapper
+

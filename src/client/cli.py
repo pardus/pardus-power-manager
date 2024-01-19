@@ -7,7 +7,7 @@ def usage():
     print("Usage: ppm [set/get] [mode/backlight] (value)")
     exit(1)
 
-if len(sys.argv) <= 2:
+if len(sys.argv) <= 2 and sys.argv[1] != "show":
     usage()
 
 if not os.path.exists("/run/ppm"):
@@ -16,7 +16,11 @@ if not os.path.exists("/run/ppm"):
 
 data = {}
 data["pid"] = os.getpid()
-if sys.argv[1] == "set":
+if sys.argv[1] == "show":
+    data["show"] = str(os.getuid())
+    with open("/run/ppm","w") as f:
+        f.write(json.dumps(data))
+elif sys.argv[1] == "set":
     if len(sys.argv) <= 3:
         usage()
     if sys.argv[2] == "mode":

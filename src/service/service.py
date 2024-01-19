@@ -39,6 +39,8 @@ def main(data):
     # client update
     udata = {}
     udata["mode"] = power.get_mode()
+    if "show" in data:
+        udata["show"] = data["show"]
     udata["backlight"] = {}
     for dev in backlight.get_devices():
         udata["backlight"][dev] = {}
