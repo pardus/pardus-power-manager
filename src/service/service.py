@@ -3,7 +3,6 @@ import backends.power as power
 import backends.backlight as backlight
 import backends.battery as battery
 
-
 def main(data):
     if os.path.exists("/usr/share/pardus/power-manager/pause-service"):
         return
