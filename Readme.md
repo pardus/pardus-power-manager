@@ -25,3 +25,7 @@ You can use `ppm` command for changing profile or brightless
 Usage: ppm [set/get] [mode/backlight] (value)
 ```
 Also you can use indicator from system tray.
+
+## License
+Pardus Power Manager is distributed under the terms of the GNU General Public License,
+version 3 or later. See the [LICENSE](LICENSE) file for details.
