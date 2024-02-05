@@ -83,6 +83,13 @@ class MainWindow:
 
         # about dialog
         self.o("ui_about_dialog").set_program_name(_("Pardus Power Manager"))
+        if self.o("ui_about_dialog").get_titlebar() is None:
+            about_headerbar = Gtk.HeaderBar.new()
+            about_headerbar.set_show_close_button(True)
+            about_headerbar.set_title(_("About Pardus Power Manager"))
+            about_headerbar.pack_start(Gtk.Image.new_from_icon_name("pardus-power-manager", Gtk.IconSize.LARGE_TOOLBAR))
+            about_headerbar.show_all()
+            self.o("ui_about_dialog").set_titlebar(about_headerbar)
 
         # settings page
         self.window.set_icon_name("pardus-power-manager")
