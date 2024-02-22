@@ -40,7 +40,12 @@ def main(data):
     # client update
     udata = {}
     udata["mode"] = power.get_mode()
-    udata["acpi-supported"] = is_acpi_supported()
+    udata["info"] = {}
+    udata["info"]["acpi-supported"] = is_acpi_supported()
+    udata["info"]["laptop"] = is_laptop()
+    udata["info"]["virtual-machine"] = is_virtual_machine()
+    udata["info"]["live"] = is_live()
+    udata["info"]["oem"] = is_oem_available()
     if "show" in data:
         udata["show"] = data["show"]
     udata["backlight"] = {}

@@ -59,3 +59,6 @@ def is_acpi_supported():
         else:
             acpi_support = False
     return acpi_support
+
+def is_oem_available():
+    return os.path.exists("/sys/firmware/acpi/MSDM")

@@ -4,10 +4,10 @@ import json
 
 def usage():
     print(sys.argv)
-    print("Usage: ppm [set/get] [mode/backlight] (value)")
+    print("Usage: ppm [set/get] [mode/backlight/battery/info] (value)")
     exit(1)
 
-if len(sys.argv) <= 2 and sys.argv[1] != "show":
+if len(sys.argv) <= 2 and (len(sys.argv) < 2 or sys.argv[1] != "show"):
     usage()
 
 if not os.path.exists("/run/ppm"):
@@ -51,6 +51,13 @@ elif sys.argv[1] == "get":
     data = json.loads(data)
     if sys.argv[2] == "mode":
         print(data["mode"])
+    if sys.argv[2] == "info":
+        print("[info]")
+        print("acpi-supported={}".format(data["info"]["acpi-supported"]))
+        print("laptop={}".format(data["info"]["laptop"]))
+        print("virtual-machine={}".format(data["info"]["virtual-machine"]))
+        print("live={}".format(data["info"]["live"]))
+        print("oem={}".format(data["info"]["oem"]))
     elif sys.argv[2] == "backlight":
         for d in data["backlight"].keys():
             print("[{}]".format(d))
