@@ -30,7 +30,10 @@ def get_mode():
 @asynchronous
 def _powersave():
     # laptop mode
-    writefile("/proc/sys/vm/laptop_mode",1)
+    writefile("/proc/sys/vm/laptop_mode",5)
+
+    # NMI watchdog
+    writefile("/proc/sys/kernel/nmi_watchdog",0)
 
     # platform profile
     writefile("/sys/firmware/acpi/platform_profile","low-power")
@@ -55,23 +58,23 @@ def _powersave():
         # usb auto suspend
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
-            writefile("{}/{}/power/control".format(usb_path,dir),"on")
+            writefile("{}/{}/power/control".format(usb_path,dir),"auto")
 
     if get("pci-suspend",True,"power"):
         # pci auto suspend
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
-            writefile("{}/{}/power/control".format(pci_path,dir),"on")
+            writefile("{}/{}/power/control".format(pci_path,dir),"auto")
 
     if get("i2c-suspend",True,"power"):
         # i2c auto suspend
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
-            writefile("{}/{}/power/control".format(i2c_path,dir),"on")
+            writefile("{}/{}/power/control".format(i2c_path,dir),"auto")
 
     if get("audio",True,"power"):
         # audio card
-        writefile("/sys/module/snd_hda_intel/parameters/power_save",5)
+        writefile("/sys/module/snd_hda_intel/parameters/power_save",1)
         writefile("/sys/module/snd_hda_intel/parameters/power_save_controller","Y")
 
 
@@ -123,6 +126,9 @@ def _powersave():
 def _performance():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",0)
+
+    # NMI watchdog
+    writefile("/proc/sys/kernel/nmi_watchdog",0)
 
     # platform profile
     writefile("/sys/firmware/acpi/platform_profile","power")
