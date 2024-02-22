@@ -13,6 +13,7 @@ class battery:
         self.level = 100
         self.status = "unknown"
         self.health = 100
+        self.usage = 0
         self.update()
         path="/sys/class/power_supply/{}/".format(self.name)
         self.real_name = readfile("{}/manufacturer".format(path))
@@ -35,6 +36,10 @@ class battery:
             now= readfile("{}/energy_now".format(path))
             max= readfile("{}/energy_full".format(path))
             self.level = int(now)/int(max) * 100
+            self.usage = (self.__last_energy - now) / (int(time.time()) - self.__last_update)
+            self.__last_energy = now
+            self.__last_update = int(time.time())
+
         elif os.path.exists("{}/capacity".format(path)):
             self.level = int(readfile("{}/capacity".format(path)))
         elif os.path.exists("{}/capacity_level".format(path)):

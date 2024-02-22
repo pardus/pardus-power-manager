@@ -51,6 +51,7 @@ def main(data):
         udata["battery"][dev.name]["level"] = dev.level
         udata["battery"][dev.name]["real_name"] = dev.real_name
         udata["battery"][dev.name]["status"] = dev.status
+        udata["battery"][dev.name]["usage"] = dev.usage
         udata["battery"][dev.name]["health"] = dev.health
     send_client(udata)
 
