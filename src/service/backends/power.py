@@ -54,11 +54,18 @@ def _powersave():
         for dir in listdir(cpu_path):
             if dir.startswith("cpu"):
                 writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"powersave")
+
     if get("usb-suspend",True,"power"):
         # usb auto suspend
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
             writefile("{}/{}/power/control".format(usb_path,dir),"auto")
+
+    if get("block",True,"power"):
+        # block auto suspend
+        block_path="/sys/block/"
+        for dir in listdir(block_path):
+            writefile("{}/{}/device/power/control".format(block_path,dir),"auto")
 
     if get("pci-suspend",True,"power"):
         # pci auto suspend
@@ -149,6 +156,12 @@ def _performance():
         for dir in listdir(cpu_path):
             if dir.startswith("cpu"):
                 writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"power")
+
+    if get("block",True,"power"):
+        # block auto suspend
+        block_path="/sys/block/"
+        for dir in listdir(block_path):
+            writefile("{}/{}/device/power/control".format(block_path,dir),"on")
 
     if get("usb",True,"power"):
         # usb auto suspend
