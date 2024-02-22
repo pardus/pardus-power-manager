@@ -111,7 +111,10 @@ class MainWindow:
         self.o("ui_scale_brightness").connect("value-changed",self.set_brightness)
         self.o("ui_spinbutton_switch_to_performance").connect("value-changed",self.save_settings)
         self.o("ui_button_about").connect("clicked",self.__about_event)
+        self.o("ui_button_warning").connect("clicked",self.__warning_event)
 
+    def __warning_event(self, widget):
+        self.o("ui_popover_warning").popup()
 
     def __about_event(self, widget):
         self.o("ui_about_dialog").run()
@@ -188,6 +191,13 @@ class MainWindow:
         else:
             self.o("ui_button_powersave").set_sensitive(True)
             self.o("ui_button_performance").set_sensitive(False)
+
+        if "info" in data:
+            acpi = (str(data["info"]["acpi-supported"]).lower() == "true")
+            oem = (str(data["info"]["oem"]).lower() == "true")
+            self.o("ui_button_warning").set_visible(oem or acpi)
+            self.o("ui_box_warning_acpi").set_visible(acpi)
+            self.o("ui_box_warning_oem").set_visible(oem)
 
         self.update_lock = False
 
