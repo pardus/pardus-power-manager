@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-21 14:26+0000\n"
+"POT-Creation-Date: 2024-02-22 14:38+0300\n"
 "PO-Revision-Date: 2022-10-18 11:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,51 +17,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: src/data/MainWindow.ui:46
-msgid "Service:"
-msgstr "Servis:"
-
-#: src/data/MainWindow.ui:100
+#: src/data/MainWindow.ui:61
 msgid "POWERSAVE"
 msgstr "GÜÇ TASARRUFU"
 
-#: src/data/MainWindow.ui:143
+#: src/data/MainWindow.ui:104
 msgid "PERFORMANCE"
 msgstr "PERFORMANS"
 
-#: src/data/MainWindow.ui:185
+#: src/data/MainWindow.ui:148
 msgid "On Power:"
 msgstr "Güçte:"
 
-#: src/data/MainWindow.ui:224
+#: src/data/MainWindow.ui:187
 msgid "On Battery:"
 msgstr "Pilde:"
 
-#: src/data/MainWindow.ui:271
+#: src/data/MainWindow.ui:234
 msgid "Switch to Powersave :"
 msgstr "Güç Tasarrufuna Geç:"
 
-#: src/data/MainWindow.ui:287
+#: src/data/MainWindow.ui:251
 msgid "%"
 msgstr "%"
 
-#: src/data/MainWindow.ui:330
+#: src/data/MainWindow.ui:287
+msgid "Stop charging the battery at 80%"
+msgstr ""
+
+#: src/data/MainWindow.ui:311
 msgid "Screen Brightness:"
 msgstr "Ekran Parlaklığı:"
 
-#: src/data/MainWindow.ui:393
-msgid "TÜBİTAK ULAKBİM | 2023"
-msgstr "TÜBİTAK ULAKBİM | 2023"
-
-#: src/data/MainWindow.ui:421 src/client/MainWindow.py:84
+#: src/data/MainWindow.ui:402 src/client/MainWindow.py:82
+#: src/client/MainWindow.py:85
 msgid "Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi"
 
-#: src/data/MainWindow.ui:448
+#: src/data/MainWindow.ui:473
+msgid "Your device does not have a linux acpi table ."
+msgstr "Donanımınız bir linux acpi tablosuna sahip değil."
+
+#: src/data/MainWindow.ui:510
+msgid "Windows OEM detected."
+msgstr "Windows OEM tespit edildi."
+
+#: src/data/MainWindow.ui:547
+msgid "Power management may not works good."
+msgstr "Güç yönetimi düzgün çalışmayabilir."
+
+#: src/data/MainWindow.ui:573
 msgid "Power manager"
 msgstr "Güç Yöneticisi"
 
-#: src/data/MainWindow.ui:450
+#: src/data/MainWindow.ui:575
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -76,39 +85,49 @@ msgstr "güç tasarrufu"
 msgid "performance"
 msgstr "performans"
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:258
-#: src/client/MainWindow.py:268
+#: src/client/MainWindow.py:66 src/client/MainWindow.py:276
+#: src/client/MainWindow.py:286
 msgid "Show"
 msgstr "Göster"
 
-#: src/client/MainWindow.py:70 src/client/MainWindow.py:264
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:282
 msgid "Hide"
 msgstr "Gizle"
 
-#: src/client/MainWindow.py:78
+#: src/client/MainWindow.py:76
 msgid "Exit"
 msgstr "Çıkış"
 
-#: src/client/MainWindow.py:114
+#: src/client/MainWindow.py:89
+msgid "About Pardus Power Manager"
+msgstr "Pardus Güç Yöneticisi Hakkında"
+
+#: src/client/MainWindow.py:127
 msgid "Performance"
 msgstr "Performans"
 
-#: src/client/MainWindow.py:115
+#: src/client/MainWindow.py:128
 msgid "Powersave"
 msgstr "Güç tasarrufu"
 
-#: src/client/MainWindow.py:116
+#: src/client/MainWindow.py:129
 msgid "Do Noting"
 msgstr "Hiçbir şey yapma"
 
-#: src/client/MainWindow.py:158
+#: src/client/MainWindow.py:169
 msgid "Power profile changed: "
 msgstr "Güç profili değişti: "
 
-#: src/client/MainWindow.py:161
+#: src/client/MainWindow.py:172
 msgid "Disable Powersave"
 msgstr "Güç tasarrufunu kapat"
 
-#: src/client/MainWindow.py:164
+#: src/client/MainWindow.py:175
 msgid "Enable Powersave"
 msgstr "Güç tasarrufunu aç"
+
+#~ msgid "Service:"
+#~ msgstr "Servis:"
+
+#~ msgid "TÜBİTAK ULAKBİM | 2023"
+#~ msgstr "TÜBİTAK ULAKBİM | 2023"
