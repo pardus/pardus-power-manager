@@ -48,3 +48,14 @@ def is_docker():
 
 def is_root():
     return os.getuid() == 0
+
+acpi_support = None
+def is_acpi_supported():
+    global acpi_support
+    if acpi_support == None:
+        if is_root():
+            with open("/sys/firmware/acpi/tables/DSDT","rb") as f:
+                acpi_support = ("linux" in str(f.read()).lower() )
+        else:
+            acpi_support = False
+    return acpi_support

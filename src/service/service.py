@@ -40,6 +40,7 @@ def main(data):
     # client update
     udata = {}
     udata["mode"] = power.get_mode()
+    udata["acpi-supported"] = is_acpi_supported()
     if "show" in data:
         udata["show"] = data["show"]
     udata["backlight"] = {}

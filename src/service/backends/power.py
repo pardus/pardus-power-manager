@@ -29,6 +29,49 @@ def get_mode():
 # https://wiki.debian.org/SimplePowerSave
 @asynchronous
 def _powersave():
+    if get("governor",True,"power"):
+        # cpu governor
+        cpu_path="/sys/devices/system/cpu/"
+        for dir in listdir(cpu_path):
+            if dir.startswith("cpu"):
+                writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"powersave")
+
+    if get("cpufreq",True,"power"):
+        # decrease max cpu freq
+        ratio = float(get("freq-ratio",0.5,"powersave"))
+        if ratio > 1.0:
+            ratio = 1.0
+        cpu_path="/sys/devices/system/cpu/"
+        for dir in listdir(cpu_path):
+            if not dir.startswith("cpu"):
+                continue
+            freq_file = "{}/{}/cpufreq/scaling_available_frequencies".format(cpu_path,dir)
+            if os.path.exists(freq_file):
+                freqs = readfile(freq_file).split(" ")
+                if len(freqs) > 0 and freqs[0] != '':
+                    new_freq = freqs[int((len(freqs) -1) * ratio)]
+                    writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
+            else:
+                min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
+                max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
+                if min_freq != "" and max_freq != "":
+                    new_freq = int(max_freq) * ratio
+                    writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
+
+    if get("core",True,"power"):
+        # disable cpu core
+        cpus = list_cpu()
+        dnum = len(cpus) * float(get("core-ratio",0.5,"powersave"))
+        if len(cpus) <= 4:
+            dnum = 0
+        elif len(cpus) - dnum < 4:
+            dnum = 4
+        for cpu in range(len(cpus) - int(dnum), len(cpus)):
+            change_cpu_status(cpu,False)
+
+    if not is_acpi_supported():
+        return
+
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",5)
 
@@ -48,12 +91,6 @@ def _powersave():
             if dir.startswith("host"):
                 writefile("{}/{}/link_power_management_policy".format(scsi_host_path,dir),"min_power")
 
-    if get("governor",True,"power"):
-        # cpu governor
-        cpu_path="/sys/devices/system/cpu/"
-        for dir in listdir(cpu_path):
-            if dir.startswith("cpu"):
-                writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"powersave")
 
     if get("usb-suspend",True,"power"):
         # usb auto suspend
@@ -96,41 +133,36 @@ def _powersave():
         for dir in listdir(net_path):
             writefile("{}/{}/device/power/control".format(net_path,dir),"auto")
 
+
+@asynchronous
+def _performance():
+    if get("governor",True,"power"):
+        # cpu governor
+        cpu_path="/sys/devices/system/cpu/"
+        for dir in listdir(cpu_path):
+            if dir.startswith("cpu"):
+                writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"power")
+
+    if get("core",True,"power"):
+        # enable cpu core
+        cpus = list_cpu()
+        print(cpus)
+        for cpu in range(0, len(cpus)):
+            change_cpu_status(cpu,True)
+
     if get("cpufreq",True,"power"):
-        # decrease max cpu freq
-        ratio = float(get("freq-ratio",0.5,"powersave"))
-        if ratio > 1.0:
-            ratio = 1.0
+        # increase max cpu freq
         cpu_path="/sys/devices/system/cpu/"
         for dir in listdir(cpu_path):
             if not dir.startswith("cpu"):
                 continue
-            freq_file = "{}/{}/cpufreq/scaling_available_frequencies".format(cpu_path,dir)
-            if os.path.exists(freq_file):
-                freqs = readfile(freq_file).split(" ")
-                if len(freqs) > 0 and freqs[0] != '':
-                    new_freq = freqs[int((len(freqs) -1) * ratio)]
-                    writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
-            else:
-                min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
-                max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
-                if min_freq != "" and max_freq != "":
-                    new_freq = int(max_freq) * ratio
-                    writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
+            max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
+            if max_freq != "":
+                writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),max_freq)
 
-    if get("core",True,"power"):
-        # disable cpu core
-        cpus = list_cpu()
-        dnum = len(cpus) * float(get("core-ratio",0.5,"powersave"))
-        if len(cpus) <= 4:
-            dnum = 0
-        elif len(cpus) - dnum < 4:
-            dnum = 4
-        for cpu in range(len(cpus) - int(dnum), len(cpus)):
-            change_cpu_status(cpu,False)
+    if not is_acpi_supported():
+        return
 
-@asynchronous
-def _performance():
     # laptop mode
     writefile("/proc/sys/vm/laptop_mode",0)
 
@@ -150,12 +182,6 @@ def _performance():
             if dir.startswith("host"):
                 writefile("{}/{}/link_power_management_policy".format(scsi_host_path,dir),"max_performance")
 
-    if get("governor",True,"power"):
-        # cpu governor
-        cpu_path="/sys/devices/system/cpu/"
-        for dir in listdir(cpu_path):
-            if dir.startswith("cpu"):
-                writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"power")
 
     if get("block",True,"power"):
         # block auto suspend
@@ -197,19 +223,3 @@ def _performance():
         for dir in listdir(net_path):
             writefile("{}/{}/device/power/control".format(net_path,dir),"on")
 
-    if get("core",True,"power"):
-        # enable cpu core
-        cpus = list_cpu()
-        print(cpus)
-        for cpu in range(0, len(cpus)):
-            change_cpu_status(cpu,True)
-
-    if get("cpufreq",True,"power"):
-        # increase max cpu freq
-        cpu_path="/sys/devices/system/cpu/"
-        for dir in listdir(cpu_path):
-            if not dir.startswith("cpu"):
-                continue
-            max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
-            if max_freq != "":
-                writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),max_freq)
