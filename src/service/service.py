@@ -13,6 +13,8 @@ def main(data):
     # battery events
     if acpi_battery == None:
         battery_init()
+    print(acpi_battery)
+
     for b in acpi_battery:
         b.update()
         if "update" in data:

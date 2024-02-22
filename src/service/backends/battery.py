@@ -36,8 +36,8 @@ class battery:
             now= readfile("{}/energy_now".format(path))
             max= readfile("{}/energy_full".format(path))
             self.level = int(now)/int(max) * 100
-            self.usage = (self.__last_energy - now) / (int(time.time()) - self.__last_update)
-            self.__last_energy = now
+            self.usage = (self.__last_energy - int(now)) / (int(time.time()) - self.__last_update) / 1000
+            self.__last_energy = int(now)
             self.__last_update = int(time.time())
 
         elif os.path.exists("{}/capacity".format(path)):
