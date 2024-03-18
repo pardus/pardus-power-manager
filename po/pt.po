@@ -1,15 +1,15 @@
-# SOME DESCRIPTIVE TITLE.
+# Portuguese translation for pardus-power-manager.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the pardus-power-manager package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022, 2023.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2022, 2023, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-22 14:38+0300\n"
-"PO-Revision-Date: 2023-08-26 18:52+0100\n"
+"PO-Revision-Date: 2024-03-18 16:48+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <hugokarvalho@hotmail.com>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/data/MainWindow.ui:61
 msgid "POWERSAVE"
@@ -32,9 +32,8 @@ msgid "On Power:"
 msgstr "Ligado à corrente:"
 
 #: src/data/MainWindow.ui:187
-#, fuzzy
 msgid "On Battery:"
-msgstr "A usar a bateria:"
+msgstr "A bateria:"
 
 #: src/data/MainWindow.ui:234
 msgid "Switch to Powersave :"
@@ -46,7 +45,7 @@ msgstr "%"
 
 #: src/data/MainWindow.ui:287
 msgid "Stop charging the battery at 80%"
-msgstr ""
+msgstr "Parar de carregar a bateria a 80%"
 
 #: src/data/MainWindow.ui:311
 msgid "Screen Brightness:"
@@ -59,15 +58,15 @@ msgstr "Gestor de Energia Pardus"
 
 #: src/data/MainWindow.ui:473
 msgid "Your device does not have a linux acpi table ."
-msgstr ""
+msgstr "O seu dispositivo não tem uma tabela acpi Linux."
 
 #: src/data/MainWindow.ui:510
 msgid "Windows OEM detected."
-msgstr ""
+msgstr "Windows OEM detetado."
 
 #: src/data/MainWindow.ui:547
 msgid "Power management may not works good."
-msgstr ""
+msgstr "A gestão de energia pode não funcionar corretamente."
 
 #: src/data/MainWindow.ui:573
 msgid "Power manager"
@@ -105,9 +104,8 @@ msgid "Exit"
 msgstr "Sair"
 
 #: src/client/MainWindow.py:89
-#, fuzzy
 msgid "About Pardus Power Manager"
-msgstr "Gestor de Energia Pardus"
+msgstr "Acerca do Gestor de Energia Pardus"
 
 #: src/client/MainWindow.py:127
 msgid "Performance"
