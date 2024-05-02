@@ -127,6 +127,15 @@ def _powersave():
         writefile("/sys/devices/system/cpu/intel_pstate/no_turbo",1)
         writefile("/sys/devices/system/cpu/cpufreq/boost",0)
 
+    if get("gpu",True,"power"):
+        # gpu powersave boost
+        dri_path="/sys/class/drm/"
+        for card in listdir(dri_path):
+            if card.startswith("card") and card[4:].isnumeric():
+                writefile("{}/{}/device/power_dpm_force_performance_level".format(dri_path, card), "low")
+                writefile("{}/{}/device/power_dpm_state".format(dri_path, card), "battery")
+                writefile("{}/{}/device/power/control".format(dri_path, card), "auto")
+
     if get("network",True,"power"):
         # network
         net_path="/sys/class/net/"
@@ -216,6 +225,15 @@ def _performance():
         # turbo boost
         writefile("/sys/devices/system/cpu/intel_pstate/no_turbo",0)
         writefile("/sys/devices/system/cpu/cpufreq/boost",1)
+
+    if get("gpu",True,"power"):
+        # gpu powersave boost
+        dri_path="/sys/class/drm/"
+        for card in listdir(dri_path):
+            if card.startswith("card") and card[4:].isnumeric():
+                writefile("{}/{}/device/power_dpm_force_performance_level".format(dri_path, card), "auto")
+                writefile("{}/{}/device/power_dpm_state".format(dri_path, card), "performance")
+                writefile("{}/{}/device/power/control".format(dri_path, card), "on")
 
     if get("network",True,"power"):
         # network
