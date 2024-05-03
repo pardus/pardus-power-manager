@@ -92,7 +92,7 @@ def _powersave():
                 writefile("{}/{}/link_power_management_policy".format(scsi_host_path,dir),"min_power")
 
 
-    if get("usb-suspend",True,"power"):
+    if get("usb",True,"power"):
         # usb auto suspend
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
@@ -104,13 +104,14 @@ def _powersave():
         for dir in listdir(block_path):
             writefile("{}/{}/device/power/control".format(block_path,dir),"auto")
 
-    if get("pci-suspend",True,"power"):
+    if get("pci",True,"power"):
         # pci auto suspend
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
             writefile("{}/{}/power/control".format(pci_path,dir),"auto")
+        writefile("/sys/module/pcie_aspm/parameters/policy", "powersave")
 
-    if get("i2c-suspend",True,"power"):
+    if get("i2c",True,"power"):
         # i2c auto suspend
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
@@ -209,6 +210,8 @@ def _performance():
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
             writefile("{}/{}/power/control".format(pci_path,dir),"on")
+        writefile("/sys/module/pcie_aspm/parameters/policy", "performance")
+
 
     if get("i2c",True,"power"):
         # i2c auto suspend
