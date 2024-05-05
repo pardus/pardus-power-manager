@@ -82,7 +82,16 @@ def _powersave():
     writefile("/sys/firmware/acpi/platform_profile","low-power")
 
     # less disk activity
-    writefile("/proc/sys/vm/dirty_writeback_centisecs",1500)
+    writefile("/proc/sys/vm/dirty_writeback_centisecs",3000)
+    writefile("/proc/sys/vm/dirty_expire_centisecs",3000)
+    writefile("/proc/sys/vm/dirty_ratio", "10")
+    writefile("/proc/sys/vm/dirty_background_ratio", "5")
+    
+    # vfs cache pressure
+    writefile("/proc/sys/vm/vfs_cache_pressure", "50")
+    
+    # disable THP
+    writefile("/sys/kernel/mm/transparent_hugepage/enabled", "never")
 
     if get("scsi",True,"power"):
         # sata channel
@@ -143,6 +152,17 @@ def _powersave():
         for dir in listdir(net_path):
             writefile("{}/{}/device/power/control".format(net_path,dir),"auto")
 
+    if get("bluetooth",True,"power"):
+        # bluetooth
+        net_path="/sys/class/bluetooth/"
+        for dir in listdir(net_path):
+            writefile("{}/{}/power/control".format(net_path,dir),"auto")
+
+    if get("nvme",True,"power"):
+        # nvme
+        net_path="/sys/class/nvme/"
+        for dir in listdir(net_path):
+            writefile("{}/{}/power/control".format(net_path,dir),"auto")
 
 @asynchronous
 def _performance():
@@ -184,7 +204,16 @@ def _performance():
 
     # more disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",500)
+    writefile("/proc/sys/vm/dirty_expire_centisecs",500)
+    writefile("/proc/sys/vm/dirty_ratio", "20")
+    writefile("/proc/sys/vm/dirty_background_ratio", "10")
+    
+    # vfs cache pressure
+    writefile("/proc/sys/vm/vfs_cache_pressure", "100")
 
+    # enable THP    
+    writefile("/sys/kernel/mm/transparent_hugepage/enabled", "madvise")
+        
     if get("scsi",True,"power"):
         # sata channel
         scsi_host_path="/sys/class/scsi_host/"
@@ -244,3 +273,14 @@ def _performance():
         for dir in listdir(net_path):
             writefile("{}/{}/device/power/control".format(net_path,dir),"on")
 
+    if get("bluetooth",True,"power"):
+        # bluetooth
+        net_path="/sys/class/bluetooth/"
+        for dir in listdir(net_path):
+            writefile("{}/{}/power/control".format(net_path,dir),"on")
+
+    if get("nvme",True,"power"):
+        # nvme
+        net_path="/sys/class/nvme/"
+        for dir in listdir(net_path):
+            writefile("{}/{}/power/control".format(net_path,dir),"on")
