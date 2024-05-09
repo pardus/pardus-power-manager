@@ -195,9 +195,14 @@ class MainWindow:
         if "info" in data:
             acpi = not (str(data["info"]["acpi-supported"]).lower() == "true")
             oem = (str(data["info"]["oem"]).lower() == "true")
-            self.o("ui_button_warning").set_visible(oem or acpi)
+            vm = is_virtual_machine()
+            pm = not is_laptop()
+            self.o("ui_box_warning_virtual").set_visible(vm)
+            self.o("ui_box_warning_laptop").set_visible(pm)
+            self.o("ui_button_warning").set_visible(oem or acpi or vm or pm)
             self.o("ui_box_warning_acpi").set_visible(acpi)
             self.o("ui_box_warning_oem").set_visible(oem)
+            self.o("ui_box_warning_bad").set_visible(not pm)
 
         self.update_lock = False
 

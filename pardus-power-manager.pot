@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-22 14:38+0300\n"
+"POT-Creation-Date: 2024-05-09 15:18+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,18 +59,26 @@ msgid "Your device does not have a linux acpi table ."
 msgstr ""
 
 #: src/data/MainWindow.ui:510
-msgid "Windows OEM detected."
+msgid "Your device does not require power management."
 msgstr ""
 
 #: src/data/MainWindow.ui:547
+msgid "You are using virtual machine."
+msgstr ""
+
+#: src/data/MainWindow.ui:584
+msgid "Windows OEM detected."
+msgstr ""
+
+#: src/data/MainWindow.ui:621
 msgid "Power management may not works good."
 msgstr ""
 
-#: src/data/MainWindow.ui:573
+#: src/data/MainWindow.ui:647
 msgid "Power manager"
 msgstr ""
 
-#: src/data/MainWindow.ui:575
+#: src/data/MainWindow.ui:649
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -85,12 +93,12 @@ msgstr ""
 msgid "performance"
 msgstr ""
 
-#: src/client/MainWindow.py:66 src/client/MainWindow.py:276
-#: src/client/MainWindow.py:286
+#: src/client/MainWindow.py:66 src/client/MainWindow.py:279
+#: src/client/MainWindow.py:289
 msgid "Show"
 msgstr ""
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:282
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:285
 msgid "Hide"
 msgstr ""
 
