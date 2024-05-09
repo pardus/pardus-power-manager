@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-09 15:18+0300\n"
-"PO-Revision-Date: 2024-03-18 16:48+0000\n"
+"PO-Revision-Date: 2024-05-09 18:18+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <hugokarvalho@hotmail.com>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/data/MainWindow.ui:61
 msgid "POWERSAVE"
@@ -61,13 +61,12 @@ msgid "Your device does not have a linux acpi table ."
 msgstr "O seu dispositivo não tem uma tabela acpi Linux."
 
 #: src/data/MainWindow.ui:510
-#, fuzzy
 msgid "Your device does not require power management."
-msgstr "O seu dispositivo não tem uma tabela acpi Linux."
+msgstr "O seu dispositivo não necessita de gestão de energia."
 
 #: src/data/MainWindow.ui:547
 msgid "You are using virtual machine."
-msgstr ""
+msgstr "Está a usar uma máquina virtual."
 
 #: src/data/MainWindow.ui:584
 msgid "Windows OEM detected."
