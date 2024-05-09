@@ -44,6 +44,7 @@ def main(data):
     udata["info"]["acpi-supported"] = is_acpi_supported()
     udata["info"]["laptop"] = is_laptop()
     udata["info"]["virtual-machine"] = is_virtual_machine()
+    udata["info"]["type"] = get_device_type()
     udata["info"]["live"] = is_live()
     udata["info"]["oem"] = is_oem_available()
     if "show" in data:

@@ -1,11 +1,55 @@
 import os
 from file import readfile
 
+def get_device_type():
+    chassis_names = [
+        "Other",
+	"Unknown",
+	"Desktop",
+	"Low Profile Desktop",
+	"Pizza Box",
+	"Mini Tower",
+	"Tower",
+	"Portable",
+	"Laptop",
+	"Notebook",
+	"Hand Held",
+	"Docking Station",
+	"All in One",
+	"Sub Notebook",
+	"Space-saving",
+	"Lunch Box",
+	"Main Server Chassis",
+	"Expansion Chassis",
+	"SubChassis",
+	"Bus Expansion Chassis",
+	"Peripheral Chassis",
+	"RAID Chassis",
+	"Rack Mount Chassis",
+	"Sealed-case PC",
+	"Multi-system chassis",
+	"Compact PCI",
+	"Advanced TCA",
+	"Blade",
+	"Tablet",
+	"Convertible",
+	"Detachable",
+	"IoT Gateway",
+	"Embedded PC",
+	"Mini PC",
+	"Stick PC"
+    ]
+    type = int(readfile("/sys/devices/virtual/dmi/id/chassis_type"))
+    print(chassis_names[type])
+    if type < len(chassis_names):
+        return chassis_names[type]
+    return chassis_names[1]
+
 def is_laptop():
     if os.path.isdir("/proc/pmu"):
         return "Battery" in open("/proc/pmu/info","r").read()
     if os.path.exists("/sys/devices/virtual/dmi/id/chassis_type"):
-        type = open("/sys/devices/virtual/dmi/id/chassis_type","r").read().strip()
+        type = readfile("/sys/devices/virtual/dmi/id/chassis_type")
         return type in ["8", "9", "10", "11"]
     for dev in os.listdir("/sys/class/power_supply"):
         if "BAT" in dev:
