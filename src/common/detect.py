@@ -2,7 +2,7 @@ import os
 from file import readfile
 
 def get_device_type():
-    chassis_types = [
+    chassis_names = [
         "Other (1)",
         "Unknown (2)",
         "Desktop (3)",
@@ -40,7 +40,7 @@ def get_device_type():
         "Mini PC (35)",
         "Stick PC (36)"
     ]
-    type = int(readfile("/sys/devices/virtual/dmi/id/chassis_type")) +1
+    type = int(readfile("/sys/devices/virtual/dmi/id/chassis_type")) -1
     print(chassis_names[type])
     if type < len(chassis_names):
         return chassis_names[type]
