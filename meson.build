@@ -31,9 +31,9 @@ endforeach
 install_data('data/pardus-power-manager.svg', install_dir: app_icon_dir)
 # install desktop files
 install_data('data/ppm-client.desktop', install_dir: application_dir, rename: 'tr.org.pardus.power-manager.desktop')
-meson.add_install_script('ln', '-s',
-    '../share/pardus/power-manager/client/main.py',
-    bin_dir + '/pardus-power-manager')
+meson.add_install_script('sh', '-c',
+    'ln -s ../share/pardus/power-manager/client/main.py ' +
+    '${DESTDIR}/' + bin_dir + '/pardus-power-manager')
 install_data('data/ppm-autostart.desktop', install_dir: autostart_dir)
 # install policy file
 install_data('data/ppm.policy', install_dir: policy_dir)
