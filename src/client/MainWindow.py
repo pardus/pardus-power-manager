@@ -52,6 +52,8 @@ class MainWindow:
             "pardus-power-manager", "pardus-pm-performance-symbolic", appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.indicator.set_icon("pardus-pm-powersave-symbolic")
+        self.set_wmclass("pardus-power-manager")
+
 
         Notify.init("Pardus Power Manager")
 
