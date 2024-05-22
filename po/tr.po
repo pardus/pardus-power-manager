@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-09 15:18+0300\n"
+"POT-Creation-Date: 2024-05-22 08:33+0000\n"
 "PO-Revision-Date: 2022-10-18 11:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -49,8 +49,8 @@ msgstr "Pil 80% olduğunda şarj etmeyi bırak"
 msgid "Screen Brightness:"
 msgstr "Ekran Parlaklığı:"
 
-#: src/data/MainWindow.ui:402 src/client/MainWindow.py:82
-#: src/client/MainWindow.py:85
+#: src/data/MainWindow.ui:402 src/client/MainWindow.py:84
+#: src/client/MainWindow.py:87
 msgid "Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi"
 
@@ -63,22 +63,26 @@ msgid "Your device does not require power management."
 msgstr "Donanımınız güç yönetimine ihtiyaç duymuyor."
 
 #: src/data/MainWindow.ui:547
+msgid "Your battery is dead."
+msgstr "Piliniz ölü."
+
+#: src/data/MainWindow.ui:584
 msgid "You are using virtual machine."
 msgstr "Sanal makina kullanıyorsunuz."
 
-#: src/data/MainWindow.ui:584
+#: src/data/MainWindow.ui:621
 msgid "Windows OEM detected."
 msgstr "Windows OEM tespit edildi."
 
-#: src/data/MainWindow.ui:621
+#: src/data/MainWindow.ui:658
 msgid "Power management may not works good."
 msgstr "Güç yönetimi düzgün çalışmayabilir."
 
-#: src/data/MainWindow.ui:647
+#: src/data/MainWindow.ui:684
 msgid "Power manager"
 msgstr "Güç Yöneticisi"
 
-#: src/data/MainWindow.ui:649
+#: src/data/MainWindow.ui:686
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -93,44 +97,43 @@ msgstr "güç tasarrufu"
 msgid "performance"
 msgstr "performans"
 
-#: src/client/MainWindow.py:66 src/client/MainWindow.py:279
-#: src/client/MainWindow.py:289
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:290
+#: src/client/MainWindow.py:300
 msgid "Show"
 msgstr "Göster"
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:285
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:296
 msgid "Hide"
 msgstr "Gizle"
 
-#: src/client/MainWindow.py:76
+#: src/client/MainWindow.py:78
 msgid "Exit"
 msgstr "Çıkış"
 
-#: src/client/MainWindow.py:89
+#: src/client/MainWindow.py:91
 msgid "About Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi Hakkında"
 
-#: src/client/MainWindow.py:127
+#: src/client/MainWindow.py:129
 msgid "Performance"
 msgstr "Performans"
 
-#: src/client/MainWindow.py:128
+#: src/client/MainWindow.py:130
 msgid "Powersave"
 msgstr "Güç tasarrufu"
 
-#: src/client/MainWindow.py:129
+#: src/client/MainWindow.py:131
 msgid "Do Noting"
 msgstr "Hiçbir şey yapma"
 
-#: src/client/MainWindow.py:169
+#: src/client/MainWindow.py:171
 msgid "Power profile changed: "
 msgstr "Güç profili değişti: "
 
-#: src/client/MainWindow.py:172
+#: src/client/MainWindow.py:174
 msgid "Disable Powersave"
 msgstr "Güç tasarrufunu kapat"
 
-#: src/client/MainWindow.py:175
+#: src/client/MainWindow.py:177
 msgid "Enable Powersave"
 msgstr "Güç tasarrufunu aç"
-
