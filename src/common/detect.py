@@ -51,7 +51,7 @@ def is_laptop():
         return "Battery" in open("/proc/pmu/info","r").read()
     if os.path.exists("/sys/devices/virtual/dmi/id/chassis_type"):
         type = readfile("/sys/devices/virtual/dmi/id/chassis_type")
-        return type in ["8", "9", "10", "11"]
+        return type in ["8", "9", "10", "11", "12", "14", "18", "21","31"]
     for dev in os.listdir("/sys/class/power_supply"):
         if "BAT" in dev:
             return True
