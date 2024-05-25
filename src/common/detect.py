@@ -69,6 +69,9 @@ def is_laptop():
     return False
 
 
+def is_support_deep():
+    return "deep" in readfile("/sys/power/mem_sleep")
+
 def which(command):
     for dir in os.environ["PATH"].split(":"):
         if os.path.isfile("{}/{}".format(dir,command)):

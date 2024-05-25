@@ -47,6 +47,7 @@ def main(data):
     udata["info"]["type"] = get_device_type()
     udata["info"]["live"] = is_live()
     udata["info"]["oem"] = is_oem_available()
+    udata["info"]["deep"] = is_support_deep()
     if "show" in data:
         udata["show"] = data["show"]
     udata["backlight"] = {}
