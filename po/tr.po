@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-22 08:33+0000\n"
+"POT-Creation-Date: 2024-05-27 06:56+0000\n"
 "PO-Revision-Date: 2022-10-18 11:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -67,22 +67,26 @@ msgid "Your battery is dead."
 msgstr "Piliniz ölü."
 
 #: src/data/MainWindow.ui:584
+msgid "Your device does not support S3 state sleep."
+msgstr "Donanımınız S3 uyku durumunu desteklemiyor."
+
+#: src/data/MainWindow.ui:621
 msgid "You are using virtual machine."
 msgstr "Sanal makina kullanıyorsunuz."
 
-#: src/data/MainWindow.ui:621
+#: src/data/MainWindow.ui:658
 msgid "Windows OEM detected."
 msgstr "Windows OEM tespit edildi."
 
-#: src/data/MainWindow.ui:658
+#: src/data/MainWindow.ui:695
 msgid "Power management may not works good."
 msgstr "Güç yönetimi düzgün çalışmayabilir."
 
-#: src/data/MainWindow.ui:684
+#: src/data/MainWindow.ui:721
 msgid "Power manager"
 msgstr "Güç Yöneticisi"
 
-#: src/data/MainWindow.ui:686
+#: src/data/MainWindow.ui:723
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -97,12 +101,12 @@ msgstr "güç tasarrufu"
 msgid "performance"
 msgstr "performans"
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:290
-#: src/client/MainWindow.py:300
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:294
+#: src/client/MainWindow.py:304
 msgid "Show"
 msgstr "Göster"
 
-#: src/client/MainWindow.py:70 src/client/MainWindow.py:296
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:300
 msgid "Hide"
 msgstr "Gizle"
 

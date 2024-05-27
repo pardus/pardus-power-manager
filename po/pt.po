@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-22 08:33+0000\n"
+"POT-Creation-Date: 2024-05-27 06:56+0000\n"
 "PO-Revision-Date: 2024-03-18 16:48+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <hugokarvalho@hotmail.com>\n"
@@ -70,22 +70,27 @@ msgid "Your battery is dead."
 msgstr ""
 
 #: src/data/MainWindow.ui:584
+#, fuzzy
+msgid "Your device does not support S3 state sleep."
+msgstr "O seu dispositivo não tem uma tabela acpi Linux."
+
+#: src/data/MainWindow.ui:621
 msgid "You are using virtual machine."
 msgstr ""
 
-#: src/data/MainWindow.ui:621
+#: src/data/MainWindow.ui:658
 msgid "Windows OEM detected."
 msgstr "Windows OEM detetado."
 
-#: src/data/MainWindow.ui:658
+#: src/data/MainWindow.ui:695
 msgid "Power management may not works good."
 msgstr "A gestão de energia pode não funcionar corretamente."
 
-#: src/data/MainWindow.ui:684
+#: src/data/MainWindow.ui:721
 msgid "Power manager"
 msgstr "Gestor de energia"
 
-#: src/data/MainWindow.ui:686
+#: src/data/MainWindow.ui:723
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -103,12 +108,12 @@ msgstr "poupança de energia"
 msgid "performance"
 msgstr "desempenho"
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:290
-#: src/client/MainWindow.py:300
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:294
+#: src/client/MainWindow.py:304
 msgid "Show"
 msgstr "Mostrar"
 
-#: src/client/MainWindow.py:70 src/client/MainWindow.py:296
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:300
 msgid "Hide"
 msgstr "Ocultar"
 
