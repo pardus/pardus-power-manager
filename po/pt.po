@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-09 15:18+0300\n"
-"PO-Revision-Date: 2024-05-09 18:18+0100\n"
+"POT-Creation-Date: 2024-05-27 06:56+0000\n"
+"PO-Revision-Date: 2024-05-27 21:29+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <hugokarvalho@hotmail.com>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: src/data/MainWindow.ui:61
 msgid "POWERSAVE"
@@ -51,8 +51,8 @@ msgstr "Parar de carregar a bateria a 80%"
 msgid "Screen Brightness:"
 msgstr "Luminosidade do ecrã:"
 
-#: src/data/MainWindow.ui:402 src/client/MainWindow.py:82
-#: src/client/MainWindow.py:85
+#: src/data/MainWindow.ui:402 src/client/MainWindow.py:84
+#: src/client/MainWindow.py:87
 msgid "Pardus Power Manager"
 msgstr "Gestor de Energia Pardus"
 
@@ -65,22 +65,30 @@ msgid "Your device does not require power management."
 msgstr "O seu dispositivo não necessita de gestão de energia."
 
 #: src/data/MainWindow.ui:547
+msgid "Your battery is dead."
+msgstr "A sua bateria está descarregada."
+
+#: src/data/MainWindow.ui:584
+msgid "Your device does not support S3 state sleep."
+msgstr "O seu dispositivo não suporta o estado de suspensão S3."
+
+#: src/data/MainWindow.ui:621
 msgid "You are using virtual machine."
 msgstr "Está a usar uma máquina virtual."
 
-#: src/data/MainWindow.ui:584
+#: src/data/MainWindow.ui:658
 msgid "Windows OEM detected."
 msgstr "Windows OEM detetado."
 
-#: src/data/MainWindow.ui:621
+#: src/data/MainWindow.ui:695
 msgid "Power management may not works good."
 msgstr "A gestão de energia pode não funcionar corretamente."
 
-#: src/data/MainWindow.ui:647
+#: src/data/MainWindow.ui:721
 msgid "Power manager"
 msgstr "Gestor de energia"
 
-#: src/data/MainWindow.ui:649
+#: src/data/MainWindow.ui:723
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -98,44 +106,44 @@ msgstr "poupança de energia"
 msgid "performance"
 msgstr "desempenho"
 
-#: src/client/MainWindow.py:66 src/client/MainWindow.py:279
-#: src/client/MainWindow.py:289
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:294
+#: src/client/MainWindow.py:304
 msgid "Show"
 msgstr "Mostrar"
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:285
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:300
 msgid "Hide"
 msgstr "Ocultar"
 
-#: src/client/MainWindow.py:76
+#: src/client/MainWindow.py:78
 msgid "Exit"
 msgstr "Sair"
 
-#: src/client/MainWindow.py:89
+#: src/client/MainWindow.py:91
 msgid "About Pardus Power Manager"
 msgstr "Acerca do Gestor de Energia Pardus"
 
-#: src/client/MainWindow.py:127
+#: src/client/MainWindow.py:129
 msgid "Performance"
 msgstr "Desempenho"
 
-#: src/client/MainWindow.py:128
+#: src/client/MainWindow.py:130
 msgid "Powersave"
 msgstr "Poupança de energia"
 
-#: src/client/MainWindow.py:129
+#: src/client/MainWindow.py:131
 msgid "Do Noting"
 msgstr "Não fazer nada"
 
-#: src/client/MainWindow.py:169
+#: src/client/MainWindow.py:171
 msgid "Power profile changed: "
 msgstr "Perfil de energia alterado: "
 
-#: src/client/MainWindow.py:172
+#: src/client/MainWindow.py:174
 msgid "Disable Powersave"
 msgstr "Desativar Poupança de energia"
 
-#: src/client/MainWindow.py:175
+#: src/client/MainWindow.py:177
 msgid "Enable Powersave"
 msgstr "Ativar Poupança de energia"
 
