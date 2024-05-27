@@ -120,11 +120,13 @@ def _powersave():
             writefile("{}/{}/power/control".format(pci_path,dir),"auto")
         writefile("/sys/module/pcie_aspm/parameters/policy", "powersave")
 
+
     if get("i2c",True,"power"):
         # i2c auto suspend
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
             writefile("{}/{}/power/control".format(i2c_path,dir),"auto")
+            writefile("{}/{}/device/power/control".format(i2c_path,dir),"auto")
 
     if get("audio",True,"power"):
         # audio card
@@ -254,6 +256,7 @@ def _performance():
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
             writefile("{}/{}/power/control".format(i2c_path,dir),"on")
+            writefile("{}/{}/device/power/control".format(i2c_path,dir),"on")
 
     if get("audio",True,"power"):
         # audio card
