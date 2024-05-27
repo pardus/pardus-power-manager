@@ -82,7 +82,7 @@ def _powersave():
     writefile("/sys/firmware/acpi/platform_profile","low-power")
 
     # less disk activity
-    writefile("/proc/sys/vm/dirty_writeback_centisecs",3000)
+    writefile("/proc/sys/vm/dirty_writeback_centisecs",1500)
     writefile("/proc/sys/vm/dirty_expire_centisecs",3000)
     writefile("/proc/sys/vm/dirty_ratio", "10")
     writefile("/proc/sys/vm/dirty_background_ratio", "5")
@@ -163,6 +163,13 @@ def _powersave():
         net_path="/sys/class/nvme/"
         for dir in listdir(net_path):
             writefile("{}/{}/power/control".format(net_path,dir),"auto")
+
+    if get("scsi",True,"power"):
+        # scsi
+        net_path="/sys/class/scsi_host"
+        for dir in listdir(net_path):
+            writefile("{}/{}/link_power_management_policy".format(net_path,dir),"med_power_with_dipm")
+
 
 @asynchronous
 def _performance():
@@ -284,3 +291,9 @@ def _performance():
         net_path="/sys/class/nvme/"
         for dir in listdir(net_path):
             writefile("{}/{}/power/control".format(net_path,dir),"on")
+
+    if get("scsi",True,"power"):
+        # scsi
+        net_path="/sys/class/scsi_host"
+        for dir in listdir(net_path):
+            writefile("{}/{}/link_power_management_policy".format(net_path,dir),"max_performance")
