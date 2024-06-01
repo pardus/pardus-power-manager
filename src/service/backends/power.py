@@ -209,7 +209,7 @@ def _performance():
     writefile("/proc/sys/kernel/nmi_watchdog",0)
 
     # platform profile
-    writefile("/sys/firmware/acpi/platform_profile","power")
+    writefile("/sys/firmware/acpi/platform_profile","performance")
 
     # more disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",500)
