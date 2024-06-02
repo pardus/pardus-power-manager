@@ -82,7 +82,7 @@ def _powersave():
     writefile("/sys/firmware/acpi/platform_profile","low-power")
 
     # less disk activity
-    writefile("/proc/sys/vm/dirty_writeback_centisecs",3000)
+    writefile("/proc/sys/vm/dirty_writeback_centisecs",1500)
     writefile("/proc/sys/vm/dirty_expire_centisecs",3000)
     writefile("/proc/sys/vm/dirty_ratio", "10")
     writefile("/proc/sys/vm/dirty_background_ratio", "5")
@@ -120,11 +120,13 @@ def _powersave():
             writefile("{}/{}/power/control".format(pci_path,dir),"auto")
         writefile("/sys/module/pcie_aspm/parameters/policy", "powersave")
 
+
     if get("i2c",True,"power"):
         # i2c auto suspend
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
             writefile("{}/{}/power/control".format(i2c_path,dir),"auto")
+            writefile("{}/{}/device/power/control".format(i2c_path,dir),"auto")
 
     if get("audio",True,"power"):
         # audio card
@@ -164,6 +166,13 @@ def _powersave():
         for dir in listdir(net_path):
             writefile("{}/{}/power/control".format(net_path,dir),"auto")
 
+    if get("scsi",True,"power"):
+        # scsi
+        net_path="/sys/class/scsi_host"
+        for dir in listdir(net_path):
+            writefile("{}/{}/link_power_management_policy".format(net_path,dir),"med_power_with_dipm")
+
+
 @asynchronous
 def _performance():
     if get("governor",True,"power"):
@@ -200,7 +209,7 @@ def _performance():
     writefile("/proc/sys/kernel/nmi_watchdog",0)
 
     # platform profile
-    writefile("/sys/firmware/acpi/platform_profile","power")
+    writefile("/sys/firmware/acpi/platform_profile","performance")
 
     # more disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",500)
@@ -247,6 +256,7 @@ def _performance():
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
             writefile("{}/{}/power/control".format(i2c_path,dir),"on")
+            writefile("{}/{}/device/power/control".format(i2c_path,dir),"on")
 
     if get("audio",True,"power"):
         # audio card
@@ -284,3 +294,9 @@ def _performance():
         net_path="/sys/class/nvme/"
         for dir in listdir(net_path):
             writefile("{}/{}/power/control".format(net_path,dir),"on")
+
+    if get("scsi",True,"power"):
+        # scsi
+        net_path="/sys/class/scsi_host"
+        for dir in listdir(net_path):
+            writefile("{}/{}/link_power_management_policy".format(net_path,dir),"max_performance")

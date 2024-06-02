@@ -67,6 +67,7 @@ elif sys.argv[1] == "get":
     elif sys.argv[2] == "battery":
         for d in data["battery"].keys():
             print("[{}]".format(d))
+            print("name={}".format(data["battery"][d]["real_name"]))
             print("level={}".format(data["battery"][d]["level"]))
             print("status={}".format(data["battery"][d]["status"]))
             print("usage={}".format(data["battery"][d]["usage"]))

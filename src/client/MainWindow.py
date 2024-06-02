@@ -52,6 +52,8 @@ class MainWindow:
             "pardus-power-manager", "pardus-pm-performance-symbolic", appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.indicator.set_icon("pardus-pm-powersave-symbolic")
+        self.window.set_wmclass("pardus-power-manager", "pardus-power-manager")
+
 
         Notify.init("Pardus Power Manager")
 
@@ -196,13 +198,26 @@ class MainWindow:
             acpi = not (str(data["info"]["acpi-supported"]).lower() == "true")
             oem = (str(data["info"]["oem"]).lower() == "true")
             vm = is_virtual_machine()
-            pm = not is_laptop()
-            self.o("ui_box_warning_virtual").set_visible(vm)
-            self.o("ui_box_warning_laptop").set_visible(pm)
-            self.o("ui_button_warning").set_visible(oem or acpi or vm or pm)
-            self.o("ui_box_warning_acpi").set_visible(acpi)
-            self.o("ui_box_warning_oem").set_visible(oem)
-            self.o("ui_box_warning_bad").set_visible(not pm)
+            laptop = is_laptop()
+            deep = is_support_deep()
+            issue = oem or acpi or vm or not laptop or not deep
+            self.o("ui_button_warning").set_visible(issue)
+            if issue:
+                self.o("ui_box_warning_virtual").set_visible(vm)
+                self.o("ui_box_warning_laptop").set_visible(not laptop)
+                self.o("ui_box_warning_acpi").set_visible(acpi)
+                self.o("ui_box_warning_oem").set_visible(oem)
+                self.o("ui_box_warning_bad").set_visible(oem or acpi)
+                self.o("ui_box_warning_deep").set_visible(deep)
+            for d in data["battery"].keys():
+                health = data["battery"][d]["health"]
+                if int(health) < 31:
+                    self.o("ui_box_warning_battery").set_visible(True)
+                    self.o("ui_button_warning").set_visible(True)
+                    break
+        else:
+            self.o("ui_button_warning").set_visible(False)
+
 
         self.update_lock = False
 

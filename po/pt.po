@@ -66,6 +66,7 @@ msgstr "O seu dispositivo não necessita de gestão de energia."
 
 #: src/data/MainWindow.ui:547
 msgid "Your battery is dead."
+
 msgstr "A sua bateria está descarregada."
 
 #: src/data/MainWindow.ui:584
