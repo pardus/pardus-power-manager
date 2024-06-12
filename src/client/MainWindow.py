@@ -154,10 +154,10 @@ class MainWindow:
 
     def power_mode_event(self, widget):
         data = {}
-        if self.current_mode == "performance":
-            data["new-mode"] = "powersave"
-        else:
+        if self.current_mode == "powersave":
             data["new-mode"] = "performance"
+        else:
+            data["new-mode"] = "powersave"
         send_server(data)
 
     @idle
