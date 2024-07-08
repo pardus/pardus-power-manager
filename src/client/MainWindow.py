@@ -202,13 +202,14 @@ class MainWindow:
             deep = is_support_deep()
             issue = oem or acpi or vm or not laptop or not deep
             self.o("ui_button_warning").set_visible(issue)
+            self.o("ui_box_warning_battery").set_visible(False)
             if issue:
                 self.o("ui_box_warning_virtual").set_visible(vm)
                 self.o("ui_box_warning_laptop").set_visible(not laptop)
                 self.o("ui_box_warning_acpi").set_visible(acpi)
                 self.o("ui_box_warning_oem").set_visible(oem)
                 self.o("ui_box_warning_bad").set_visible(oem or acpi)
-                self.o("ui_box_warning_deep").set_visible(deep)
+                self.o("ui_box_warning_deep").set_visible(not deep)
             for d in data["battery"].keys():
                 health = data["battery"][d]["health"]
                 if int(health) < 31:

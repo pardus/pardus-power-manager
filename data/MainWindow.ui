@@ -8,6 +8,7 @@
     <property name="page-increment">10</property>
   </object>
   <object class="GtkWindow" id="ui_window_main">
+    <property name="width-request">400</property>
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
     <child>
@@ -438,6 +439,7 @@
     </child>
   </object>
   <object class="GtkPopover" id="ui_popover_warning">
+    <property name="width-request">350</property>
     <property name="can-focus">False</property>
     <property name="relative-to">ui_button_warning</property>
     <child>
