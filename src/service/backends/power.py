@@ -85,7 +85,7 @@ def _powersave():
     freq_path="/sys/devices/system/cpu/cpufreq/"
     for dir in listdir(freq_path):
         if dir.startswith("policy"):
-            epath="energy_performance_preferences"
+            epath="energy_performance_preference"
             writefile("{}/{}/{}".format(freq_path, dir, epath), "power")
     
     # less disk activity
@@ -222,7 +222,7 @@ def _performance():
     freq_path="/sys/devices/system/cpu/cpufreq/"
     for dir in listdir(freq_path):
         if dir.startswith("policy"):
-            epath="energy_performance_preferences"
+            epath="energy_performance_preference"
             writefile("{}/{}/{}".format(freq_path, dir, epath), "performance")
 
 
