@@ -81,6 +81,13 @@ def _powersave():
     # platform profile
     writefile("/sys/firmware/acpi/platform_profile","low-power")
 
+    # intel pstate
+    freq_path="/sys/devices/system/cpu/cpufreq/"
+    for dir in listdir(freq_path):
+        if dir.startswith("policy"):
+            epath="energy_performance_preferences"
+            writefile("{}/{}/{}".format(freq_path, dir, epath), "power")
+    
     # less disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",1500)
     writefile("/proc/sys/vm/dirty_expire_centisecs",3000)
@@ -210,6 +217,14 @@ def _performance():
 
     # platform profile
     writefile("/sys/firmware/acpi/platform_profile","performance")
+
+    # intel pstate
+    freq_path="/sys/devices/system/cpu/cpufreq/"
+    for dir in listdir(freq_path):
+        if dir.startswith("policy"):
+            epath="energy_performance_preferences"
+            writefile("{}/{}/{}".format(freq_path, dir, epath), "performance")
+
 
     # more disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",500)
