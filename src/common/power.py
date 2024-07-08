@@ -1,6 +1,8 @@
 import os
 import sys
 from file import *
+from cache import cached
+
 def get_ac_online():
     if not os.path.exists("/sys/class/power_supply/"):
         return True
@@ -23,6 +25,7 @@ def get_ac_online():
                 return True
     return True
 
+@cached
 def get_acpi_power_devices():
     devices = []
     for interface in os.listdir("/sys/bus/acpi/devices/"):

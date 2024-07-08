@@ -1,6 +1,8 @@
 import os
 from file import readfile
+from cache import cached
 
+@cached
 def get_device_type():
     chassis_names = [
         "Other (1)",
@@ -46,6 +48,7 @@ def get_device_type():
         return chassis_names[type]
     return chassis_names[1]
 
+@cached
 def is_laptop():
     if os.path.isdir("/proc/pmu"):
         return "Battery" in open("/proc/pmu/info","r").read()
@@ -69,6 +72,7 @@ def is_laptop():
     return False
 
 
+@cached
 def is_support_deep():
     return "deep" in readfile("/sys/power/mem_sleep")
 
@@ -78,9 +82,11 @@ def which(command):
             return "{}/{}".format(dir,command)
     return None
 
+@cached
 def is_live():
     return "boot=live" in readfile("/proc/cmdline")
 
+@cached
 def is_virtual_machine():
     cpuinfo = readfile("/proc/cpuinfo").split("\n")
     for line in cpuinfo:
@@ -88,16 +94,20 @@ def is_virtual_machine():
             return "hypervisor" in line
     return False
 
+@cached
 def is_chroot():
     return readfile("/proc/1/mountinfo") != readfile("/proc/self/mountinfo")
 
+@cached
 def is_docker():
     return "docker" in readfile("/proc/1/cgroup")
 
+@cached
 def is_root():
     return os.getuid() == 0
 
 acpi_support = None
+@cached
 def is_acpi_supported():
     global acpi_support
     if acpi_support == None:
@@ -108,5 +118,6 @@ def is_acpi_supported():
             acpi_support = False
     return acpi_support
 
+@cached
 def is_oem_available():
     return os.path.exists("/sys/firmware/acpi/MSDM")
