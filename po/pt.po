@@ -66,8 +66,10 @@ msgstr "O seu dispositivo não necessita de gestão de energia."
 
 #: src/data/MainWindow.ui:547
 msgid "Your battery is dead."
-
 msgstr "A sua bateria está descarregada."
+
+msgid "You are using virtual machine."
+msgstr "Está a usar uma máquina virtual."
 
 #: src/data/MainWindow.ui:584
 msgid "Your device does not support S3 state sleep."
