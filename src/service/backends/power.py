@@ -60,14 +60,16 @@ def _powersave():
 
     if get("core",True,"power"):
         # disable cpu core
-        cpus = list_cpu()
-        dnum = len(cpus) * float(get("core-ratio",0.5,"powersave"))
-        if len(cpus) <= 4:
-            dnum = 0
-        elif len(cpus) - dnum < 4:
-            dnum = 4
-        for cpu in range(len(cpus) - int(dnum), len(cpus)):
-            change_cpu_status(cpu,False)
+        def cpu_disable_event(cpus, min):
+            dnum = len(cpus) * float(get("core-ratio",0.5,"powersave"))
+            if len(cpus) <= min:
+                dnum = 0
+            elif len(cpus) - dnum < min:
+                dnum = min
+            for cpu in range(len(cpus) - int(dnum), len(cpus)):
+                change_cpu_status(cpu,False)
+        cpu_disable_event(list_big_cpu(), 4)
+        cpu_disable_event(list_little_cpu(), 0)
 
     if not is_acpi_supported():
         return
