@@ -6,17 +6,20 @@ def list_cpu():
         ret.append("cpu"+str(i))
     return ret
 
+@cached
 def get_num_of_cpu():
     i = 0
     while os.path.exists("/sys/devices/system/cpu/cpu"+str(i)):
         i += 1
     return i
 
+@cached
 def list_little_cpu():
     max_all = 0
     ret = []
     for i in range(0, get_num_of_cpu()):
-        with open("/sys/devices/system/cpu/cpu{}//cpufreq/scaling_max_freq".format(i), "r") as f:
+        change_cpu_status(i,True)
+        with open("/sys/devices/system/cpu/cpu{}/cpufreq/scaling_max_freq".format(i), "r") as f:
             freq = int(f.read())
             if freq > max_all:
                 max_all = freq
@@ -27,6 +30,7 @@ def list_little_cpu():
                 ret.append("cpu"+str(i))
     return ret
 
+@cached
 def list_big_cpu():
     all_cpu = list_cpu()
     for cpu in list_little_cpu():
