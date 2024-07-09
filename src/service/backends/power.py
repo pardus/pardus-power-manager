@@ -1,6 +1,6 @@
 import os
 from util import writefile, readfile, listdir
-from backends.cpu import list_cpu, change_cpu_status
+from backends.cpu import list_cpu, list_big_cpu, list_little_cpu,  change_cpu_status
 from backends.backlight import set_brightness
 from common import *
 
