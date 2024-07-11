@@ -50,8 +50,8 @@ msgid "Screen Brightness:"
 msgstr "Ekran Parlaklığı:"
 
 #: src/data/MainWindow.ui:349
-msgid "Enable Unstable Power Manager Features"
-msgstr "Kararlı Olmayan Güç Yönetimi Özelliklerini Etkinleştir"
+msgid "Enable Force PPM"
+msgstr "PPM Zorla Etkinleştir"
 
 #: src/data/MainWindow.ui:420 src/client/MainWindow.py:84
 #: src/client/MainWindow.py:87

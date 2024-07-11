@@ -17,6 +17,8 @@ def get_num_of_cpu():
 def list_little_cpu():
     max_all = 0
     ret = []
+    if not os.path.isfile("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"):
+        return ret
     for i in range(0, get_num_of_cpu()):
         change_cpu_status(i,True)
         with open("/sys/devices/system/cpu/cpu{}/cpufreq/scaling_max_freq".format(i), "r") as f:

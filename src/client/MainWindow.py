@@ -109,6 +109,7 @@ class MainWindow:
         self.o("ui_button_performance").connect("clicked",self.performance_event)
         self.o("ui_combobox_acmode").connect("changed",self.save_settings)
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
+        self.o("ui_checkbox_unstable").connect("toggled",self.save_settings)
         self.o("ui_checkbox_battery_treshold").connect("toggled",self.save_settings)
         self.o("ui_scale_brightness").connect("value-changed",self.set_brightness)
         self.o("ui_spinbutton_switch_to_performance").connect("value-changed",self.save_settings)
