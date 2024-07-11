@@ -175,13 +175,6 @@ def _powersave():
         for dir in listdir(net_path):
             writefile("{}/{}/power/control".format(net_path,dir),"auto")
 
-    if get("scsi",True,"power"):
-        # scsi
-        net_path="/sys/class/scsi_host"
-        for dir in listdir(net_path):
-            writefile("{}/{}/link_power_management_policy".format(net_path,dir),"med_power_with_dipm")
-
-
 @asynchronous
 def _performance():
     if get("governor",True,"power"):
@@ -312,8 +305,3 @@ def _performance():
         for dir in listdir(net_path):
             writefile("{}/{}/power/control".format(net_path,dir),"on")
 
-    if get("scsi",True,"power"):
-        # scsi
-        net_path="/sys/class/scsi_host"
-        for dir in listdir(net_path):
-            writefile("{}/{}/link_power_management_policy".format(net_path,dir),"max_performance")
