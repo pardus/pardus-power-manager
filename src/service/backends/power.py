@@ -71,7 +71,7 @@ def _powersave():
         cpu_disable_event(list_big_cpu(), 4)
         cpu_disable_event(list_little_cpu(), 0)
 
-    if not is_acpi_supported():
+    if not is_acpi_supported() and not get("unstable", False, "service"):
         return
 
     # laptop mode
@@ -208,7 +208,7 @@ def _performance():
             if max_freq != "":
                 writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),max_freq)
 
-    if not is_acpi_supported():
+    if not is_acpi_supported() and not get("unstable", False, "service"):
         return
 
     # laptop mode

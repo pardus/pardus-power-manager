@@ -149,6 +149,8 @@ class MainWindow:
         l = ["performance", "powersave", "ignore"]
         self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
         self.o("ui_combobox_batmode").set_active(l.index(get("bat-mode","powersave","modes")))
+        self.o("ui_checkbox_unstable").set_active(get("unstable","False","service").lower() == "true")
+        self.o("ui_checkbox_unstable").set_visible(False)
 
 ###### mode functions ######
 
@@ -203,6 +205,7 @@ class MainWindow:
             issue = oem or acpi or vm or not laptop or not deep
             self.o("ui_button_warning").set_visible(issue)
             self.o("ui_box_warning_battery").set_visible(False)
+            self.o("ui_checkbox_unstable").set_visible(acpi)
             if issue:
                 self.o("ui_box_warning_virtual").set_visible(vm)
                 self.o("ui_box_warning_laptop").set_visible(not laptop)
@@ -238,6 +241,7 @@ class MainWindow:
         # service
         data["service"] = {}
         data["service"]["enabled"] = True
+        data["service"]["unstable"] = self.o("ui_checkbox_unstable").get_active()
         # modes
         data["modes"] = {}
         ac_w = self.o("ui_combobox_acmode")

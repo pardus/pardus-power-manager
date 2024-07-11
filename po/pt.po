@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-27 06:56+0000\n"
+"POT-Creation-Date: 2024-07-11 13:30+0300\n"
 "PO-Revision-Date: 2024-05-27 21:29+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <hugokarvalho@hotmail.com>\n"
@@ -19,76 +19,80 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.4\n"
 
-#: src/data/MainWindow.ui:61
+#: src/data/MainWindow.ui:62
 msgid "POWERSAVE"
 msgstr "POUPANÇA DE ENERGIA"
 
-#: src/data/MainWindow.ui:104
+#: src/data/MainWindow.ui:105
 msgid "PERFORMANCE"
 msgstr "DESEMPENHO"
 
-#: src/data/MainWindow.ui:148
+#: src/data/MainWindow.ui:149
 msgid "On Power:"
 msgstr "Ligado à corrente:"
 
-#: src/data/MainWindow.ui:187
+#: src/data/MainWindow.ui:188
 msgid "On Battery:"
 msgstr "A bateria:"
 
-#: src/data/MainWindow.ui:234
+#: src/data/MainWindow.ui:235
 msgid "Switch to Powersave :"
 msgstr "Mudar para Poupança de energia :"
 
-#: src/data/MainWindow.ui:251
+#: src/data/MainWindow.ui:252
 msgid "%"
 msgstr "%"
 
-#: src/data/MainWindow.ui:287
+#: src/data/MainWindow.ui:288
 msgid "Stop charging the battery at 80%"
 msgstr "Parar de carregar a bateria a 80%"
 
-#: src/data/MainWindow.ui:311
+#: src/data/MainWindow.ui:312
 msgid "Screen Brightness:"
 msgstr "Luminosidade do ecrã:"
 
-#: src/data/MainWindow.ui:402 src/client/MainWindow.py:84
+#: src/data/MainWindow.ui:349
+msgid "Enable Unstable Power Manager Features"
+msgstr ""
+
+#: src/data/MainWindow.ui:420 src/client/MainWindow.py:84
 #: src/client/MainWindow.py:87
 msgid "Pardus Power Manager"
 msgstr "Gestor de Energia Pardus"
 
-#: src/data/MainWindow.ui:473
+#: src/data/MainWindow.ui:492
 msgid "Your device does not have a linux acpi table ."
 msgstr "O seu dispositivo não tem uma tabela acpi Linux."
 
-#: src/data/MainWindow.ui:510
+#: src/data/MainWindow.ui:529
 msgid "Your device does not require power management."
 msgstr "O seu dispositivo não necessita de gestão de energia."
 
-#: src/data/MainWindow.ui:547
+#: src/data/MainWindow.ui:566
 msgid "Your battery is dead."
 msgstr "A sua bateria está descarregada."
 
-#: src/data/MainWindow.ui:584
+#: src/data/MainWindow.ui:603
 msgid "Your device does not support S3 state sleep."
 msgstr "O seu dispositivo não suporta o estado de suspensão S3."
 
-#: src/data/MainWindow.ui:621
+#: src/data/MainWindow.ui:640
 msgid "You are using virtual machine."
 msgstr "Está a usar uma máquina virtual."
 
-#: src/data/MainWindow.ui:658
+#: src/data/MainWindow.ui:677
 msgid "Windows OEM detected."
 msgstr "Windows OEM detetado."
 
-#: src/data/MainWindow.ui:695
+#: src/data/MainWindow.ui:714
 msgid "Power management may not works good."
 msgstr "A gestão de energia pode não funcionar corretamente."
 
-#: src/data/MainWindow.ui:721
+#: src/data/MainWindow.ui:740
 msgid "Power manager"
 msgstr "Gestor de energia"
 
-#: src/data/MainWindow.ui:723
+#: src/data/MainWindow.ui:742
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -106,12 +110,12 @@ msgstr "poupança de energia"
 msgid "performance"
 msgstr "desempenho"
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:294
-#: src/client/MainWindow.py:304
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:299
+#: src/client/MainWindow.py:309
 msgid "Show"
 msgstr "Mostrar"
 
-#: src/client/MainWindow.py:70 src/client/MainWindow.py:300
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:305
 msgid "Hide"
 msgstr "Ocultar"
 
@@ -135,15 +139,15 @@ msgstr "Poupança de energia"
 msgid "Do Noting"
 msgstr "Não fazer nada"
 
-#: src/client/MainWindow.py:171
+#: src/client/MainWindow.py:173
 msgid "Power profile changed: "
 msgstr "Perfil de energia alterado: "
 
-#: src/client/MainWindow.py:174
+#: src/client/MainWindow.py:176
 msgid "Disable Powersave"
 msgstr "Desativar Poupança de energia"
 
-#: src/client/MainWindow.py:177
+#: src/client/MainWindow.py:179
 msgid "Enable Powersave"
 msgstr "Ativar Poupança de energia"
 
