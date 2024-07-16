@@ -1,3 +1,102 @@
+pardus-power-manager (3.0.0) unstable; urgency=medium
+
+  [ bariscodefx ]
+  * ported xfce about dialog fix from pardus-software
+
+  [ aliriza ]
+  * powersave improvements
+  * block power save
+  * block power save
+  * usage
+  * fix battery usage calculator issue
+  * usage update fix
+  * acpi support check. if does not available power save events partically blocked
+  * cli info features
+  * oem and acpi warning added
+  * translation update
+  * usb wakeups default when acpi support is not available status
+  * fix wrong acpi warning issue
+
+  [ Hugo Carvalho ]
+  * Update Portuguese translations
+
+  [ sulincix ]
+  * gpu power management
+
+  [ Ali Riza KESKIN ]
+  * pcie_aspm configure
+
+  [ sulincix ]
+  * add more save options
+  * ignore if last event is same with now
+  * add more warning messages
+  * device type added and fix service debug log
+  * fix device type string
+  * fix chassis_name
+
+  [ Hugo Carvalho ]
+  * Update Portuguese translations
+
+  [ Ali Riza KESKIN ]
+  * WM class
+  * fix meson script
+  * minor fix about usb wakeup backend
+  * wmclass added
+  * fixes about wmclass and meson
+  * hide warning button if update info section missing
+  * dead battery warning
+  * laptop detect improvements
+  * translation
+
+  [ sulincix ]
+  * check S3 state warning
+
+  [ Ali Riza KESKIN ]
+  * scsi host powersave
+  * translation
+  * i2c powersave fix
+
+  [ Hugo Carvalho ]
+  * Update Portuguese translations
+
+  [ sulincix ]
+  * fix kde wayland wrong icon issue
+
+  [ aliriza ]
+  * typo fix
+
+  [ sulincix ]
+  * fix warring messages
+  * intel pstate handle
+  * typo fix
+
+  [ Ali Riza KESKIN ]
+  * fix ppm get mode is ignore issue
+  * merge
+  * merge
+  * fix pt translation double issue
+  * cached function
+
+  [ sulincix ]
+  * cpu disable process for each little and big cores
+
+  [ Ali Riza KESKIN ]
+  * fix missing import
+
+  [ aliriza ]
+  * fix cpu calculate
+
+  [ Ali Riza KESKIN ]
+  * enable unstable button for non-acpi supported devices
+  * force ppm enable options
+  * force ppm enable options removed from gui
+  * config update
+
+  [ Hugo Carvalho ]
+  * Update Portuguese translations
+
+ -- Fatih Altun <fatih.altun@pardus.org.tr>  Tue, 16 Jul 2024 12:35:08 +0300
+
 pardus-power-manager (2.0.4) unstable; urgency=medium
 
   [ Ali Riza Keskin ]
