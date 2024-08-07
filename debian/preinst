@@ -10,3 +10,4 @@ if [[ -f /etc/tlp.d/99-pardus.conf ]] ; then
     systemctl disable tlp || true
     systemctl stop tlp || true
 fi
+update-rc.d ppm defaults || true
