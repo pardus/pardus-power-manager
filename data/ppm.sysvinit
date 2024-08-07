@@ -1,0 +1,43 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          pardus-power-manager
+# Required-Start:    $local_fs $network
+# Required-Stop:     $local_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start Pardus Power Manager
+# Description:       Manages power settings and events
+### END INIT INFO
+
+DAEMON=/usr/libexec/pardus-power-manager
+DAEMON_NAME=pardus-power-manager
+PIDFILE=/var/run/$DAEMON_NAME.pid
+
+case "$1" in
+    start)
+        echo "Starting $DAEMON_NAME..."
+        start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile --background --exec $DAEMON
+        ;;
+    stop)
+        echo "Stopping $DAEMON_NAME..."
+        start-stop-daemon --stop --quiet --pidfile $PIDFILE
+        ;;
+    restart)
+        echo "Restarting $DAEMON_NAME..."
+        $0 stop
+        $0 start
+        ;;
+    status)
+        if [ -f $PIDFILE ]; then
+            echo "$DAEMON_NAME is running with PID $(cat $PIDFILE)"
+        else
+            echo "$DAEMON_NAME is not running."
+        fi
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+
+exit 0

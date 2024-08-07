@@ -46,4 +46,6 @@ if get_option('service') == 'systemd'
     install_data('data/ppm.systemd', install_dir: '/lib/systemd/system/', rename: 'ppm.service')
 elif get_option('service') == 'openrc'
     install_data('data/ppm.openrc', install_dir: '/etc/init.d/', rename: 'ppm')
+elif get_option('service') == 'sysvinit'
+    install_data('data/ppm.sysvinit', install_dir: '/etc/init.d/', rename: 'ppm')
 endif
