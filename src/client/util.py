@@ -27,9 +27,13 @@ def listen(main):
             except Exception as e:
                 sys.stderr.write("Json error: {}\n".format(str(e)))
                 continue
-
+sending = False
 @asynchronous
 def send_server(data={}):
+    global sending
+    if sending:
+        return
+    sending = True
     try:
         data["pid"] = str(os.getpid())
         #print(data)
@@ -40,6 +44,7 @@ def send_server(data={}):
     except Exception as e:
         print(str(e))
 
+    sending = False
 
 def charge_stop_available():
     for name in os.listdir("/sys/class/power_supply"):
