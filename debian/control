@@ -15,6 +15,7 @@ Depends: ${misc:Depends},
          gir1.2-notify-0.7,
          gir1.2-ayatanaappindicator3-0.1,
          gir1.2-gtk-3.0
+Recommends: python3-inotify
 Breaks: tlp, power-profiles-daemon
 Conflicts: tlp, power-profiles-daemon
 Replaces: tlp, power-profiles-daemon

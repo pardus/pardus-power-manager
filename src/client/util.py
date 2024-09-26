@@ -1,10 +1,11 @@
 import os
 import sys
 import json
+inotify_available = True
 try:
     import pyinotify
 except:
-    pass
+    inotify_available = False
 
 sys.path.insert(0, os.path.dirname( os.path.realpath(__file__) )+"/../common")
 from common import *
@@ -47,7 +48,7 @@ def charge_stop_available():
                 return True
     return False
 
-try:
+if inotify_available:
     @asynchronous
     def register_notify(path, event):
         watch_manager = pyinotify.WatchManager()
@@ -56,7 +57,7 @@ try:
         watch_manager.add_watch(path, pyinotify.ALL_EVENTS)
         event_notifier.loop()
 
-except:
+else:
     def register_notify(path, event):
         print("Failed to register notify", path)
         pass
