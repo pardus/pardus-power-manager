@@ -114,7 +114,7 @@ class MainWindow:
             return
         if not self.__is_init:
             return
-        if event.maskname == "IN_MODIFY":
+        if event == True or event.maskname == "IN_MODIFY":
             fdata = {}
             fdata["update"]="client"
             send_server(fdata)
@@ -318,6 +318,7 @@ class MainWindow:
             self.open_window.set_label(_("Hide"))
             self.window.show()
             self.window.present()
+            self.update_request(True)
         else:
             self.open_window.set_label(_("Show"))
             self.window.hide()
