@@ -15,7 +15,7 @@ except:
     gi.require_version('AyatanaAppIndicator3', '0.1')
     from gi.repository import AyatanaAppIndicator3 as appindicator
 
-from util import send_server, charge_stop_available
+from util import send_server, charge_stop_available, register_notify
 from common import *
 
 try:
@@ -103,6 +103,19 @@ class MainWindow:
             self.o("ui_checkbox_battery_treshold").set_visible(False)
         self.__is_init = True
 
+        # trace brightness change event
+        for dir in os.listdir("/sys/class/backlight/"):
+            path = "/sys/class/backlight/{}/brightness".format(dir)
+            register_notify(path, self.update_request)
+
+
+    def update_request(self, event):
+        if event.maskname == "IN_MODIFY":
+            fdata = {}
+            fdata["update"]="client"
+            send_server(fdata)
+
+
     def connect_signal(self):
         self.window.connect("delete-event", self.window_delete_event)
         self.o("ui_button_powersave").connect("clicked",self.powersave_event)
@@ -163,7 +176,7 @@ class MainWindow:
     @idle
     def update(self,data):
         self.init()
-        print(data)
+        #print(data)
         self.update_lock = True
         if "mode" in data:
             if self.current_mode != data["mode"]:
@@ -181,7 +194,7 @@ class MainWindow:
                 for dev in data["backlight"].keys():
                     max = data["backlight"][dev]["max"]
                     cur = data["backlight"][dev]["current"]
-                    print(max, cur)
+                    #print(max, cur)
                     self.o("ui_scale_brightness").set_value((cur*100)/max)
             else:
                 self.o("ui_box_brightness").set_visible(False)
