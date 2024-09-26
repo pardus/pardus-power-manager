@@ -43,5 +43,5 @@ while True:
     try:
         listen(main)
     except Exception as e:
-        print("aaa")
-        log(traceback.format_exc(e))
+        print(e)
+        print("reload")

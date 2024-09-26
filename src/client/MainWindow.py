@@ -110,6 +110,10 @@ class MainWindow:
 
 
     def update_request(self, event):
+        if not self.__window_status:
+            return
+        if not self.__is_init:
+            return
         if event.maskname == "IN_MODIFY":
             fdata = {}
             fdata["update"]="client"
