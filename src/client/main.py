@@ -52,6 +52,7 @@ class Application(Gtk.Application):
             self.main.open_window_event(None)
         data = {}
         data["update"]="client"
+        data["pid"] = os.getpid()
         send_server(data)
 
 

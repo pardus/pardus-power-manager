@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import time
 inotify_available = True
 try:
     import pyinotify
@@ -32,7 +33,8 @@ sending = False
 def send_server(data={}):
     global sending
     if sending:
-        return
+        time.sleep(0.1)
+        send_server(data)
     sending = True
     try:
         data["pid"] = str(os.getpid())

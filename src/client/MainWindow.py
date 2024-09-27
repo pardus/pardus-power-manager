@@ -117,6 +117,7 @@ class MainWindow:
         if event == True or event.maskname == "IN_MODIFY":
             fdata = {}
             fdata["update"]="client"
+            fdata["pid"] = os.getpid()
             send_server(fdata)
 
 
@@ -271,6 +272,7 @@ class MainWindow:
         self.write_settings(data)
         fdata = {}
         fdata["update"]="client"
+        fdata["pid"] = os.getpid()
         send_server(fdata)
 
     @asynchronous
