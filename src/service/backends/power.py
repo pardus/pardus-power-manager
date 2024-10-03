@@ -182,7 +182,7 @@ def _performance():
         cpu_path="/sys/devices/system/cpu/"
         for dir in listdir(cpu_path):
             if dir.startswith("cpu"):
-                writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"power")
+                writefile("{}/{}/cpufreq/scaling_governor".format(cpu_path,dir),"performance")
 
     if get("core",True,"power"):
         # enable cpu core
