@@ -24,14 +24,17 @@ if get("usb-wakeups",not is_acpi_supported(), "service"):
 log_begin()
 log("Starting Pardus Power Manager Service")
 
-if os.fork():
+@asynchronous
+def battery_loop():
     interval = int(get("update-interval",60, "service"))
     while True:
         time.sleep(interval)
         data = {}
         data["pid"] = os.getpid()
         data["update"] = "service"
-        writefile("/run/ppm",json.dumps(data))
+        main(json.dumps(data))
+
+battery_loop()
 
 # set initial mode state
 mode = get("ac-mode","performance","modes")
