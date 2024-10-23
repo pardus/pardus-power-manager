@@ -37,6 +37,9 @@ def main(data):
             for dev in data["new-backlight"]:
                 backlight.set_brightness(dev, data["new-backlight"][dev])
 
+    if "new-config" in data:
+        write_settings(json.loads(data["new-config"]))
+
     # client update
     udata = {}
     udata["mode"] = power.get_mode()
@@ -76,3 +79,13 @@ def battery_init():
             b = battery.battery(dev)
             b.set_stop_threshold(get("charge_stop_enabled",False,"modes"))
             acpi_battery.append(b)
+
+
+def write_settings(data):
+    ctx = ""
+    for section in data:
+        ctx += "[" + section + "]\n"
+        for var in data[section]:
+            ctx += str(var) + "=" + str(data[section][var]) +"\n"
+        ctx += "\n"
+    writefile("/etc/pardus/ppm.conf.d/99-ppm-settings.conf",ctx)

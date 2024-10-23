@@ -269,15 +269,11 @@ class MainWindow:
         data["modes"]["charge_stop_enabled"] = str(self.o("ui_checkbox_battery_treshold").get_active())
         # backlight
         data["modes"]["powersave_threshold"] = str(self.o("ui_spinbutton_switch_to_performance").get_value())
-        self.write_settings(data)
         fdata = {}
         fdata["update"]="client"
+        fdata["new-config"]=json.dumps(data)
         fdata["pid"] = os.getpid()
         send_server(fdata)
-
-    @asynchronous
-    def write_settings(self, data):
-        subprocess.run(["pkexec", actions_file, "save", json.dumps(data)])
 
 ###### utility functions ######
 
