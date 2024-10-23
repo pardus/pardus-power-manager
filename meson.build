@@ -14,7 +14,6 @@ pardus_dir = '/usr/share/pardus/power-manager/'
 icons_dir = '/usr/share/icons/hicolor/scalable/status/'
 app_icon_dir = '/usr/share/icons/hicolor/scalable/apps/'
 udev_dir = '/lib/udev/rules.d'
-policy_dir = '/usr/share/polkit-1/actions'
 application_dir = '/usr/share/applications/'
 autostart_dir = '/etc/xdg/autostart/'
 
@@ -36,7 +35,6 @@ meson.add_install_script('sh', '-c',
     '${DESTDIR}/' + bin_dir + '/pardus-power-manager')
 install_data('data/ppm-autostart.desktop', install_dir: autostart_dir)
 # install policy file
-install_data('data/ppm.policy', install_dir: policy_dir)
 install_data('src/udev-trigger/ppm.rule', install_dir: udev_dir, rename: '99-ppm.rules')
 # install scripts
 install_data('data/ppm-libexec.sh', install_dir: libexec_dir, rename: 'pardus-power-manager')
