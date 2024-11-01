@@ -115,7 +115,7 @@ def _powersave():
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
             writefile("{}/{}/power/control".format(usb_path,dir),"auto")
-            writefile("{}/{}/power/autosuspend_delay_ms".format(usb_path,dir),"60000")
+            writefile("{}/{}/power/autosuspend_delay_ms".format(usb_path,dir),get("suspend_delay", "60000", "power"))
 
     if get("block",True,"power"):
         # block auto suspend
@@ -128,7 +128,7 @@ def _powersave():
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
             writefile("{}/{}/power/control".format(pci_path,dir),"auto")
-            writefile("{}/{}/power/autosuspend_delay_ms".format(pci_path,dir),"60000")
+            writefile("{}/{}/power/autosuspend_delay_ms".format(pci_path,dir),get("suspend_delay", "60000", "power"))
         writefile("/sys/module/pcie_aspm/parameters/policy", "powersave")
 
 
@@ -254,14 +254,14 @@ def _performance():
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
             writefile("{}/{}/power/control".format(usb_path,dir),"on")
-            writefile("{}/{}/power/autosuspend_delay_ms".format(usb_path,dir),"60000")
+            writefile("{}/{}/power/autosuspend_delay_ms".format(usb_path,dir),get("suspend_delay", "60000", "power"))
 
     if get("pci",True,"power"):
         # pci auto suspend
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
             writefile("{}/{}/power/control".format(pci_path,dir),"on")
-            writefile("{}/{}/power/autosuspend_delay_ms".format(pci_path,dir),"60000")
+            writefile("{}/{}/power/autosuspend_delay_ms".format(pci_path,dir),get("suspend_delay", "60000", "power"))
         writefile("/sys/module/pcie_aspm/parameters/policy", "performance")
 
 
