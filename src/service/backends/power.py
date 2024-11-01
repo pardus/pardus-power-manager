@@ -89,16 +89,16 @@ def _powersave():
         if dir.startswith("policy"):
             epath="energy_performance_preference"
             writefile("{}/{}/{}".format(freq_path, dir, epath), "power")
-    
+
     # less disk activity
     writefile("/proc/sys/vm/dirty_writeback_centisecs",1500)
     writefile("/proc/sys/vm/dirty_expire_centisecs",3000)
     writefile("/proc/sys/vm/dirty_ratio", "10")
     writefile("/proc/sys/vm/dirty_background_ratio", "5")
-    
+
     # vfs cache pressure
     writefile("/proc/sys/vm/vfs_cache_pressure", "50")
-    
+
     # disable THP
     writefile("/sys/kernel/mm/transparent_hugepage/enabled", "never")
 
@@ -115,6 +115,7 @@ def _powersave():
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
             writefile("{}/{}/power/control".format(usb_path,dir),"auto")
+            writefile("{}/{}/power/autosuspend_delay_ms".format(usb_path,dir),"60000")
 
     if get("block",True,"power"):
         # block auto suspend
@@ -127,6 +128,7 @@ def _powersave():
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
             writefile("{}/{}/power/control".format(pci_path,dir),"auto")
+            writefile("{}/{}/power/autosuspend_delay_ms".format(pci_path,dir),"60000")
         writefile("/sys/module/pcie_aspm/parameters/policy", "powersave")
 
 
@@ -226,13 +228,13 @@ def _performance():
     writefile("/proc/sys/vm/dirty_expire_centisecs",500)
     writefile("/proc/sys/vm/dirty_ratio", "20")
     writefile("/proc/sys/vm/dirty_background_ratio", "10")
-    
+
     # vfs cache pressure
     writefile("/proc/sys/vm/vfs_cache_pressure", "100")
 
-    # enable THP    
+    # enable THP
     writefile("/sys/kernel/mm/transparent_hugepage/enabled", "madvise")
-        
+
     if get("scsi",True,"power"):
         # sata channel
         scsi_host_path="/sys/class/scsi_host/"
@@ -252,12 +254,14 @@ def _performance():
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
             writefile("{}/{}/power/control".format(usb_path,dir),"on")
+            writefile("{}/{}/power/autosuspend_delay_ms".format(usb_path,dir),"60000")
 
     if get("pci",True,"power"):
         # pci auto suspend
         pci_path="/sys/bus/pci/devices/"
         for dir in listdir(pci_path):
             writefile("{}/{}/power/control".format(pci_path,dir),"on")
+            writefile("{}/{}/power/autosuspend_delay_ms".format(pci_path,dir),"60000")
         writefile("/sys/module/pcie_aspm/parameters/policy", "performance")
 
 
