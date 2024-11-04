@@ -120,4 +120,4 @@ def is_acpi_supported():
 
 @cached
 def is_oem_available():
-    return os.path.exists("/sys/firmware/acpi/MSDM")
+    return os.path.exists("/sys/firmware/acpi/tables/MSDM")
