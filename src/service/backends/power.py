@@ -114,6 +114,10 @@ def _powersave():
         # usb auto suspend
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
+            # ignore if interface type is HID or HUB
+            if os.path.isfile("{}/{}/bInterfaceClass".format(usb_path,dir)):
+                if readfile("{}/{}/bInterfaceClass".format(usb_path,dir)) in ["03","09"]:
+                    continue
             writefile("{}/{}/power/control".format(usb_path,dir),"auto")
             writefile("{}/{}/power/autosuspend_delay_ms".format(usb_path,dir),get("suspend_delay", "60000", "power"))
 
@@ -253,6 +257,10 @@ def _performance():
         # usb auto suspend
         usb_path="/sys/bus/usb/devices/"
         for dir in listdir(usb_path):
+            # ignore if interface type is HID or HUB
+            if os.path.isfile("{}/{}/bInterfaceClass".format(usb_path,dir)):
+                if readfile("{}/{}/bInterfaceClass".format(usb_path,dir)) in ["03","09"]:
+                    continue
             writefile("{}/{}/power/control".format(usb_path,dir),"on")
             writefile("{}/{}/power/autosuspend_delay_ms".format(usb_path,dir),get("suspend_delay", "60000", "power"))
 
