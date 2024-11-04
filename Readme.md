@@ -20,7 +20,7 @@ reboot
 Configuration files store in **/etc/pardus/ppm.conf** file and **/etc/pardus/ppm.conf.d/** directory.
 
 ## Usage
-You can use `ppm` command for changing profile or brightless
+You can use `ppm` command for changing profile or brightness
 ```
 Usage: ppm [set/get] [mode/backlight] (value)
 ```
