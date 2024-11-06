@@ -167,7 +167,7 @@ class MainWindow:
         self.__home_event(None)
         # Update settings buttons
         for name in ["usb", "pci","scsi","block","i2c","audio","bluetooth","gpu","network","unstable"]:
-             self.o("ui_switch_"+name).set_active(get(name, True, "power"))
+             self.o("ui_switch_"+name).set_active(get(name, name != "unstable", "power"))
              self.o("ui_switch_"+name).connect("state-set",self.save_settings)
 
 

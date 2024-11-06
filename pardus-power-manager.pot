@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 13:30+0300\n"
+"POT-Creation-Date: 2024-11-06 11:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,80 +17,136 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/data/MainWindow.ui:62
+#: src/data/MainWindow.ui:66
 msgid "POWERSAVE"
 msgstr ""
 
-#: src/data/MainWindow.ui:105
+#: src/data/MainWindow.ui:109
 msgid "PERFORMANCE"
 msgstr ""
 
-#: src/data/MainWindow.ui:149
+#: src/data/MainWindow.ui:153
 msgid "On Power:"
 msgstr ""
 
-#: src/data/MainWindow.ui:188
+#: src/data/MainWindow.ui:192
 msgid "On Battery:"
 msgstr ""
 
-#: src/data/MainWindow.ui:235
+#: src/data/MainWindow.ui:239
 msgid "Switch to Powersave :"
 msgstr ""
 
-#: src/data/MainWindow.ui:252
+#: src/data/MainWindow.ui:256
 msgid "%"
 msgstr ""
 
-#: src/data/MainWindow.ui:288
+#: src/data/MainWindow.ui:292
 msgid "Stop charging the battery at 80%"
 msgstr ""
 
-#: src/data/MainWindow.ui:312
+#: src/data/MainWindow.ui:316
 msgid "Screen Brightness:"
 msgstr ""
 
-#: src/data/MainWindow.ui:349
-msgid "Enable Unstable Power Manager Features"
+#: src/data/MainWindow.ui:354
+msgid "main"
 msgstr ""
 
-#: src/data/MainWindow.ui:420 src/client/MainWindow.py:84
+#: src/data/MainWindow.ui:383
+msgid "Manage power for USB"
+msgstr ""
+
+#: src/data/MainWindow.ui:418
+msgid "Manage power for PCI"
+msgstr ""
+
+#: src/data/MainWindow.ui:453
+msgid "Manage power for SCSI"
+msgstr ""
+
+#: src/data/MainWindow.ui:488
+msgid "Manage power for Block Devices"
+msgstr ""
+
+#: src/data/MainWindow.ui:523
+msgid "Manage power for I2C"
+msgstr ""
+
+#: src/data/MainWindow.ui:558
+msgid "Manage power for Audio"
+msgstr ""
+
+#: src/data/MainWindow.ui:593
+msgid "Manage power for Bluetooth"
+msgstr ""
+
+#: src/data/MainWindow.ui:628
+msgid "Manage power for GPU"
+msgstr ""
+
+#: src/data/MainWindow.ui:663
+msgid "Manage power for Network"
+msgstr ""
+
+#: src/data/MainWindow.ui:709
+msgid "Enable Unstable Features"
+msgstr ""
+
+#: src/data/MainWindow.ui:746
+msgid "settings"
+msgstr ""
+
+#: src/data/MainWindow.ui:806 src/client/MainWindow.py:84
 #: src/client/MainWindow.py:87
 msgid "Pardus Power Manager"
 msgstr ""
 
-#: src/data/MainWindow.ui:492
+#: src/data/MainWindow.ui:883
+msgid "About"
+msgstr ""
+
+#: src/data/MainWindow.ui:927
+msgid "Advanced Settings"
+msgstr ""
+
+#: src/data/MainWindow.ui:971
+msgid "Main Page"
+msgstr ""
+
+#: src/data/MainWindow.ui:1025
 msgid "Your device does not have a linux acpi table ."
 msgstr ""
 
-#: src/data/MainWindow.ui:529
+#: src/data/MainWindow.ui:1062
 msgid "Your device does not require power management."
 msgstr ""
 
-#: src/data/MainWindow.ui:566
+#: src/data/MainWindow.ui:1099
 msgid "Your battery is dead."
 msgstr ""
 
-#: src/data/MainWindow.ui:603
+#: src/data/MainWindow.ui:1136
 msgid "Your device does not support S3 state sleep."
 msgstr ""
 
-#: src/data/MainWindow.ui:640
+#: src/data/MainWindow.ui:1173
 msgid "You are using virtual machine."
 msgstr ""
 
-#: src/data/MainWindow.ui:677
+#: src/data/MainWindow.ui:1210
 msgid "Windows OEM detected."
 msgstr ""
 
-#: src/data/MainWindow.ui:714
+#: src/data/MainWindow.ui:1247
 msgid "Power management may not works good."
 msgstr ""
 
-#: src/data/MainWindow.ui:740
+#: src/data/MainWindow.ui:1273
 msgid "Power manager"
 msgstr ""
 
-#: src/data/MainWindow.ui:742
+#: src/data/MainWindow.ui:1275
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -105,12 +161,12 @@ msgstr ""
 msgid "performance"
 msgstr ""
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:299
-#: src/client/MainWindow.py:309
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:345
+#: src/client/MainWindow.py:356
 msgid "Show"
 msgstr ""
 
-#: src/client/MainWindow.py:70 src/client/MainWindow.py:305
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:351
 msgid "Hide"
 msgstr ""
 
@@ -122,26 +178,26 @@ msgstr ""
 msgid "About Pardus Power Manager"
 msgstr ""
 
-#: src/client/MainWindow.py:129
+#: src/client/MainWindow.py:178
 msgid "Performance"
 msgstr ""
 
-#: src/client/MainWindow.py:130
+#: src/client/MainWindow.py:179
 msgid "Powersave"
 msgstr ""
 
-#: src/client/MainWindow.py:131
+#: src/client/MainWindow.py:180
 msgid "Do Noting"
 msgstr ""
 
-#: src/client/MainWindow.py:173
+#: src/client/MainWindow.py:220
 msgid "Power profile changed: "
 msgstr ""
 
-#: src/client/MainWindow.py:176
+#: src/client/MainWindow.py:223
 msgid "Disable Powersave"
 msgstr ""
 
-#: src/client/MainWindow.py:179
+#: src/client/MainWindow.py:226
 msgid "Enable Powersave"
 msgstr ""

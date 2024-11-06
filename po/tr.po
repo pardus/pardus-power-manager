@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 13:30+0300\n"
+"POT-Creation-Date: 2024-11-06 11:31+0300\n"
 "PO-Revision-Date: 2022-10-18 11:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,76 +17,136 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: src/data/MainWindow.ui:62
+#: src/data/MainWindow.ui:66
 msgid "POWERSAVE"
 msgstr "GÜÇ TASARRUFU"
 
-#: src/data/MainWindow.ui:105
+#: src/data/MainWindow.ui:109
 msgid "PERFORMANCE"
 msgstr "PERFORMANS"
 
-#: src/data/MainWindow.ui:149
+#: src/data/MainWindow.ui:153
 msgid "On Power:"
 msgstr "Güçte:"
 
-#: src/data/MainWindow.ui:188
+#: src/data/MainWindow.ui:192
 msgid "On Battery:"
 msgstr "Pilde:"
 
-#: src/data/MainWindow.ui:235
+#: src/data/MainWindow.ui:239
 msgid "Switch to Powersave :"
 msgstr "Güç Tasarrufuna Geç:"
 
-#: src/data/MainWindow.ui:252
+#: src/data/MainWindow.ui:256
 msgid "%"
 msgstr "%"
 
-#: src/data/MainWindow.ui:288
+#: src/data/MainWindow.ui:292
 msgid "Stop charging the battery at 80%"
 msgstr "Pil 80% olduğunda şarj etmeyi bırak"
 
-#: src/data/MainWindow.ui:312
+#: src/data/MainWindow.ui:316
 msgid "Screen Brightness:"
 msgstr "Ekran Parlaklığı:"
 
-#: src/data/MainWindow.ui:420 src/client/MainWindow.py:84
+#: src/data/MainWindow.ui:354
+msgid "main"
+msgstr ""
+
+#: src/data/MainWindow.ui:383
+msgid "Manage power for USB"
+msgstr "USB için gücü yönet"
+
+#: src/data/MainWindow.ui:418
+msgid "Manage power for PCI"
+msgstr "PCI için gücü yönet"
+
+#: src/data/MainWindow.ui:453
+msgid "Manage power for SCSI"
+msgstr "SCSI için gücü yönet"
+
+#: src/data/MainWindow.ui:488
+msgid "Manage power for Block Devices"
+msgstr "Block Aygıtlar için gücü yönet"
+
+#: src/data/MainWindow.ui:523
+msgid "Manage power for I2C"
+msgstr "I2C için gücü yönet"
+
+#: src/data/MainWindow.ui:558
+msgid "Manage power for Audio"
+msgstr "Ses için gücü yönet"
+
+#: src/data/MainWindow.ui:593
+msgid "Manage power for Bluetooth"
+msgstr "Bluetooth için gücü yönet"
+
+#: src/data/MainWindow.ui:628
+msgid "Manage power for GPU"
+msgstr "GPU için gücü yönet"
+
+#: src/data/MainWindow.ui:663
+msgid "Manage power for Network"
+msgstr "Ağ için gücü yönet"
+
+#: src/data/MainWindow.ui:709
+msgid "Enable Unstable Features"
+msgstr "Kararsız Özelliği Etkinleştir"
+
+#: src/data/MainWindow.ui:746
+msgid "settings"
+msgstr ""
+
+#: src/data/MainWindow.ui:806 src/client/MainWindow.py:84
 #: src/client/MainWindow.py:87
 msgid "Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi"
 
-#: src/data/MainWindow.ui:492
+#: src/data/MainWindow.ui:883
+msgid "About"
+msgstr "Hakkında"
+
+#: src/data/MainWindow.ui:927
+msgid "Advanced Settings"
+msgstr "Gelişmiş Ayarlar"
+
+#: src/data/MainWindow.ui:971
+msgid "Main Page"
+msgstr "Ana Sayfa"
+
+#: src/data/MainWindow.ui:1025
 msgid "Your device does not have a linux acpi table ."
 msgstr "Donanımınız bir linux acpi tablosuna sahip değil."
 
-#: src/data/MainWindow.ui:529
+#: src/data/MainWindow.ui:1062
 msgid "Your device does not require power management."
 msgstr "Donanımınız güç yönetimine ihtiyaç duymuyor."
 
-#: src/data/MainWindow.ui:566
+#: src/data/MainWindow.ui:1099
 msgid "Your battery is dead."
 msgstr "Piliniz ölü."
 
-#: src/data/MainWindow.ui:603
+#: src/data/MainWindow.ui:1136
 msgid "Your device does not support S3 state sleep."
 msgstr "Donanımınız S3 uyku durumunu desteklemiyor."
 
-#: src/data/MainWindow.ui:640
+#: src/data/MainWindow.ui:1173
 msgid "You are using virtual machine."
 msgstr "Sanal makina kullanıyorsunuz."
 
-#: src/data/MainWindow.ui:677
+#: src/data/MainWindow.ui:1210
 msgid "Windows OEM detected."
 msgstr "Windows OEM tespit edildi."
 
-#: src/data/MainWindow.ui:714
+#: src/data/MainWindow.ui:1247
 msgid "Power management may not works good."
 msgstr "Güç yönetimi düzgün çalışmayabilir."
 
-#: src/data/MainWindow.ui:740
+#: src/data/MainWindow.ui:1273
 msgid "Power manager"
 msgstr "Güç Yöneticisi"
 
-#: src/data/MainWindow.ui:742
+#: src/data/MainWindow.ui:1275
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General "
@@ -101,12 +161,12 @@ msgstr "güç tasarrufu"
 msgid "performance"
 msgstr "performans"
 
-#: src/client/MainWindow.py:68 src/client/MainWindow.py:299
-#: src/client/MainWindow.py:309
+#: src/client/MainWindow.py:68 src/client/MainWindow.py:345
+#: src/client/MainWindow.py:356
 msgid "Show"
 msgstr "Göster"
 
-#: src/client/MainWindow.py:70 src/client/MainWindow.py:305
+#: src/client/MainWindow.py:70 src/client/MainWindow.py:351
 msgid "Hide"
 msgstr "Gizle"
 
@@ -118,26 +178,26 @@ msgstr "Çıkış"
 msgid "About Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi Hakkında"
 
-#: src/client/MainWindow.py:129
+#: src/client/MainWindow.py:178
 msgid "Performance"
 msgstr "Performans"
 
-#: src/client/MainWindow.py:130
+#: src/client/MainWindow.py:179
 msgid "Powersave"
 msgstr "Güç tasarrufu"
 
-#: src/client/MainWindow.py:131
+#: src/client/MainWindow.py:180
 msgid "Do Noting"
 msgstr "Hiçbir şey yapma"
 
-#: src/client/MainWindow.py:173
+#: src/client/MainWindow.py:220
 msgid "Power profile changed: "
 msgstr "Güç profili değişti: "
 
-#: src/client/MainWindow.py:176
+#: src/client/MainWindow.py:223
 msgid "Disable Powersave"
 msgstr "Güç tasarrufunu kapat"
 
-#: src/client/MainWindow.py:179
+#: src/client/MainWindow.py:226
 msgid "Enable Powersave"
 msgstr "Güç tasarrufunu aç"
