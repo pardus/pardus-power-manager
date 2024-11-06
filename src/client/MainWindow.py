@@ -139,12 +139,14 @@ class MainWindow:
 
 
     def __settings_event(self, widget):
+        self.o("ui_popover_menu").popdown()
         self.o("ui_stack_main").set_visible_child_name("settings")
         self.o("ui_button_home").show()
         self.o("ui_button_settings").hide()
 
 
     def __home_event(self, widget):
+        self.o("ui_popover_menu").popdown()
         self.o("ui_stack_main").set_visible_child_name("main")
         self.o("ui_button_home").hide()
         self.o("ui_button_settings").show()
@@ -157,6 +159,7 @@ class MainWindow:
         self.o("ui_popover_warning").popup()
 
     def __about_event(self, widget):
+        self.o("ui_popover_menu").popdown()
         self.o("ui_about_dialog").run()
         self.o("ui_about_dialog").hide()
 
