@@ -255,6 +255,7 @@ class MainWindow:
             issue = oem or acpi or vm or not laptop or not deep
             self.o("ui_button_warning").set_visible(issue)
             self.o("ui_box_warning_battery").set_visible(False)
+            self.o("ui_box_unstable_options").set_visible(issue)
             if issue:
                 self.o("ui_box_warning_virtual").set_visible(vm)
                 self.o("ui_box_warning_laptop").set_visible(not laptop)
