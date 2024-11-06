@@ -98,6 +98,7 @@ class MainWindow:
         self.combobox_init()
         self.spinbutton_init()
         self.value_init()
+        self.settings_init()
         self.connect_signal()
         if not charge_stop_available():
             self.o("ui_checkbox_battery_treshold").set_visible(False)
@@ -132,6 +133,25 @@ class MainWindow:
         self.o("ui_spinbutton_switch_to_performance").connect("value-changed",self.save_settings)
         self.o("ui_button_about").connect("clicked",self.__about_event)
         self.o("ui_button_warning").connect("clicked",self.__warning_event)
+        self.o("ui_button_menu").connect("clicked",self.__menu_event)
+        self.o("ui_button_settings").connect("clicked",self.__settings_event)
+        self.o("ui_button_home").connect("clicked",self.__home_event)
+
+
+    def __settings_event(self, widget):
+        self.o("ui_stack_main").set_visible_child_name("settings")
+        self.o("ui_button_home").show()
+        self.o("ui_button_settings").hide()
+
+
+    def __home_event(self, widget):
+        self.o("ui_stack_main").set_visible_child_name("main")
+        self.o("ui_button_home").hide()
+        self.o("ui_button_settings").show()
+
+    def __menu_event(self, widget):
+        self.o("ui_popover_menu").popup()
+
 
     def __warning_event(self, widget):
         self.o("ui_popover_warning").popup()
@@ -139,6 +159,17 @@ class MainWindow:
     def __about_event(self, widget):
         self.o("ui_about_dialog").run()
         self.o("ui_about_dialog").hide()
+
+
+###### settings ######
+
+    def settings_init(self):
+        self.__home_event(None)
+        # Update settings buttons
+        for name in ["usb", "pci","scsi","block","i2c","audio","bluetooth","gpu","network","unstable"]:
+             self.o("ui_switch_"+name).set_active(get(name, True, "power"))
+             self.o("ui_switch_"+name).connect("state-set",self.save_settings)
+
 
 ###### widget init ######
 
@@ -256,6 +287,10 @@ class MainWindow:
         # service
         data["service"] = {}
         data["service"]["enabled"] = True
+        # power
+        data["power"]={}
+        for name in ["usb", "pci","scsi","block","i2c","audio","bluetooth","gpu","network"]:
+            data["power"][name] = self.o("ui_switch_"+name).get_active()
         # modes
         data["modes"] = {}
         ac_w = self.o("ui_combobox_acmode")
