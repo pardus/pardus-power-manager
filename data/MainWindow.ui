@@ -863,12 +863,12 @@
               <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="spacing">5</property>
+                <property name="spacing">13</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="icon-name">documentinfo-symbolic</property>
+                    <property name="icon-name">info-symbolic</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -907,12 +907,12 @@
               <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="spacing">5</property>
+                <property name="spacing">13</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="icon-name">settings-configure-symbolic</property>
+                    <property name="icon-name">applications-system-symbolic</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -951,7 +951,7 @@
               <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="spacing">5</property>
+                <property name="spacing">13</property>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
