@@ -321,10 +321,10 @@ def _balanced():
     Balanced mode same with powersave but core and sysfs modes are performance
     Balanced mode provide power save without performance issues
     """
-    set_governor_mode(False)
+    set_governor_mode(True)
     set_core_mode(False)
     set_pstate_mode(True)
-    set_sysfs_mode(True)
+    set_sysfs_mode(False)
 
     if not is_acpi_supported() and not get("unstable", False, "service"):
         return
