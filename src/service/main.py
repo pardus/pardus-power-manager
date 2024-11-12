@@ -32,7 +32,7 @@ def battery_loop():
         data = {}
         data["pid"] = os.getpid()
         data["update"] = "service"
-        main(json.dumps(data))
+        main(data)
 
 battery_loop()
 
