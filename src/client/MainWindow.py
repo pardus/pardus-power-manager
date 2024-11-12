@@ -125,6 +125,7 @@ class MainWindow:
     def connect_signal(self):
         self.window.connect("delete-event", self.window_delete_event)
         self.o("ui_button_powersave").connect("clicked",self.powersave_event)
+        self.o("ui_button_balanced").connect("clicked",self.balanced_event)
         self.o("ui_button_performance").connect("clicked",self.performance_event)
         self.o("ui_combobox_acmode").connect("changed",self.save_settings)
         self.o("ui_combobox_batmode").connect("changed",self.save_settings)
@@ -209,6 +210,8 @@ class MainWindow:
         data = {}
         if self.current_mode == "powersave":
             data["new-mode"] = "performance"
+        elif self.current_mode == "balanced":
+            data["new-mode"] = "balanced"
         else:
             data["new-mode"] = "powersave"
         send_server(data)
@@ -242,9 +245,15 @@ class MainWindow:
             self.open_window_event(None)
         if self.current_mode == "powersave":
             self.o("ui_button_powersave").set_sensitive(False)
+            self.o("ui_button_balanced").set_sensitive(True)
+            self.o("ui_button_performance").set_sensitive(True)
+        elif self.current_mode == "balanced":
+            self.o("ui_button_powersave").set_sensitive(True)
+            self.o("ui_button_balanced").set_sensitive(False)
             self.o("ui_button_performance").set_sensitive(True)
         else:
             self.o("ui_button_powersave").set_sensitive(True)
+            self.o("ui_button_balanced").set_sensitive(True)
             self.o("ui_button_performance").set_sensitive(False)
 
         if "info" in data:
@@ -328,14 +337,25 @@ class MainWindow:
 
     def powersave_event(self,widget):
         self.o("ui_button_powersave").set_sensitive(False)
+        self.o("ui_button_balanced").set_sensitive(True)
         self.o("ui_button_performance").set_sensitive(True)
         data = {}
         data["pid"] = os.getpid()
         data["new-mode"] = "powersave"
         send_server(data)
 
+    def balanced_event(self,widget):
+        self.o("ui_button_powersave").set_sensitive(True)
+        self.o("ui_button_balanced").set_sensitive(False)
+        self.o("ui_button_performance").set_sensitive(True)
+        data = {}
+        data["pid"] = os.getpid()
+        data["new-mode"] = "balanced"
+        send_server(data)
+
     def performance_event(self,widget):
         self.o("ui_button_powersave").set_sensitive(True)
+        self.o("ui_button_balanced").set_sensitive(True)
         self.o("ui_button_performance").set_sensitive(False)
         data = {}
         data["pid"] = os.getpid()
