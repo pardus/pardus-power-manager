@@ -396,7 +396,7 @@
               </object>
               <packing>
                 <property name="name">main</property>
-                <property name="title" translatable="yes">main</property>
+                <property name="title" translatable="no">main</property>
               </packing>
             </child>
             <child>
@@ -788,7 +788,7 @@
               </object>
               <packing>
                 <property name="name">settings</property>
-                <property name="title" translatable="yes">settings</property>
+                <property name="title" translatable="no">settings</property>
                 <property name="position">1</property>
               </packing>
             </child>

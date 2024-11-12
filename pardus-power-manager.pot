@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-12 07:55+0000\n"
+"POT-Creation-Date: 2024-11-12 07:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,10 +53,6 @@ msgstr ""
 msgid "Screen Brightness:"
 msgstr ""
 
-#: src/data/MainWindow.ui:399
-msgid "main"
-msgstr ""
-
 #: src/data/MainWindow.ui:428
 msgid "Manage power for USB"
 msgstr ""
@@ -95,10 +91,6 @@ msgstr ""
 
 #: src/data/MainWindow.ui:754
 msgid "Enable Unstable Features"
-msgstr ""
-
-#: src/data/MainWindow.ui:791
-msgid "settings"
 msgstr ""
 
 #: src/data/MainWindow.ui:851 src/client/MainWindow.py:85

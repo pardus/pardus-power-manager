@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-12 07:55+0000\n"
+"POT-Creation-Date: 2024-11-12 07:57+0000\n"
 "PO-Revision-Date: 2022-10-18 11:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -53,10 +53,6 @@ msgstr "Pil 80% olduğunda şarj etmeyi bırak"
 msgid "Screen Brightness:"
 msgstr "Ekran Parlaklığı:"
 
-#: src/data/MainWindow.ui:399
-msgid "main"
-msgstr ""
-
 #: src/data/MainWindow.ui:428
 msgid "Manage power for USB"
 msgstr "USB için gücü yönet"
@@ -96,10 +92,6 @@ msgstr "Ağ için gücü yönet"
 #: src/data/MainWindow.ui:754
 msgid "Enable Unstable Features"
 msgstr "Kararsız Özelliği Etkinleştir"
-
-#: src/data/MainWindow.ui:791
-msgid "settings"
-msgstr ""
 
 #: src/data/MainWindow.ui:851 src/client/MainWindow.py:85
 #: src/client/MainWindow.py:88
@@ -192,7 +184,7 @@ msgstr "Performans"
 
 #: src/client/MainWindow.py:184
 msgid "Balanced"
-msgstr ""
+msgstr "Dengeli"
 
 #: src/client/MainWindow.py:185
 msgid "Powersave"

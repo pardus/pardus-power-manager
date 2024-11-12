@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-12 07:55+0000\n"
+"POT-Creation-Date: 2024-11-12 07:57+0000\n"
 "PO-Revision-Date: 2024-07-16 01:02+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <hugokarvalho@hotmail.com>\n"
@@ -55,10 +55,6 @@ msgstr "Parar de carregar a bateria a 80%"
 msgid "Screen Brightness:"
 msgstr "Luminosidade do ecrã:"
 
-#: src/data/MainWindow.ui:399
-msgid "main"
-msgstr ""
-
 #: src/data/MainWindow.ui:428
 msgid "Manage power for USB"
 msgstr ""
@@ -99,10 +95,6 @@ msgstr ""
 #, fuzzy
 msgid "Enable Unstable Features"
 msgstr "Ativar funcionalidades instáveis do Gestor de Energia"
-
-#: src/data/MainWindow.ui:791
-msgid "settings"
-msgstr ""
 
 #: src/data/MainWindow.ui:851 src/client/MainWindow.py:85
 #: src/client/MainWindow.py:88
