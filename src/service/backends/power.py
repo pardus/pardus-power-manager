@@ -64,8 +64,12 @@ def set_core_mode(powersave):
                     min_freq=readfile("{}/{}/cpufreq/cpuinfo_min_freq".format(cpu_path,dir))
                     max_freq=readfile("{}/{}/cpufreq/cpuinfo_max_freq".format(cpu_path,dir))
                     if min_freq != "" and max_freq != "":
-                        new_freq = int(max_freq) * ratio
-                        writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
+                        # ignore if lower than 2Ghz
+                        if int(max_freq) >= 2000000:
+                            new_freq = int(max_freq) * ratio
+                            if new_freq < 2000000:
+                                new_freq = 2000000
+                            writefile("{}/{}/cpufreq/scaling_max_freq".format(cpu_path,dir),int(new_freq))
 
         if get("core",True,"power"):
             # disable cpu core
