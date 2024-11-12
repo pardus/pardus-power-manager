@@ -35,6 +35,7 @@ actions_file = os.path.dirname(os.path.abspath(__file__)) + "/actions.py"
 
 # string for translation
 _("powersave")
+_("balanced")
 _("performance")
 
 class MainWindow:
@@ -49,7 +50,7 @@ class MainWindow:
         self.builder.add_from_file(os.path.dirname(os.path.abspath(__file__)) + "/../data/MainWindow.ui")
         self.window = self.builder.get_object("ui_window_main")
         self.indicator = appindicator.Indicator.new(
-            "pardus-power-manager", "pardus-pm-performance-symbolic", appindicator.IndicatorCategory.APPLICATION_STATUS)
+            "pardus-power-manager", "pardus-pm-balanced-symbolic", appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.indicator.set_icon("pardus-pm-powersave-symbolic")
         self.window.set_wmclass("pardus-power-manager", "pardus-power-manager")
@@ -200,8 +201,8 @@ class MainWindow:
     def value_init(self):
         self.o("ui_spinbutton_switch_to_performance").set_value(float(get("powersave_threshold","25","modes")))
         self.o("ui_checkbox_battery_treshold").set_active(get("charge_stop_enabled","False","modes").lower() == "true")
-        l = ["performance", "powersave", "ignore"]
-        self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","performance","modes")))
+        l = ["performance", "balanced", "powersave", "ignore"]
+        self.o("ui_combobox_acmode").set_active(l.index(get("ac-mode","balanced","modes")))
         self.o("ui_combobox_batmode").set_active(l.index(get("bat-mode","powersave","modes")))
 
 ###### mode functions ######
@@ -209,7 +210,7 @@ class MainWindow:
     def power_mode_event(self, widget):
         data = {}
         if self.current_mode == "powersave":
-            data["new-mode"] = "performance"
+            data["new-mode"] = "balanced"
         else:
             data["new-mode"] = "powersave"
         send_server(data)
