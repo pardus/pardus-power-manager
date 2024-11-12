@@ -39,6 +39,7 @@ def main(data):
 
     if "new-config" in data:
         write_settings(json.loads(data["new-config"]))
+        reload_config()
 
     # client update
     udata = {}
