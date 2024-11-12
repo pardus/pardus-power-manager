@@ -210,7 +210,7 @@ def set_i2c_mode(powersave):
         # i2c auto suspend
         i2c_path="/sys/bus/i2c/devices/"
         for dir in listdir(i2c_path):
-            if powesrave:
+            if powersave:
                 writefile("{}/{}/power/control".format(i2c_path,dir),"auto")
                 writefile("{}/{}/device/power/control".format(i2c_path,dir),"auto")
             else:

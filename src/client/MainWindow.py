@@ -210,8 +210,6 @@ class MainWindow:
         data = {}
         if self.current_mode == "powersave":
             data["new-mode"] = "performance"
-        elif self.current_mode == "balanced":
-            data["new-mode"] = "balanced"
         else:
             data["new-mode"] = "powersave"
         send_server(data)
