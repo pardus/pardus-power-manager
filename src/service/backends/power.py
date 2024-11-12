@@ -15,9 +15,14 @@ def set_mode(mode):
     if mode == "performance":
         _performance()
         backlight = get("backlight-performance","%100","modes")
+    elif mode == "balanced":
+        _balanced()
+        backlight = get("backlight-balanced","%75","modes")
     elif mode == "powersave":
         _powersave()
         backlight = get("backlight-powersave","%50","modes")
+    else:
+        return
     _cur_mode = mode
     set_brightness("all", backlight)
     log("New mode: {}".format(mode))
@@ -282,6 +287,10 @@ def set_nvme_mode(powersave):
 # https://wiki.debian.org/SimplePowerSave
 @asynchronous
 def _powersave():
+    """
+    Powersave mode provide maximum battery life.
+    It will reduce power usage and fan speed.
+    """
     set_governor_mode(True)
     set_core_mode(True)
     set_pstate_mode(True)
@@ -303,7 +312,38 @@ def _powersave():
     set_nvme_mode(True)
 
 @asynchronous
+def _balanced():
+    """
+    Balanced mode same with powersave but core and sysfs modes are performance
+    Balanced mode provide power save without performance issues
+    """
+    set_governor_mode(True)
+    set_core_mode(False)
+    set_pstate_mode(True)
+    set_sysfs_mode(False)
+
+    if not is_acpi_supported() and not get("unstable", False, "service"):
+        return
+
+    set_scsi_mode(True)
+    set_usb_mode(True)
+    set_block_mode(True)
+    set_pci_mode(True)
+    set_i2c_mode(True)
+    set_audio_mode(True)
+    set_turbo_mode(True)
+    set_gpu_mode(True)
+    set_network_mode(True)
+    set_bluetooth_mode(True)
+    set_nvme_mode(True)
+
+
+@asynchronous
 def _performance():
+    """
+    Performance mode provide maximum performance.
+    It will increase power usage and fan speed.
+    """
     set_governor_mode(False)
     set_core_mode(False)
     set_pstate_mode(False)

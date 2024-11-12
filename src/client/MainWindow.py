@@ -179,6 +179,7 @@ class MainWindow:
     def combobox_init(self):
         store = Gtk.ListStore(str, str)
         store.append([_("Performance"),"performance"])
+        store.append([_("Balanced"),"balanced"])
         store.append([_("Powersave"),"powersave"])
         store.append([_("Do Noting"),"ignore"])
         self.o("ui_combobox_acmode").set_model(store)
