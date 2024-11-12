@@ -229,6 +229,9 @@ class MainWindow:
                 if self.current_mode == "powersave":
                     self.power_mode.set_label(_("Disable Powersave"))
                     self.indicator.set_icon("pardus-pm-powersave-symbolic")
+                elif self.current_mode == "Balanced":
+                    self.power_mode.set_label(_("Enable Powersave"))
+                    self.indicator.set_icon("pardus-pm-balanced-symbolic")
                 else:
                     self.power_mode.set_label(_("Enable Powersave"))
                     self.indicator.set_icon("pardus-pm-performance-symbolic")

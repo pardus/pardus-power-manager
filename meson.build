@@ -24,7 +24,9 @@ install_subdir('src/common', install_dir: pardus_dir)
 install_subdir('src/udev-trigger', install_dir: pardus_dir)
 install_subdir('src/data', install_dir: pardus_dir)
 # install icons
-foreach icon : ['ppm-performance-button', 'ppm-powersave-button', 'pardus-pm-performance-symbolic', 'pardus-pm-powersave-symbolic']
+foreach icon : ['ppm-performance-button', 'ppm-balanced-button', 'ppm-powersave-button', 
+                'pardus-pm-performance-symbolic', 'pardus-pm-powersave-symbolic',
+                'pardus-pm-balanced-symbolic']
     install_data('data/'+icon+'.svg', install_dir: icons_dir)
 endforeach
 install_data('data/pardus-power-manager.svg', install_dir: app_icon_dir)
