@@ -37,7 +37,7 @@ def battery_loop():
 battery_loop()
 
 # set initial mode state
-mode = get("ac-mode","performance","modes")
+mode = get("ac-mode","balanced","modes")
 if not get_ac_online():
     mode = get("bat-mode","powersave","modes")
 set_mode(mode)

@@ -25,7 +25,7 @@ if os.path.exists("/run/ppm"):
     if str(ac_now) == str(ac_last):
         exit(0)
 
-    new_mode = get("ac-mode","performance","modes")
+    new_mode = get("ac-mode","balanced","modes")
     if not ac_now:
         new_mode = get("bat-mode","powersave","modes")
 
