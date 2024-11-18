@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Pardus Power Manager
+Name[tr]=Pardus Güç Yöneticisi
+Comment=Pardus Power Manager
+Comment[tr]=Pardus Güç Yöneticisi
+Exec=pardus-power-manager
+Icon=pardus-power-manager
+Terminal=false
+Type=Application
+Categories=GTK;Utility;
+StartupNotify=true
+Keywords=ppd;ppm;

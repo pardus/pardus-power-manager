@@ -1,7 +1,4 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --buildsystem=meson
-	dh_systemd_enable || true
-	dh_systemd_start || true
-
+	dh $@ --with python3 --buildsystem=pybuild

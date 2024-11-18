@@ -1,2 +1,0 @@
-option('service', type : 'string', value : 'sysvinit', description : 'Service Manager')
-

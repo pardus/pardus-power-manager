@@ -1,23 +1,20 @@
 Source: pardus-power-manager
-Section: utils
+Section: x11
 Priority: optional
-Maintainer: Ali Rıza KESKİN <ali.riza.keskin@pardus.org.tr>
-Build-Depends: meson, ninja-build
-Standards-Version: 4.3.0
-Homepage: https://pardus.org.tr
+Maintainer: Fatih Altun <fatih.altun@pardus.org.tr>
+Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools
+Standards-Version: 4.6.1
+Homepage: https://github.com/pardus/pardus-power-manager
 
 Package: pardus-power-manager
 Architecture: all
 Depends: ${misc:Depends},
-         libc6,
-         python3 (>=3.5),
-         python3-gi,
-         gir1.2-notify-0.7,
+         ${python3:Depends},
          gir1.2-ayatanaappindicator3-0.1,
-         gir1.2-gtk-3.0
-Recommends: python3-inotify
-Breaks: tlp, power-profiles-daemon
-Conflicts: tlp, power-profiles-daemon
-Replaces: tlp, power-profiles-daemon
-Description: Pardus power manager.
- Pardus power manager.
+         gir1.2-glib-2.0,
+         gir1.2-gtk-3.0,
+         power-profiles-daemon
+Conflicts: tlp
+Replaces: tlp
+Description: ETA Help.
+ ETA Help application.
