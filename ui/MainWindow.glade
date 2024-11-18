@@ -40,12 +40,14 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="orientation">vertical</property>
                         <property name="spacing">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">power-profile-power-saver-symbolic</property>
+                            <property name="pixel-size">64</property>
+                            <property name="icon-name">pardus-pm-power-saver</property>
                             <property name="icon_size">5</property>
                           </object>
                           <packing>
@@ -85,12 +87,14 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="orientation">vertical</property>
                         <property name="spacing">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">power-profile-balanced-symbolic</property>
+                            <property name="pixel-size">64</property>
+                            <property name="icon-name">pardus-pm-balanced</property>
                             <property name="icon_size">5</property>
                           </object>
                           <packing>
@@ -130,12 +134,14 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="orientation">vertical</property>
                         <property name="spacing">5</property>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">power-profile-performance-symbolic</property>
+                            <property name="pixel-size">64</property>
+                            <property name="icon-name">pardus-pm-performance</property>
                             <property name="icon_size">5</property>
                           </object>
                           <packing>
