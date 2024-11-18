@@ -10,7 +10,7 @@ pardus-power-manager (3.0.0) unstable; urgency=medium
   * usage
   * fix battery usage calculator issue
   * usage update fix
-  * acpi support check. if does not available power save events partically blocked
+  * acpi support check. if does not available power save events..
   * cli info features
   * oem and acpi warning added
   * translation update
