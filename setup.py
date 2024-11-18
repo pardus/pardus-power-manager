@@ -50,10 +50,16 @@ data_files = [
                    "src/UserSettings.py",
                    "src/__version__"]),
                  ("/usr/share/pardus/pardus-power-manager/data",
-                  ["data/tr.org.pardus.power-manager-autostart.desktop",
-                   "data/pardus-power-manager.svg", ]),
+                  ["data/tr.org.pardus.power-manager-autostart.desktop"]),
                  ("/usr/share/icons/hicolor/scalable/apps/",
-                  ["data/pardus-power-manager.svg", ])
+                  ["data/pardus-power-manager.svg",
+                   "data/pardus-pm-power-saver.svg",
+                   "data/pardus-pm-balanced.svg",
+                   "data/pardus-pm-performance.svg",
+                   "data/pardus-pm-power-saver-symbolic.svg",
+                   "data/pardus-pm-balanced-symbolic.svg",
+                   "data/pardus-pm-performance-symbolic.svg",
+                   ])
              ] + create_mo_files()
 
 setup(
