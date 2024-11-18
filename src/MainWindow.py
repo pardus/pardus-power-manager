@@ -33,6 +33,16 @@ locale.bindtextdomain('pardus-power-manager', '/usr/share/locale')
 locale.textdomain('pardus-power-manager')
 
 
+def getenv(env_name):
+    env = os.environ.get(env_name)
+    return env if env else ""
+
+
+gnome_desktop = False
+if "gnome" in getenv("SESSION").lower() or "gnome" in getenv("XDG_CURRENT_DESKTOP").lower():
+    gnome_desktop = True
+
+
 class MainWindow(object):
     def __init__(self, application):
         self.Application = application
@@ -121,6 +131,16 @@ class MainWindow(object):
         self.current_profile = self.ppd_interface.Get("net.hadess.PowerProfiles", "ActiveProfile",
                                                       dbus_interface="org.freedesktop.DBus.Properties")
 
+        system_wide = "usr/share" in os.path.dirname(os.path.abspath(__file__))
+        self.icon_powersaver = "pardus-pm-power-saver-symbolic" if system_wide else "power-profile-power-saver-symbolic"
+        self.icon_balanced = "pardus-pm-balanced-symbolic" if system_wide else "spower-profile-balanced-symbolic"
+        self.icon_performance = "pardus-pm-performance-symbolic" if system_wide else "power-profile-performance-symbolic"
+
+        if gnome_desktop:
+            self.icon_powersaver = "power-profile-power-saver-symbolic"
+            self.icon_balanced = "power-profile-balanced-symbolic"
+            self.icon_performance = "power-profile-performance-symbolic"
+
         print("Available profiles: {}".format(self.power_profiles))
         print("Current profile: {}".format(self.current_profile))
 
@@ -196,6 +216,7 @@ class MainWindow(object):
                 self.item_balanced.get_label().replace("[", "").replace("]", "").strip()))
             self.item_performance.set_label("{}".format(
                 self.item_performance.get_label().replace("[", "").replace("]", "").strip()))
+            GLib.idle_add(self.indicator.set_icon, self.icon_powersaver)
         elif self.current_profile == "balanced":
             self.ui_balanced_button.get_style_context().add_class("suggested-action")
             self.ui_powersaver_button.get_style_context().remove_class("suggested-action")
@@ -206,6 +227,7 @@ class MainWindow(object):
                 self.item_powersaver.get_label().replace("[", "").replace("]", "").strip()))
             self.item_performance.set_label("{}".format(
                 self.item_performance.get_label().replace("[", "").replace("]", "").strip()))
+            GLib.idle_add(self.indicator.set_icon, self.icon_balanced)
         elif self.current_profile == "performance":
             self.ui_performance_button.get_style_context().add_class("suggested-action")
             self.ui_powersaver_button.get_style_context().remove_class("suggested-action")
@@ -216,6 +238,7 @@ class MainWindow(object):
                 self.item_powersaver.get_label().replace("[", "").replace("]", "").strip()))
             self.item_balanced.set_label("{}".format(
                 self.item_balanced.get_label().replace("[", "").replace("]", "").strip()))
+            GLib.idle_add(self.indicator.set_icon, self.icon_performance)
 
     def set_profile(self, profile_name):
 
