@@ -7,14 +7,14 @@ Created on Fri Nov 15 14:53:01 2024
 """
 
 import os
-import signal
-import subprocess
 
+import dbus
+import dbus.mainloop.glib
 import gi
 
 gi.require_version("GLib", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, GLib
 
 try:
     gi.require_version('AppIndicator3', '0.1')
@@ -45,6 +45,8 @@ class MainWindow(object):
             print("Error reading GUI file: " + self.main_window_ui_filename)
             raise
 
+        self.init_power_profiles_dbus()
+
         self.define_components()
         self.define_variables()
         self.main_window.set_application(application)
@@ -52,7 +54,9 @@ class MainWindow(object):
         self.user_settings()
 
         self.set_autostart()
+
         self.init_indicator()
+        self.mark_current_profile()
 
         self.about_dialog.set_program_name(_("Pardus Power Manager"))
         if self.about_dialog.get_titlebar() is None:
@@ -71,14 +75,6 @@ class MainWindow(object):
         except:
             pass
 
-        def sighandler(signum, frame):
-            if self.about_dialog.is_visible():
-                self.about_dialog.hide()
-            self.main_window.get_application().quit()
-
-        signal.signal(signal.SIGINT, sighandler)
-        signal.signal(signal.SIGTERM, sighandler)
-
         if "tray" in self.Application.args.keys():
             self.main_window.set_visible(False)
         else:
@@ -87,12 +83,46 @@ class MainWindow(object):
 
         self.set_indicator()
 
+        self.hide_widgets()
+
+    def init_power_profiles_dbus(self):
+        dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+        self.ppd_bus = dbus.SystemBus()
+        self.ppd_proxy = self.ppd_bus.get_object("net.hadess.PowerProfiles", "/net/hadess/PowerProfiles")
+        self.ppd_interface = dbus.Interface(self.ppd_proxy, "net.hadess.PowerProfiles")
+
+        self.ppd_bus.add_signal_receiver(
+            self.on_profile_changed,
+            dbus_interface="org.freedesktop.DBus.Properties",
+            signal_name="PropertiesChanged",
+            path="/net/hadess/PowerProfiles",
+        )
+
+    def on_profile_changed(self, interface_name, changed_properties, invalidated_properties):
+        if "ActiveProfile" in changed_properties:
+            new_profile = changed_properties["ActiveProfile"]
+            print("signal: current_profile: {}".format(self.current_profile))
+            print("signal: new_profile: {}".format(new_profile))
+            if self.current_profile != new_profile:
+                self.set_profile(new_profile)
+
     def define_components(self):
         self.main_window = self.GtkBuilder.get_object("ui_main_window")
         self.about_dialog = self.GtkBuilder.get_object("ui_about_dialog")
 
+        self.ui_powersaver_button = self.GtkBuilder.get_object("ui_powersaver_button")
+        self.ui_balanced_button = self.GtkBuilder.get_object("ui_balanced_button")
+        self.ui_performance_button = self.GtkBuilder.get_object("ui_performance_button")
+
     def define_variables(self):
-        pass
+        self.dbus_power_profiles = self.ppd_interface.Get("net.hadess.PowerProfiles", "Profiles",
+                                                          dbus_interface="org.freedesktop.DBus.Properties")
+        self.power_profiles = ["{}".format(entry['Profile']) for entry in self.dbus_power_profiles]
+        self.current_profile = self.ppd_interface.Get("net.hadess.PowerProfiles", "ActiveProfile",
+                                                      dbus_interface="org.freedesktop.DBus.Properties")
+
+        print("Available profiles: {}".format(self.power_profiles))
+        print("Current profile: {}".format(self.current_profile))
 
     def user_settings(self):
         self.UserSettings = UserSettings()
@@ -104,16 +134,42 @@ class MainWindow(object):
             "pardus-power-manager", "pardus-power-manager", appindicator.IndicatorCategory.APPLICATION_STATUS)
         self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
         self.indicator.set_title(_("Pardus Power Manager"))
+
         self.menu = Gtk.Menu()
+
         self.item_sh_app = Gtk.MenuItem()
         self.item_sh_app.connect("activate", self.on_menu_show_app)
+        self.menu.append(self.item_sh_app)
+
         self.item_separator = Gtk.SeparatorMenuItem()
+        self.menu.append(self.item_separator)
+
+        self.item_powersaver = Gtk.MenuItem()
+        if "power-saver" in self.power_profiles:
+            self.item_powersaver.set_label(_("Power Saver"))
+            self.item_powersaver.connect("activate", self.on_ui_powersaver_button_clicked)
+            self.menu.append(self.item_powersaver)
+
+        self.item_balanced = Gtk.MenuItem()
+        if "balanced" in self.power_profiles:
+            self.item_balanced.set_label(_("Balanced"))
+            self.item_balanced.connect("activate", self.on_ui_balanced_button_clicked)
+            self.menu.append(self.item_balanced)
+
+            self.item_performance = Gtk.MenuItem()
+            if "performance" in self.power_profiles:
+                self.item_performance.set_label(_("Performance"))
+                self.item_performance.connect("activate", self.on_ui_performance_button_clicked)
+                self.menu.append(self.item_performance)
+
+        self.item_separator1 = Gtk.SeparatorMenuItem()
+        self.menu.append(self.item_separator1)
+
         self.item_quit = Gtk.MenuItem()
         self.item_quit.set_label(_("Quit"))
         self.item_quit.connect('activate', self.on_menu_quit_app)
-        self.menu.append(self.item_sh_app)
-        self.menu.append(self.item_separator)
         self.menu.append(self.item_quit)
+
         self.menu.show_all()
         self.indicator.set_menu(self.menu)
 
@@ -124,8 +180,66 @@ class MainWindow(object):
         else:
             self.item_sh_app.set_label(_("Show App"))
 
+    def hide_widgets(self):
+        self.ui_powersaver_button.set_visible("power-saver" in self.power_profiles)
+        self.ui_balanced_button.set_visible("balanced" in self.power_profiles)
+        self.ui_performance_button.set_visible("performance" in self.power_profiles)
+
+    def mark_current_profile(self):
+        if self.current_profile == "power-saver":
+            self.ui_powersaver_button.get_style_context().add_class("suggested-action")
+            self.ui_balanced_button.get_style_context().remove_class("suggested-action")
+            self.ui_performance_button.get_style_context().remove_class("suggested-action")
+            if "[" not in self.item_powersaver.get_label():
+                self.item_powersaver.set_label("[ {} ]".format(self.item_powersaver.get_label()))
+            self.item_balanced.set_label("{}".format(
+                self.item_balanced.get_label().replace("[", "").replace("]", "").strip()))
+            self.item_performance.set_label("{}".format(
+                self.item_performance.get_label().replace("[", "").replace("]", "").strip()))
+        elif self.current_profile == "balanced":
+            self.ui_balanced_button.get_style_context().add_class("suggested-action")
+            self.ui_powersaver_button.get_style_context().remove_class("suggested-action")
+            self.ui_performance_button.get_style_context().remove_class("suggested-action")
+            if "[" not in self.item_balanced.get_label():
+                self.item_balanced.set_label("[ {} ]".format(self.item_balanced.get_label()))
+            self.item_powersaver.set_label("{}".format(
+                self.item_powersaver.get_label().replace("[", "").replace("]", "").strip()))
+            self.item_performance.set_label("{}".format(
+                self.item_performance.get_label().replace("[", "").replace("]", "").strip()))
+        elif self.current_profile == "performance":
+            self.ui_performance_button.get_style_context().add_class("suggested-action")
+            self.ui_powersaver_button.get_style_context().remove_class("suggested-action")
+            self.ui_balanced_button.get_style_context().remove_class("suggested-action")
+            if "[" not in self.item_performance.get_label():
+                self.item_performance.set_label("[ {} ]".format(self.item_performance.get_label()))
+            self.item_powersaver.set_label("{}".format(
+                self.item_powersaver.get_label().replace("[", "").replace("]", "").strip()))
+            self.item_balanced.set_label("{}".format(
+                self.item_balanced.get_label().replace("[", "").replace("]", "").strip()))
+
+    def set_profile(self, profile_name):
+
+        self.ppd_interface.Set("net.hadess.PowerProfiles", "ActiveProfile", profile_name,
+                               dbus_interface="org.freedesktop.DBus.Properties")
+
+        self.current_profile = self.ppd_interface.Get("net.hadess.PowerProfiles", "ActiveProfile",
+                                                      dbus_interface="org.freedesktop.DBus.Properties")
+
+        self.mark_current_profile()
+
+        print("profile setted to: {}".format(profile_name))
+
     def set_autostart(self):
         self.UserSettings.set_autostart(self.UserSettings.config_autostart)
+
+    def on_ui_powersaver_button_clicked(self, button):
+        self.set_profile("power-saver")
+
+    def on_ui_balanced_button_clicked(self, button):
+        self.set_profile("balanced")
+
+    def on_ui_performance_button_clicked(self, button):
+        self.set_profile("performance")
 
     def on_menu_show_app(self, *args):
         window_state = self.main_window.is_visible()

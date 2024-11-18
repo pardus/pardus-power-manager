@@ -19,7 +19,7 @@ from gi.repository import Gtk, Gio, GLib
 class Application(Gtk.Application):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, application_id="tr.org.pardus.power-manager",
-                         flags=Gio.ApplicationFlags(8), **kwargs)
+                         flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE, **kwargs)
         self.window = None
         GLib.set_prgname("tr.org.pardus.power-manager")
 
