@@ -51,6 +51,8 @@ data_files = [
                    "src/__version__"]),
                  ("/usr/share/pardus/pardus-power-manager/data",
                   ["data/tr.org.pardus.power-manager-autostart.desktop"]),
+                 ("/etc/skel/.config/autostart",
+                  ["data/tr.org.pardus.power-manager-autostart.desktop"]),
                  ("/usr/share/icons/hicolor/scalable/apps/",
                   ["data/pardus-power-manager.svg",
                    "data/pardus-pm-power-saver.svg",
