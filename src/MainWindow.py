@@ -70,6 +70,7 @@ class MainWindow(object):
         self.mark_current_profile()
 
         self.control_brightness()
+        self.add_brightness_devices()
 
         self.about_dialog.set_program_name(_("Pardus Power Manager"))
         if self.about_dialog.get_titlebar() is None:
@@ -154,7 +155,7 @@ class MainWindow(object):
             self.icon_performance = "power-profile-performance-symbolic"
 
         self.brightness_available = False
-        self.brightness_devices = []
+        self.brightness_devices = {}
 
         self.brightness_error_message = ""
 
@@ -278,35 +279,10 @@ class MainWindow(object):
             self.brightness_available = True
             backlight_devices = os.listdir("/sys/class/backlight")
             for dev in backlight_devices:
-                self.brightness_devices.append({"device": dev, "max_brightness": self.get_max_brightness(dev),
-                                                "current_brightness": self.get_current_brightness(dev)})
+                self.brightness_devices[dev] = {"max_brightness": self.get_max_brightness(dev),
+                                                "current_brightness": self.get_current_brightness(dev)}
 
             print("Brightness available. Devices: {}".format(self.brightness_devices))
-
-            for device in self.brightness_devices:
-                label = Gtk.Label.new()
-                label.set_text(_("Screen Brightness:"))
-
-                adjustment = Gtk.Adjustment.new(value=device["current_brightness"],
-                                                lower=0,
-                                                upper=device["max_brightness"],
-                                                step_increment=device["max_brightness"] / 100,
-                                                page_increment=device["max_brightness"] / 100,
-                                                page_size=0)
-                adjustment.name = device["device"]
-                adjustment.connect("value-changed", self.on_brightness_changed)
-
-                scale = Gtk.Scale.new(Gtk.Orientation.HORIZONTAL, adjustment)
-                scale.set_draw_value(False)
-                scale.set_inverted(False)
-                scale.set_show_fill_level(False)
-                scale.set_restrict_to_fill_level(True)
-
-                box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 3)
-                box.pack_start(label, True, True, 0)
-                box.pack_start(scale, True, True, 0)
-
-                self.ui_brightness_box.pack_start(box, True, True, 0)
 
     def get_max_brightness(self, device):
         max_brightness_file = "/sys/class/backlight/{}/max_brightness".format(device)
@@ -333,6 +309,34 @@ class MainWindow(object):
         command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
                    "{}".format(device), "{}".format(value)]
         self.start_brightness_process(command)
+
+    def add_brightness_devices(self):
+        for row in self.ui_brightness_box:
+            self.ui_brightness_box.remove(row)
+        for device, value in self.brightness_devices.items():
+            label = Gtk.Label.new()
+            label.set_text(_("Screen Brightness:"))
+
+            adjustment = Gtk.Adjustment.new(value=value["current_brightness"],
+                                            lower=0,
+                                            upper=value["max_brightness"],
+                                            step_increment=value["max_brightness"] / 100,
+                                            page_increment=value["max_brightness"] / 100,
+                                            page_size=0)
+            adjustment.name = device
+            adjustment.connect("value-changed", self.on_brightness_changed)
+
+            scale = Gtk.Scale.new(Gtk.Orientation.HORIZONTAL, adjustment)
+            scale.set_draw_value(False)
+            scale.set_inverted(False)
+            scale.set_show_fill_level(False)
+            scale.set_restrict_to_fill_level(True)
+
+            box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 3)
+            box.pack_start(label, True, True, 0)
+            box.pack_start(scale, True, True, 0)
+
+            self.ui_brightness_box.pack_start(box, True, True, 0)
 
     def on_brightness_changed(self, adjustment):
         print("on_brightness_changed: {} {}".format(adjustment.name, int(adjustment.get_value())))
