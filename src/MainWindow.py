@@ -14,7 +14,7 @@ import gi
 
 gi.require_version("GLib", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GObject, GLib
+from gi.repository import Gtk, GObject, GLib, Gdk
 
 try:
     gi.require_version('AppIndicator3', '0.1')
@@ -25,6 +25,7 @@ except:
     from gi.repository import AyatanaAppIndicator3 as appindicator
 
 # from UserSettings import UserSettings
+from Utils import ErrorDialog
 
 import locale
 from locale import gettext as _
@@ -59,6 +60,7 @@ class MainWindow(object):
 
         self.define_components()
         self.define_variables()
+
         self.main_window.set_application(application)
 
         # self.user_settings()
@@ -66,6 +68,8 @@ class MainWindow(object):
 
         self.init_indicator()
         self.mark_current_profile()
+
+        self.control_brightness()
 
         self.about_dialog.set_program_name(_("Pardus Power Manager"))
         if self.about_dialog.get_titlebar() is None:
@@ -83,6 +87,13 @@ class MainWindow(object):
             self.about_dialog.set_version(version)
         except:
             pass
+
+        cssProvider = Gtk.CssProvider()
+        cssProvider.load_from_path(os.path.dirname(os.path.abspath(__file__)) + "/../data/style.css")
+        screen = Gdk.Screen.get_default()
+        styleContext = Gtk.StyleContext()
+        styleContext.add_provider_for_screen(screen, cssProvider,
+                                             Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
         if "tray" in self.Application.args.keys():
             self.main_window.set_visible(False)
@@ -123,6 +134,8 @@ class MainWindow(object):
         self.ui_balanced_button = self.GtkBuilder.get_object("ui_balanced_button")
         self.ui_performance_button = self.GtkBuilder.get_object("ui_performance_button")
 
+        self.ui_brightness_box = self.GtkBuilder.get_object("ui_brightness_box")
+
     def define_variables(self):
         self.dbus_power_profiles = self.ppd_interface.Get("net.hadess.PowerProfiles", "Profiles",
                                                           dbus_interface="org.freedesktop.DBus.Properties")
@@ -139,6 +152,11 @@ class MainWindow(object):
             self.icon_powersaver = "power-profile-power-saver-symbolic"
             self.icon_balanced = "power-profile-balanced-symbolic"
             self.icon_performance = "power-profile-performance-symbolic"
+
+        self.brightness_available = False
+        self.brightness_devices = []
+
+        self.brightness_error_message = ""
 
         print("Available profiles: {}".format(self.power_profiles))
         print("Current profile: {}".format(self.current_profile))
@@ -206,6 +224,7 @@ class MainWindow(object):
         self.ui_powersaver_button.set_visible("power-saver" in self.power_profiles)
         self.ui_balanced_button.set_visible("balanced" in self.power_profiles)
         self.ui_performance_button.set_visible("performance" in self.power_profiles)
+        self.ui_brightness_box.set_visible(self.brightness_available)
 
     def mark_current_profile(self):
         if self.current_profile == "power-saver":
@@ -254,6 +273,71 @@ class MainWindow(object):
 
         print("profile setted to: {}".format(profile_name))
 
+    def control_brightness(self):
+        if os.path.isdir("/sys/class/backlight") and os.listdir("/sys/class/backlight"):
+            self.brightness_available = True
+            backlight_devices = os.listdir("/sys/class/backlight")
+            for dev in backlight_devices:
+                self.brightness_devices.append({"device": dev, "max_brightness": self.get_max_brightness(dev),
+                                                "current_brightness": self.get_current_brightness(dev)})
+
+            print("Brightness available. Devices: {}".format(self.brightness_devices))
+
+            for device in self.brightness_devices:
+                label = Gtk.Label.new()
+                label.set_text(_("Screen Brightness:"))
+
+                adjustment = Gtk.Adjustment.new(value=device["current_brightness"],
+                                                lower=0,
+                                                upper=device["max_brightness"],
+                                                step_increment=device["max_brightness"] / 100,
+                                                page_increment=device["max_brightness"] / 100,
+                                                page_size=0)
+                adjustment.name = device["device"]
+                adjustment.connect("value-changed", self.on_brightness_changed)
+
+                scale = Gtk.Scale.new(Gtk.Orientation.HORIZONTAL, adjustment)
+                scale.set_draw_value(False)
+                scale.set_inverted(False)
+                scale.set_show_fill_level(False)
+                scale.set_restrict_to_fill_level(True)
+
+                box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 3)
+                box.pack_start(label, True, True, 0)
+                box.pack_start(scale, True, True, 0)
+
+                self.ui_brightness_box.pack_start(box, True, True, 0)
+
+    def get_max_brightness(self, device):
+        max_brightness_file = "/sys/class/backlight/{}/max_brightness".format(device)
+        if os.path.isfile(max_brightness_file):
+            try:
+                with open(max_brightness_file, "r") as f:
+                    return int(f.read().strip())
+            except Exception as e:
+                print("Error in get_max_brightness. {}".format(e))
+                return 0
+
+    def get_current_brightness(self, device):
+        current_brightness_file = "/sys/class/backlight/{}/brightness".format(device)
+        if os.path.isfile(current_brightness_file):
+            try:
+                with open(current_brightness_file, "r") as f:
+                    return int(f.read().strip())
+            except Exception as e:
+                print("Error in get_current_brightness. {}".format(e))
+                return 0
+
+    def set_brightness(self, device, value):
+        self.brightness_error_message = ""
+        command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
+                   "{}".format(device), "{}".format(value)]
+        self.start_brightness_process(command)
+
+    def on_brightness_changed(self, adjustment):
+        print("on_brightness_changed: {} {}".format(adjustment.name, int(adjustment.get_value())))
+        self.set_brightness(adjustment.name, int(adjustment.get_value()))
+
     def on_ui_powersaver_button_clicked(self, button):
         self.set_profile("power-saver")
 
@@ -291,3 +375,35 @@ class MainWindow(object):
         if self.about_dialog.is_visible():
             self.about_dialog.hide()
         self.main_window.get_application().quit()
+
+    def start_brightness_process(self, params):
+        pid, stdin, stdout, stderr = GLib.spawn_async(params, flags=GLib.SpawnFlags.DO_NOT_REAP_CHILD,
+                                                      standard_output=True, standard_error=True)
+        GLib.io_add_watch(GLib.IOChannel(stdout), GLib.IO_IN | GLib.IO_HUP, self.on_brightness_process_stdout)
+        GLib.io_add_watch(GLib.IOChannel(stderr), GLib.IO_IN | GLib.IO_HUP, self.on_brightness_process_stderr)
+        GLib.child_watch_add(GLib.PRIORITY_DEFAULT, pid, self.on_brightness_process_exit)
+
+        return pid
+
+    def on_brightness_process_stdout(self, source, condition):
+        if condition == GLib.IO_HUP:
+            return False
+        line = source.readline()
+        print("on_brightness_process_stdout - line: {}".format(line))
+        return True
+
+    def on_brightness_process_stderr(self, source, condition):
+        if condition == GLib.IO_HUP:
+            return False
+        line = source.readline()
+        print("on_brightness_process_stderr - line: {}".format(line))
+        self.brightness_error_message = line
+        return True
+
+    def on_brightness_process_exit(self, pid, status):
+        print("on_brightness_process_exit - status: {}".format(status))
+        if status == 32256:  # operation cancelled | Request dismissed
+            print("operation cancelled | Request dismissed")
+        else:
+            if self.brightness_error_message != "":
+                ErrorDialog(_("Error"), "{}".format(self.brightness_error_message))
