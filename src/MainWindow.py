@@ -24,7 +24,7 @@ except:
     gi.require_version('AyatanaAppIndicator3', '0.1')
     from gi.repository import AyatanaAppIndicator3 as appindicator
 
-from UserSettings import UserSettings
+# from UserSettings import UserSettings
 
 import locale
 from locale import gettext as _
@@ -61,9 +61,8 @@ class MainWindow(object):
         self.define_variables()
         self.main_window.set_application(application)
 
-        self.user_settings()
-
-        self.set_autostart()
+        # self.user_settings()
+        # self.set_autostart()
 
         self.init_indicator()
         self.mark_current_profile()
@@ -144,10 +143,13 @@ class MainWindow(object):
         print("Available profiles: {}".format(self.power_profiles))
         print("Current profile: {}".format(self.current_profile))
 
-    def user_settings(self):
-        self.UserSettings = UserSettings()
-        self.UserSettings.createDefaultConfig()
-        self.UserSettings.readConfig()
+    # def user_settings(self):
+    #     self.UserSettings = UserSettings()
+    #     self.UserSettings.createDefaultConfig()
+    #     self.UserSettings.readConfig()
+
+    # def set_autostart(self):
+    #     self.UserSettings.set_autostart(self.UserSettings.config_autostart)
 
     def init_indicator(self):
         self.indicator = appindicator.Indicator.new(
@@ -251,9 +253,6 @@ class MainWindow(object):
         self.mark_current_profile()
 
         print("profile setted to: {}".format(profile_name))
-
-    def set_autostart(self):
-        self.UserSettings.set_autostart(self.UserSettings.config_autostart)
 
     def on_ui_powersaver_button_clicked(self, button):
         self.set_profile("power-saver")
