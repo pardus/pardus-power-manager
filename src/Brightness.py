@@ -11,13 +11,17 @@ import sys
 
 
 def main():
-    # def set_brightness(device, value):
-        # brightness_file = "/sys/class/backlight/{}/brightness".format(device)
-        # if os.path.isfile(brightness_file):
-        #     fd = open("/sys/class/backlight/{}/brightness".format(device), "w")
-        #     fd.write("{}".format(int(value)))
-        #     fd.flush()
-        #     fd.close()
+    def set_brightness(device, value):
+        brightness_file = "/sys/class/backlight/{}/brightness".format(device)
+        if os.path.isfile(brightness_file):
+            fd = open("/sys/class/backlight/{}/brightness".format(device), "w")
+            fd.write("{}".format(int(value)))
+            fd.flush()
+            fd.close()
+
+    # FIXME
+    # This is not a good method.
+    # Polkit method was tried but it does not work stably in frequently repeated i/o operations.
     def set_brightness_perm(device):
         brightness_file = "/sys/class/backlight/{}/brightness".format(device)
         os.chmod(brightness_file, 0o0777)
