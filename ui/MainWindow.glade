@@ -48,8 +48,7 @@
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="pixel-size">64</property>
-                            <property name="icon-name">pardus-pm-power-saver</property>
-                            <property name="icon_size">5</property>
+                            <property name="icon-name">pardus-power-manager-power-saver</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -95,8 +94,7 @@
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="pixel-size">64</property>
-                            <property name="icon-name">pardus-pm-balanced</property>
-                            <property name="icon_size">5</property>
+                            <property name="icon-name">pardus-power-manager-balanced</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -142,8 +140,7 @@
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="pixel-size">64</property>
-                            <property name="icon-name">pardus-pm-performance</property>
-                            <property name="icon_size">5</property>
+                            <property name="icon-name">pardus-power-manager-performance</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>

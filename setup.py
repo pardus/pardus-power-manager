@@ -61,12 +61,12 @@ data_files = [
                   ["data/tr.org.pardus.power-manager-autostart.desktop"]),
                  ("/usr/share/icons/hicolor/scalable/apps/",
                   ["data/pardus-power-manager.svg",
-                   "data/pardus-pm-power-saver.svg",
-                   "data/pardus-pm-balanced.svg",
-                   "data/pardus-pm-performance.svg",
-                   "data/pardus-pm-power-saver-symbolic.svg",
-                   "data/pardus-pm-balanced-symbolic.svg",
-                   "data/pardus-pm-performance-symbolic.svg",
+                   "data/pardus-power-manager-power-saver.svg",
+                   "data/pardus-power-manager-balanced.svg",
+                   "data/pardus-power-manager-performance.svg",
+                   "data/pardus-power-manager-power-saver-symbolic.svg",
+                   "data/pardus-power-manager-balanced-symbolic.svg",
+                   "data/pardus-power-manager-performance-symbolic.svg",
                    ])
              ] + create_mo_files()
 
