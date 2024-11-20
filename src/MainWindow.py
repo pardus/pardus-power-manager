@@ -14,7 +14,7 @@ import gi
 
 gi.require_version("GLib", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GObject, GLib, Gdk
+from gi.repository import Gtk, GObject, GLib, Gdk, Gio
 
 try:
     gi.require_version('AppIndicator3', '0.1')
@@ -71,6 +71,8 @@ class MainWindow(object):
 
         self.control_brightness()
         self.add_brightness_devices()
+
+        self.monitor_brightness_devices()
 
         self.about_dialog.set_program_name(_("Pardus Power Manager"))
         if self.about_dialog.get_titlebar() is None:
@@ -158,6 +160,9 @@ class MainWindow(object):
         self.brightness_devices = {}
 
         self.brightness_error_message = ""
+
+        self.device = ""
+        self.value = ""
 
         print("Available profiles: {}".format(self.power_profiles))
         print("Current profile: {}".format(self.current_profile))
@@ -274,6 +279,23 @@ class MainWindow(object):
 
         print("profile setted to: {}".format(profile_name))
 
+    def monitor_brightness_devices(self):
+        if self.brightness_available:
+            self.mdir = {}
+            for device, value in self.brightness_devices.items():
+                self.mdir[device] = Gio.file_new_for_path("/sys/class/backlight/{}/brightness".format(
+                    device)).monitor_file(0, None)
+                self.mdir[device].connect('changed', self.on_brightness_changed_from_monitoring)
+
+    def on_brightness_changed_from_monitoring(self, file_monitor, file, other_file, event_type):
+        # print("on_brightness_changed_from_monitoring: {} {}".format(file.get_path(), event_type))
+        if event_type in [Gio.FileMonitorEvent.CHANGES_DONE_HINT]:
+            print("trigger: {} {}".format(file.get_path(), event_type))
+            device = "{}".format(file.get_path()).split("/")[-2]
+            brightness = self.get_current_brightness(device)
+            print("trigger: device: {}, brightness: {}".format(device, brightness))
+            self.set_brightness(device, brightness, from_monitoring=True)
+
     def control_brightness(self):
         if os.path.isdir("/sys/class/backlight") and os.listdir("/sys/class/backlight"):
             self.brightness_available = True
@@ -304,11 +326,72 @@ class MainWindow(object):
                 print("Error in get_current_brightness. {}".format(e))
                 return 0
 
-    def set_brightness(self, device, value):
+    # def is_brightness_different(self, device, new_value):
+    #     brightness_file = "/sys/class/backlight/{}/brightness".format(device)
+    #     current_brightness_value = 0
+    #     if os.path.isfile(brightness_file):
+    #         try:
+    #             with open(brightness_file, "r") as f:
+    #                 current_brightness_value = int(f.read().strip())
+    #         except Exception as e:
+    #             print("Error in get_current_brightness. {}".format(e))
+    #     return new_value != current_brightness_value
+
+    def set_brightness(self, device, value, from_monitoring=False):
         self.brightness_error_message = ""
-        command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
-                   "{}".format(device), "{}".format(value)]
-        self.start_brightness_process(command)
+        self.device = device
+        self.value = value
+
+        # if self.is_brightness_different(device, value):
+        #     print("brightness is changing.")
+        #     if os.access("/sys/class/backlight/intel_backlight/brightness", os.W_OK):
+        #         self.write_brightness(device, value)
+        #     else:
+        #         command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
+        #                    "{}".format(device), "{}".format(value)]
+        #         self.start_brightness_process(command)
+        # else:
+        #     print("brightness same, controlling ui")
+        #     ui_brightness_value = 0
+        #     ui_brightness_adjustment = None
+        #     for row in self.ui_brightness_box:
+        #         if device == row.get_children()[1].get_adjustment().name:
+        #             ui_brightness_adjustment = row.get_children()[1].get_adjustment()
+        #             ui_brightness_value = int(ui_brightness_adjustment.get_value())
+        #             break
+        #     print("ui_brightness: {}, current_brightness:{}".format(ui_brightness_value, value))
+        #     if ui_brightness_value != value and ui_brightness_adjustment is not None:
+        #         ui_brightness_adjustment.set_value(value)
+        #         print("ui_brightness_value changed to: {}".format(value))
+
+        if not from_monitoring:
+            if os.access("/sys/class/backlight/intel_backlight/brightness", os.W_OK):
+                self.write_brightness(device, value)
+            else:
+                command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
+                           "{}".format(device), "{}".format(value)]
+                self.start_brightness_process(command)
+        else:
+            ui_brightness_value = 0
+            ui_brightness_adjustment = None
+            for row in self.ui_brightness_box:
+                if device == row.get_children()[1].get_adjustment().name:
+                    ui_brightness_adjustment = row.get_children()[1].get_adjustment()
+                    ui_brightness_value = int(ui_brightness_adjustment.get_value())
+                    break
+            print("trigger control: ui_brightness: {}, current_brightness: {}".format(ui_brightness_value, value))
+            if ui_brightness_value != value and ui_brightness_adjustment is not None:
+                ui_brightness_adjustment.set_value(value)
+                print("trigger: ui_brightness_value changed to: {}".format(value))
+
+    def write_brightness(self, device, value):
+        brightness_file = "/sys/class/backlight/{}/brightness".format(device)
+        if os.path.isfile(brightness_file):
+            fd = open("/sys/class/backlight/{}/brightness".format(device), "w")
+            fd.write("{}".format(int(value)))
+            fd.flush()
+            fd.close()
+            print("brightness changed to: {} {}".format(device, value))
 
     def add_brightness_devices(self):
         for row in self.ui_brightness_box:
@@ -340,7 +423,7 @@ class MainWindow(object):
 
     def on_brightness_changed(self, adjustment):
         print("on_brightness_changed: {} {}".format(adjustment.name, int(adjustment.get_value())))
-        self.set_brightness(adjustment.name, int(adjustment.get_value()))
+        self.set_brightness(adjustment.name, int(adjustment.get_value()), from_monitoring=False)
 
     def on_ui_powersaver_button_clicked(self, button):
         self.set_profile("power-saver")
@@ -411,3 +494,6 @@ class MainWindow(object):
         else:
             if self.brightness_error_message != "":
                 ErrorDialog(_("Error"), "{}".format(self.brightness_error_message))
+            else:
+                if self.device != "" and self.value != "":
+                    self.write_brightness(self.device, self.value)
