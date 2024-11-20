@@ -1,5 +1,5 @@
 Source: pardus-power-manager
-Section: x11
+Section: utils
 Priority: optional
 Maintainer: Fatih Altun <fatih.altun@pardus.org.tr>
 Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools
@@ -16,5 +16,5 @@ Depends: ${misc:Depends},
          power-profiles-daemon
 Conflicts: tlp
 Replaces: tlp
-Description: ETA Help.
- ETA Help application.
+Description: Pardus Power Manager
+ Simple power manager application based on power-profiles-daemon.
