@@ -222,7 +222,7 @@
                 <property name="can-focus">True</property>
                 <property name="has-focus">True</property>
                 <property name="opacity">0.50196078431372548</property>
-                <property name="label">TÜBİTAK ULAKBİM | 2024</property>
+                <property name="label">© TÜBİTAK BİLGEM</property>
                 <attributes>
                   <attribute name="weight" value="light"/>
                 </attributes>
@@ -276,7 +276,7 @@
     <property name="transient-for">ui_main_window</property>
     <property name="program-name">Pardus Power Manager</property>
     <property name="version">0.1.0</property>
-    <property name="copyright">© 2024 Pardus</property>
+    <property name="copyright">© Pardus</property>
     <property name="comments" translatable="yes">Simple power manager application
 based on power-profiles-daemon.</property>
     <property name="website">https://github.com/pardus/pardus-power-manager</property>
