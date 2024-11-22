@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-18 11:59+0300\n"
+"POT-Creation-Date: 2024-11-22 17:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,53 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ui/MainWindow.glade:84 ui/MainWindow.glade:113 src/MainWindow.py:57
-#: src/MainWindow.py:106
+#: ui/MainWindow.glade:63 src/MainWindow.py:195
+msgid "Power Saver"
+msgstr ""
+
+#: ui/MainWindow.glade:109 src/MainWindow.py:201
+msgid "Balanced"
+msgstr ""
+
+#: ui/MainWindow.glade:155 src/MainWindow.py:207
+msgid "Performance"
+msgstr ""
+
+#: ui/MainWindow.glade:251 src/MainWindow.py:77 src/MainWindow.py:182
 msgid "Pardus Power Manager"
 msgstr ""
 
+#: ui/MainWindow.glade:280
+msgid ""
+"Simple power manager application\n"
+"based on power-profiles-daemon."
+msgstr ""
+
 #. Name Surname <example@examplemail.com>
-#: ui/MainWindow.glade:116
+#: ui/MainWindow.glade:285
 msgid "translator-credits"
 msgstr ""
 
-#: src/MainWindow.py:61
+#: src/MainWindow.py:81
 msgid "About Pardus Power Manager"
 msgstr ""
 
-#: src/MainWindow.py:112
+#: src/MainWindow.py:215
 msgid "Quit"
 msgstr ""
 
-#: src/MainWindow.py:123 src/MainWindow.py:137
+#: src/MainWindow.py:225 src/MainWindow.py:447
 msgid "Hide App"
 msgstr ""
 
-#: src/MainWindow.py:125 src/MainWindow.py:134 src/MainWindow.py:151
+#: src/MainWindow.py:227 src/MainWindow.py:444 src/MainWindow.py:461
 msgid "Show App"
+msgstr ""
+
+#: src/MainWindow.py:404
+msgid "Screen Brightness:"
+msgstr ""
+
+#: src/MainWindow.py:499
+msgid "Error"
 msgstr ""
