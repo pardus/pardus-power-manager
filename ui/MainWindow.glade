@@ -276,7 +276,7 @@
     <property name="transient-for">ui_main_window</property>
     <property name="program-name">Pardus Power Manager</property>
     <property name="version">0.1.0</property>
-    <property name="copyright">© Pardus</property>
+    <property name="copyright">© TÜBİTAK BİLGEM</property>
     <property name="comments" translatable="yes">Simple power manager application
 based on power-profiles-daemon.</property>
     <property name="website">https://github.com/pardus/pardus-power-manager</property>
