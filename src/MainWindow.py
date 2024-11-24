@@ -139,6 +139,9 @@ class MainWindow(object):
 
         self.ui_brightness_box = self.GtkBuilder.get_object("ui_brightness_box")
 
+        self.ui_permission_dialog = self.GtkBuilder.get_object("ui_permission_dialog")
+        self.ui_permission_info_label = self.GtkBuilder.get_object("ui_permission_info_label")
+
     def define_variables(self):
         self.dbus_power_profiles = self.ppd_interface.Get("net.hadess.PowerProfiles", "Profiles",
                                                           dbus_interface="org.freedesktop.DBus.Properties")
@@ -163,6 +166,9 @@ class MainWindow(object):
 
         self.device = ""
         self.value = ""
+
+        self.user_name = GLib.get_user_name()
+        self.brightness_group = "video"
 
         print("Available profiles: {}".format(self.power_profiles))
         print("Current profile: {}".format(self.current_profile))
@@ -368,11 +374,11 @@ class MainWindow(object):
             if os.access("/sys/class/backlight/{}/brightness".format(device), os.W_OK):
                 self.write_brightness(device, value)
             else:
-                # command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
-                #            "{}".format(device), "{}".format(value)]
-                # self.start_brightness_process(command)
-                ErrorDialog(_("Error"), "{}:\n\n/sys/class/backlight/{}/brightness".format(
+                self.ui_permission_dialog.set_title(_("Error"))
+                self.ui_permission_info_label.set_markup("{}:\n\n/sys/class/backlight/{}/brightness".format(
                     _("You don't have write permissions to file"), device))
+                response = self.ui_permission_dialog.run()
+                self.ui_permission_dialog.hide()
 
         else:
             ui_brightness_value = 0
@@ -436,6 +442,15 @@ class MainWindow(object):
 
     def on_ui_performance_button_clicked(self, button):
         self.set_profile("performance")
+
+    def on_ui_permission_close_button_clicked(self, button):
+        self.ui_permission_dialog.hide()
+
+    def on_ui_permission_grant_button_clicked(self, button):
+        self.ui_permission_dialog.hide()
+        command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
+                   self.user_name, self.brightness_group]
+        self.start_brightness_process(command)
 
     def on_menu_show_app(self, *args):
         window_state = self.main_window.is_visible()
