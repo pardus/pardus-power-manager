@@ -430,6 +430,8 @@ class MainWindow(object):
 
             self.ui_brightness_box.pack_start(box, True, True, 0)
 
+            GLib.idle_add(self.ui_brightness_box.show_all)
+
     def on_brightness_changed(self, adjustment):
         print("on_brightness_changed: {} {}".format(adjustment.name, int(adjustment.get_value())))
         self.set_brightness(adjustment.name, int(adjustment.get_value()), from_monitoring=False)
