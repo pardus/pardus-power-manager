@@ -365,15 +365,15 @@ class MainWindow(object):
         #         print("ui_brightness_value changed to: {}".format(value))
 
         if not from_monitoring:
-            if os.access("/sys/class/backlight/intel_backlight/brightness", os.W_OK):
+            if os.access("/sys/class/backlight/{}/brightness".format(device), os.W_OK):
                 self.write_brightness(device, value)
             else:
-                # FIXME
-                # Fix the file permission problem.
-                # This method is used temporarily.
-                command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
-                           "{}".format(device), "{}".format(value)]
-                self.start_brightness_process(command)
+                # command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
+                #            "{}".format(device), "{}".format(value)]
+                # self.start_brightness_process(command)
+                ErrorDialog(_("Error"), "{}:\n\n/sys/class/backlight/{}/brightness".format(
+                    _("You don't have write permissions to file"), device))
+
         else:
             ui_brightness_value = 0
             ui_brightness_adjustment = None

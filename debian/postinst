@@ -1,0 +1,4 @@
+#!/bin/bash
+
+udevadm control --reload || true
+udevadm trigger -c add -s backlight || true
