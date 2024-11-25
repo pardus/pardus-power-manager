@@ -5,7 +5,7 @@ Created on Fri Nov 15 14:53:01 2024
 
 @author: fatihaltun
 """
-
+import grp
 import os
 
 import dbus
@@ -374,11 +374,30 @@ class MainWindow(object):
             if os.access("/sys/class/backlight/{}/brightness".format(device), os.W_OK):
                 self.write_brightness(device, value)
             else:
-                self.ui_permission_dialog.set_title(_("Error"))
-                self.ui_permission_info_label.set_markup("{}:\n\n/sys/class/backlight/{}/brightness".format(
-                    _("You don't have write permissions to file"), device))
-                response = self.ui_permission_dialog.run()
-                self.ui_permission_dialog.hide()
+                try:
+                    self.user_groups = [g.gr_name for g in grp.getgrall() if self.user_name in g.gr_mem]
+                except Exception as e:
+                    print("{}".format(e))
+                    self.user_groups = []
+
+                if self.brightness_group not in self.user_groups:
+                    print("user: {} not in {} group; but in groups: {}".format(self.user_name,
+                                                                               self.brightness_group, self.user_groups))
+                    self.ui_permission_dialog.set_title(_("Error"))
+                    self.ui_permission_info_label.set_markup("<b>{}</b>\n\n{}:\n\n/sys/class/backlight/{}/brightness".format(
+                        _("Error"), _("You don't have write permissions to file"), device))
+                    response = self.ui_permission_dialog.run()
+                    self.ui_permission_dialog.hide()
+                    if response == Gtk.ResponseType.OK:
+                        command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
+                                   self.user_name, self.brightness_group]
+                        self.start_brightness_process(command)
+                    elif response == Gtk.ResponseType.CANCEL:
+                        print("Gtk.ResponseType.CANCEL")
+                else:
+                    print("{} in {} group; but need restart".format(self.user_name, self.brightness_group))
+                    ErrorDialog(_("Error"), "{}".format(
+                        _("You need to reboot your system for group permissions to take effect.")))
 
         else:
             ui_brightness_value = 0
@@ -447,12 +466,10 @@ class MainWindow(object):
 
     def on_ui_permission_close_button_clicked(self, button):
         self.ui_permission_dialog.hide()
+        self.ui_permission_dialog.response(Gtk.ResponseType.CANCEL)
 
     def on_ui_permission_grant_button_clicked(self, button):
-        self.ui_permission_dialog.hide()
-        command = ["/usr/bin/pkexec", os.path.dirname(os.path.abspath(__file__)) + "/Brightness.py",
-                   self.user_name, self.brightness_group]
-        self.start_brightness_process(command)
+        self.ui_permission_dialog.response(Gtk.ResponseType.OK)
 
     def on_menu_show_app(self, *args):
         window_state = self.main_window.is_visible()
@@ -516,4 +533,4 @@ class MainWindow(object):
                 ErrorDialog(_("Error"), "{}".format(self.brightness_error_message))
             else:
                 if self.device != "" and self.value != "":
-                    self.write_brightness(self.device, self.value)
+                    self.set_brightness(self.device, self.value)
