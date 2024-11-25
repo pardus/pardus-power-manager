@@ -429,7 +429,7 @@ class MainWindow(object):
             label.set_text(_("Screen Brightness:"))
 
             adjustment = Gtk.Adjustment.new(value=value["current_brightness"],
-                                            lower=0,
+                                            lower=int(value["max_brightness"] * 0.01),
                                             upper=value["max_brightness"],
                                             step_increment=value["max_brightness"] / 100,
                                             page_increment=value["max_brightness"] / 100,
