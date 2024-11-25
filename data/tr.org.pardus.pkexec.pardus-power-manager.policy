@@ -9,6 +9,7 @@
   <action id="tr.org.pardus.pkexec.pardus-power-manager-brightness">
     <description>Pardus Power Manager Authentication</description>
     <message>Authentication is required for Pardus Power Manager</message>
+    <message xml:lang="pt">A autenticação é necessária para o Gestor de Energia Pardus</message>
     <message xml:lang="tr">Pardus Güç Yöneticisi için yetkilendirme gerekiyor</message>
     <icon_name>preferences-system</icon_name>
     <defaults>

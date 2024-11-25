@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=Pardus Power Manager
+Name[pt]=Gestor de Energia Pardus
 Name[tr]=Pardus Güç Yöneticisi
 Comment=Pardus Power Manager
+Comment[pt]=Gestor de Energia Pardus
 Comment[tr]=Pardus Güç Yöneticisi
 Exec=pardus-power-manager --tray
 Icon=pardus-power-manager
