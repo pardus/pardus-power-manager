@@ -11,6 +11,12 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+import locale
+from locale import gettext as _
+
+locale.bindtextdomain('pardus-power-manager', '/usr/share/locale')
+locale.textdomain('pardus-power-manager')
+
 
 class Dialog(Gtk.MessageDialog):
     def __init__(self, style, buttons, title, text, text2=None, parent=None):
@@ -29,5 +35,5 @@ class Dialog(Gtk.MessageDialog):
 
 def ErrorDialog(*args):
     dialog = Dialog(Gtk.MessageType.ERROR, Gtk.ButtonsType.NONE, *args)
-    dialog.add_button("OK", Gtk.ResponseType.OK)
+    dialog.add_button(_("OK"), Gtk.ResponseType.OK)
     return dialog.show()
