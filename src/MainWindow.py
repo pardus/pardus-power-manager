@@ -26,6 +26,7 @@ except:
 
 # from UserSettings import UserSettings
 from Utils import ErrorDialog
+from Notification import Notification
 
 import locale
 from locale import gettext as _
@@ -300,6 +301,23 @@ class MainWindow(object):
 
         self.mark_current_profile()
 
+        if profile_name == "power-saver":
+            icon = self.icon_powersaver
+            profile_name_text = _("Power Saver")
+        elif profile_name == "balanced":
+            icon = self.icon_balanced
+            profile_name_text = _("Balanced")
+        elif profile_name == "performance":
+            icon = self.icon_performance
+            profile_name_text = _("Performance")
+        else:
+            icon = "dialog-warning"
+            profile_name_text = _("Unknown")
+
+        notification = Notification(summary=_("Pardus Power Manager"),
+                                    body=_("Current power profile: {}").format(profile_name_text),
+                                    icon=icon)
+        GLib.idle_add(notification.show)
         print("profile setted to: {}".format(profile_name))
 
     def monitor_brightness_devices(self):
