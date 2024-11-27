@@ -147,6 +147,10 @@ class MainWindow(object):
         self.ui_permission_dialog = self.GtkBuilder.get_object("ui_permission_dialog")
         self.ui_permission_info_label = self.GtkBuilder.get_object("ui_permission_info_label")
 
+        self.ui_powersaver_image = self.GtkBuilder.get_object("ui_powersaver_image")
+        self.ui_balanced_image = self.GtkBuilder.get_object("ui_balanced_image")
+        self.ui_performance_image = self.GtkBuilder.get_object("ui_performance_image")
+
     def define_variables(self):
         self.dbus_power_profiles = self.ppd_interface.Get("net.hadess.PowerProfiles", "Profiles",
                                                           dbus_interface="org.freedesktop.DBus.Properties")
@@ -163,6 +167,14 @@ class MainWindow(object):
             self.icon_powersaver = "power-profile-power-saver-symbolic"
             self.icon_balanced = "power-profile-balanced-symbolic"
             self.icon_performance = "power-profile-performance-symbolic"
+
+        if not system_wide:
+            self.ui_powersaver_image.set_from_file(
+                os.path.dirname(os.path.abspath(__file__)) + "/../data/pardus-power-manager-power-saver.svg")
+            self.ui_balanced_image.set_from_file(
+                os.path.dirname(os.path.abspath(__file__)) + "/../data/pardus-power-manager-balanced.svg")
+            self.ui_performance_image.set_from_file(
+                os.path.dirname(os.path.abspath(__file__)) + "/../data/pardus-power-manager-performance.svg")
 
         self.brightness_available = False
         self.brightness_devices = {}
