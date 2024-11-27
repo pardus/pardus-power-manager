@@ -18,6 +18,7 @@ class Dialog(Gtk.MessageDialog):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_title(title)
         self.set_markup(text)
+        self.get_message_area().get_children()[0].set_justify(Gtk.Justification.CENTER)
 
     def show(self):
         try:
