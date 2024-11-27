@@ -161,7 +161,7 @@ class MainWindow(object):
 
         system_wide = "usr/share" in os.path.dirname(os.path.abspath(__file__))
         self.icon_powersaver = "pardus-pm-power-saver-symbolic" if system_wide else "power-profile-power-saver-symbolic"
-        self.icon_balanced = "pardus-pm-balanced-symbolic" if system_wide else "spower-profile-balanced-symbolic"
+        self.icon_balanced = "pardus-pm-balanced-symbolic" if system_wide else "power-profile-balanced-symbolic"
         self.icon_performance = "pardus-pm-performance-symbolic" if system_wide else "power-profile-performance-symbolic"
 
         if gnome_desktop:
