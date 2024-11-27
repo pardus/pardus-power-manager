@@ -48,6 +48,7 @@ data_files = [
                   ["src/Main.py",
                    "src/MainWindow.py",
                    "src/Brightness.py",
+                   "src/Notification.py",
                    "src/UserSettings.py",
                    "src/Utils.py",
                    "src/__version__"]),
