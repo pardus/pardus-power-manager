@@ -110,8 +110,13 @@ class MainWindow(object):
 
     def init_power_profiles_dbus(self):
         dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-        self.ppd_bus = dbus.SystemBus()
-        self.ppd_proxy = self.ppd_bus.get_object("net.hadess.PowerProfiles", "/net/hadess/PowerProfiles")
+        try:
+            self.ppd_bus = dbus.SystemBus()
+            self.ppd_proxy = self.ppd_bus.get_object("net.hadess.PowerProfiles", "/net/hadess/PowerProfiles")
+        except dbus.exceptions.DBusException as e:
+            print("{}".format(e))
+            ErrorDialog(_("Error"), "<b>{}</b>\n\n{}".format(_("power-profiles-daemon not found."), e))
+            exit(1)
         self.ppd_interface = dbus.Interface(self.ppd_proxy, "net.hadess.PowerProfiles")
 
         self.ppd_bus.add_signal_receiver(
