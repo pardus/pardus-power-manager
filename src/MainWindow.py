@@ -40,9 +40,9 @@ def getenv(env_name):
     return env if env else ""
 
 
-gnome_desktop = False
-if "gnome" in getenv("SESSION").lower() or "gnome" in getenv("XDG_CURRENT_DESKTOP").lower():
-    gnome_desktop = True
+xfce_desktop = False
+if "xfce" in getenv("SESSION").lower() or "xfce" in getenv("XDG_CURRENT_DESKTOP").lower():
+    xfce_desktop = True
 
 
 class MainWindow(object):
@@ -160,11 +160,11 @@ class MainWindow(object):
                                                       dbus_interface="org.freedesktop.DBus.Properties")
 
         system_wide = "usr/share" in os.path.dirname(os.path.abspath(__file__))
-        self.icon_powersaver = "pardus-pm-power-saver-symbolic" if system_wide else "power-profile-power-saver-symbolic"
-        self.icon_balanced = "pardus-pm-balanced-symbolic" if system_wide else "power-profile-balanced-symbolic"
-        self.icon_performance = "pardus-pm-performance-symbolic" if system_wide else "power-profile-performance-symbolic"
+        self.icon_powersaver = "pardus-power-manager-power-saver-symbolic" if system_wide else "power-profile-power-saver-symbolic"
+        self.icon_balanced = "pardus-power-manager-balanced-symbolic" if system_wide else "power-profile-balanced-symbolic"
+        self.icon_performance = "pardus-power-manager-performance-symbolic" if system_wide else "power-profile-performance-symbolic"
 
-        if gnome_desktop:
+        if not xfce_desktop:
             self.icon_powersaver = "power-profile-power-saver-symbolic"
             self.icon_balanced = "power-profile-balanced-symbolic"
             self.icon_performance = "power-profile-performance-symbolic"
