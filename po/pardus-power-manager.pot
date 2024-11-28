@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-22 17:14+0300\n"
+"POT-Creation-Date: 2024-11-28 17:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,20 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ui/MainWindow.glade:63 src/MainWindow.py:195
+#: ui/MainWindow.glade:63 src/MainWindow.py:219 src/MainWindow.py:306
 msgid "Power Saver"
 msgstr ""
 
-#: ui/MainWindow.glade:109 src/MainWindow.py:201
+#: ui/MainWindow.glade:109 src/MainWindow.py:225 src/MainWindow.py:309
 msgid "Balanced"
 msgstr ""
 
-#: ui/MainWindow.glade:155 src/MainWindow.py:207
+#: ui/MainWindow.glade:155 src/MainWindow.py:231 src/MainWindow.py:312
 msgid "Performance"
 msgstr ""
 
-#: ui/MainWindow.glade:251 src/MainWindow.py:77 src/MainWindow.py:182
+#: ui/MainWindow.glade:251 src/MainWindow.py:78 src/MainWindow.py:206
+#: src/MainWindow.py:317 src/Notification.py:34
 msgid "Pardus Power Manager"
 msgstr ""
 
@@ -44,26 +45,63 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
-#: src/MainWindow.py:81
+#: ui/MainWindow.glade:349
+msgid "Add to video Group"
+msgstr ""
+
+#: ui/MainWindow.glade:366 src/Utils.py:38
+msgid "OK"
+msgstr ""
+
+#: src/MainWindow.py:82
 msgid "About Pardus Power Manager"
 msgstr ""
 
-#: src/MainWindow.py:215
+#: src/MainWindow.py:119 src/MainWindow.py:421 src/MainWindow.py:424
+#: src/MainWindow.py:436 src/MainWindow.py:570
+msgid "Error"
+msgstr ""
+
+#: src/MainWindow.py:119
+msgid "power-profiles-daemon not found."
+msgstr ""
+
+#: src/MainWindow.py:239
 msgid "Quit"
 msgstr ""
 
-#: src/MainWindow.py:225 src/MainWindow.py:447
+#: src/MainWindow.py:249 src/MainWindow.py:518
 msgid "Hide App"
 msgstr ""
 
-#: src/MainWindow.py:227 src/MainWindow.py:444 src/MainWindow.py:461
+#: src/MainWindow.py:251 src/MainWindow.py:515 src/MainWindow.py:532
 msgid "Show App"
 msgstr ""
 
-#: src/MainWindow.py:404
+#: src/MainWindow.py:315
+msgid "Unknown"
+msgstr ""
+
+#: src/MainWindow.py:318
+msgid "Current power profile: {}"
+msgstr ""
+
+#: src/MainWindow.py:424
+msgid "You don't have write permissions to file"
+msgstr ""
+
+#: src/MainWindow.py:425
+msgid "User is not in video group."
+msgstr ""
+
+#: src/MainWindow.py:437
+msgid "You need to reboot your system for group permissions to take effect."
+msgstr ""
+
+#: src/MainWindow.py:466
 msgid "Screen Brightness:"
 msgstr ""
 
-#: src/MainWindow.py:499
-msgid "Error"
+#: src/Notification.py:35
+msgid "Close"
 msgstr ""
