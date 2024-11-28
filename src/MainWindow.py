@@ -419,8 +419,10 @@ class MainWindow(object):
                     print("user: {} not in {} group; but in groups: {}".format(self.user_name,
                                                                                self.brightness_group, self.user_groups))
                     self.ui_permission_dialog.set_title(_("Error"))
-                    self.ui_permission_info_label.set_markup("<b>{}</b>\n\n{}:\n\n/sys/class/backlight/{}/brightness".format(
-                        _("Error"), _("You don't have write permissions to file"), device))
+                    self.ui_permission_info_label.set_markup(
+                        "<b>{}</b>\n\n{}:\n\n/sys/class/backlight/{}/brightness\n\n{}".format(
+                        _("Error"), _("You don't have write permissions to file"), device,
+                        _("User is not in video group.")))
                     response = self.ui_permission_dialog.run()
                     self.ui_permission_dialog.hide()
                     if response == Gtk.ResponseType.OK:
