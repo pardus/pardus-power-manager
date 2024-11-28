@@ -346,7 +346,7 @@ Fatih Altun &lt;fatih.altun@pardus.org.tr&gt;</property>
                 <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="ui_permission_grant_button">
-                    <property name="label" translatable="yes">Give Perm</property>
+                    <property name="label" translatable="yes">Add to video Group</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
