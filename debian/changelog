@@ -1,3 +1,104 @@
+pardus-power-manager (4.0.0) unstable; urgency=medium
+
+  [ Ali Riza KESKIN ]
+  * sysv-init service added and default for debian
+  * sysv-init service added and default for debian
+  * trace backlight change and update request
+  * inotify is optional dependency
+  * fix update event dup and service crash guard
+  * send_server semaphore added
+  * update request on client open
+  * send queue 100ms time delay added
+  * Update power.py
+  * replace battery event loop fork with thread
+  * config save operation moved to service
+  * remove unused file
+  * fix meson
+  * autosuspend delay added (60sec)
+  * suspend delay from config added
+  * do not autosuspend HID and Hub devices
+  * fix oem detect
+  * Update Readme.md
+  * advanced settings page added
+  * translation update
+  * fix popover pop down issue
+  * fix wrong icons
+  * hide unstable options if acpi issue is not detected
+  * power mode setting rewritten
+  * remove dups
+  * add balanced mode to backend
+  * balanced mode added in client
+  * balanced mode added in client
+  * minor fixes
+  * service battery update event fix
+  * default ac mode is balanced
+  * update translation
+  * update translation
+  * typo fix
+  * ac-mode balanced fix
+  * freq decrease ignored if max freq lower than 2Ghz
+  * config reload on new config event
+  * change balanced settings
+  * balanced mode settings update
+
+  [ Fatih Altun ]
+  * Initial major update to ui and backend
+  * Update .gitignore
+  * Add ppd backend and initial ui
+  * Add tray icon controls
+  * Update icon names
+  * Add icons to setup.py
+  * Add autostart to setup.py
+  * Fix changelog
+  * Rm executable from icons
+  * Update power profiles icons on ui
+  * Update power icon sizes
+  * Update some spacing values on ui
+  * Update autostart as system-wide
+  * Add brightness controls
+  * Update brightness_devices init func
+  * Update icon names
+  * Update brightness control and add monitoring
+  * Add fixme for brightness file permission
+  * Fix description
+  * Update Readme
+  * Update about dialog
+  * Update copyright
+  * Update copyright
+  * Update pot file
+  * Update Turkish translations
+  * Add udev rule for brightness perm
+  * Add brightness permisson dialog and grant funcs
+  * Fix brightness box show problem on tray start
+  * Update policy default allows
+
+  [ Hugo Carvalho ]
+  * Add pt
+  * Add Portuguese translations
+  * Add Portuguese translations
+
+  [ Fatih Altun ]
+  * Add group control to set brightness func
+  * Add screenshots
+  * Update min value of brightness
+  * Add centered justify to label of ErrorDialog
+  * Add power-profiles-daemon control
+  * Add system-wide control for ui power images
+  * Add localization to Utils
+  * Add notification for power profile changes
+  * Fix typo
+  * Add Notification.py to setup.py
+  * Update permission info label
+  * Update permission button label
+  * Update po/files
+  * Update pot file
+  * Update Turkish translations
+  * Rm old autostart file too
+  * Update icon controls
+  * Add X-Pardus-Apps to desktop file categories
+
+ -- Fatih Altun <fatih.altun@pardus.org.tr>  Thu, 28 Nov 2024 18:28:52 +0300
+
 pardus-power-manager (3.0.0) unstable; urgency=medium
 
   [ bariscodefx ]
