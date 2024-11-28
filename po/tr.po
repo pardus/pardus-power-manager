@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-22 17:14+0300\n"
-"PO-Revision-Date: 2024-11-22 17:17+0300\n"
+"POT-Creation-Date: 2024-11-28 17:31+0300\n"
+"PO-Revision-Date: 2024-11-28 17:32+0300\n"
 "Last-Translator: Fatih Altun <fatih.altun@pardus.org.tr>\n"
 "Language-Team: Turkish <dev@pardus.org.tr>\n"
 "Language: tr\n"
@@ -19,19 +19,20 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Gtranslator 42.0\n"
 
-#: ui/MainWindow.glade:63 src/MainWindow.py:195
+#: ui/MainWindow.glade:63 src/MainWindow.py:219 src/MainWindow.py:306
 msgid "Power Saver"
 msgstr "Güç Tasarrufu"
 
-#: ui/MainWindow.glade:109 src/MainWindow.py:201
+#: ui/MainWindow.glade:109 src/MainWindow.py:225 src/MainWindow.py:309
 msgid "Balanced"
 msgstr "Dengeli"
 
-#: ui/MainWindow.glade:155 src/MainWindow.py:207
+#: ui/MainWindow.glade:155 src/MainWindow.py:231 src/MainWindow.py:312
 msgid "Performance"
 msgstr "Performans"
 
-#: ui/MainWindow.glade:251 src/MainWindow.py:77 src/MainWindow.py:182
+#: ui/MainWindow.glade:251 src/MainWindow.py:78 src/MainWindow.py:206
+#: src/MainWindow.py:317 src/Notification.py:34
 msgid "Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi"
 
@@ -48,26 +49,65 @@ msgstr ""
 msgid "translator-credits"
 msgstr "Fatih Altun <fatih.altun@pardus.org.tr>"
 
-#: src/MainWindow.py:81
+#: ui/MainWindow.glade:349
+msgid "Add to video Group"
+msgstr "Video Grubuna Ekle"
+
+#: ui/MainWindow.glade:366 src/Utils.py:38
+msgid "OK"
+msgstr "Tamam"
+
+#: src/MainWindow.py:82
 msgid "About Pardus Power Manager"
 msgstr "Pardus Güç Yöneticisi Hakkında"
 
-#: src/MainWindow.py:215
+#: src/MainWindow.py:119 src/MainWindow.py:421 src/MainWindow.py:424
+#: src/MainWindow.py:436 src/MainWindow.py:570
+msgid "Error"
+msgstr "Hata"
+
+#: src/MainWindow.py:119
+msgid "power-profiles-daemon not found."
+msgstr "power-profiles-daemon bulunamadı."
+
+#: src/MainWindow.py:239
 msgid "Quit"
 msgstr "Çıkış"
 
-#: src/MainWindow.py:225 src/MainWindow.py:447
+#: src/MainWindow.py:249 src/MainWindow.py:518
 msgid "Hide App"
 msgstr "Gizle"
 
-#: src/MainWindow.py:227 src/MainWindow.py:444 src/MainWindow.py:461
+#: src/MainWindow.py:251 src/MainWindow.py:515 src/MainWindow.py:532
 msgid "Show App"
 msgstr "Göster"
 
-#: src/MainWindow.py:404
+#: src/MainWindow.py:315
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: src/MainWindow.py:318
+msgid "Current power profile: {}"
+msgstr "Geçerli güç profili: {}"
+
+#: src/MainWindow.py:424
+msgid "You don't have write permissions to file"
+msgstr "Dosyaya yazma izniniz yok"
+
+#: src/MainWindow.py:425
+msgid "User is not in video group."
+msgstr "Kullanıcı video grubunda değil."
+
+#: src/MainWindow.py:437
+msgid "You need to reboot your system for group permissions to take effect."
+msgstr ""
+"Grup izinlerinin etkili olması için sisteminizi yeniden başlatmanız "
+"gerekiyor."
+
+#: src/MainWindow.py:466
 msgid "Screen Brightness:"
 msgstr "Ekran Parlaklığı:"
 
-#: src/MainWindow.py:499
-msgid "Error"
-msgstr "Hata"
+#: src/Notification.py:35
+msgid "Close"
+msgstr "Kapat"
