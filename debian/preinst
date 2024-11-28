@@ -10,3 +10,7 @@ if [[ -f /etc/tlp.d/99-pardus.conf ]] ; then
     systemctl disable tlp || true
     systemctl stop tlp || true
 fi
+
+if [[ -f /etc/xdg/autostart/ppm-autostart.desktop ]] ; then
+    rm -f /etc/xdg/autostart/ppm-autostart.desktop
+fi
