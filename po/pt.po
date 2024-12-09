@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-22 17:14+0300\n"
-"PO-Revision-Date: 2024-11-24 22:49+0000\n"
+"POT-Creation-Date: 2024-11-28 17:31+0300\n"
+"PO-Revision-Date: 2024-12-09 23:47+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <hugokarvalho@hotmail.com>\n"
 "Language: pt\n"
@@ -19,19 +19,20 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.5\n"
 
-#: ui/MainWindow.glade:63 src/MainWindow.py:195
+#: ui/MainWindow.glade:63 src/MainWindow.py:219 src/MainWindow.py:306
 msgid "Power Saver"
 msgstr "Poupança de energia"
 
-#: ui/MainWindow.glade:109 src/MainWindow.py:201
+#: ui/MainWindow.glade:109 src/MainWindow.py:225 src/MainWindow.py:309
 msgid "Balanced"
 msgstr "Equilibrado"
 
-#: ui/MainWindow.glade:155 src/MainWindow.py:207
+#: ui/MainWindow.glade:155 src/MainWindow.py:231 src/MainWindow.py:312
 msgid "Performance"
 msgstr "Desempenho"
 
-#: ui/MainWindow.glade:251 src/MainWindow.py:77 src/MainWindow.py:182
+#: ui/MainWindow.glade:251 src/MainWindow.py:78 src/MainWindow.py:206
+#: src/MainWindow.py:317 src/Notification.py:34
 msgid "Pardus Power Manager"
 msgstr "Gestor de Energia Pardus"
 
@@ -48,26 +49,63 @@ msgstr ""
 msgid "translator-credits"
 msgstr "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
-#: src/MainWindow.py:81
+#: ui/MainWindow.glade:349
+msgid "Add to video Group"
+msgstr "Adicionar ao grupo de \"video\""
+
+#: ui/MainWindow.glade:366 src/Utils.py:38
+msgid "OK"
+msgstr "OK"
+
+#: src/MainWindow.py:82
 msgid "About Pardus Power Manager"
 msgstr "Acerca do Gestor de Energia Pardus"
 
-#: src/MainWindow.py:215
+#: src/MainWindow.py:119 src/MainWindow.py:421 src/MainWindow.py:424
+#: src/MainWindow.py:436 src/MainWindow.py:570
+msgid "Error"
+msgstr "Erro"
+
+#: src/MainWindow.py:119
+msgid "power-profiles-daemon not found."
+msgstr "power-profiles-daemon não encontrado."
+
+#: src/MainWindow.py:239
 msgid "Quit"
 msgstr "Sair"
 
-#: src/MainWindow.py:225 src/MainWindow.py:447
+#: src/MainWindow.py:249 src/MainWindow.py:518
 msgid "Hide App"
 msgstr "Ocultar aplicação"
 
-#: src/MainWindow.py:227 src/MainWindow.py:444 src/MainWindow.py:461
+#: src/MainWindow.py:251 src/MainWindow.py:515 src/MainWindow.py:532
 msgid "Show App"
 msgstr "Mostrar aplicação"
 
-#: src/MainWindow.py:404
+#: src/MainWindow.py:315
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: src/MainWindow.py:318
+msgid "Current power profile: {}"
+msgstr "Perfil de energia atual: {}"
+
+#: src/MainWindow.py:424
+msgid "You don't have write permissions to file"
+msgstr "Não tem permissões de gravação no ficheiro"
+
+#: src/MainWindow.py:425
+msgid "User is not in video group."
+msgstr "O utilizador não está no grupo de \"video\"."
+
+#: src/MainWindow.py:437
+msgid "You need to reboot your system for group permissions to take effect."
+msgstr "É necessário reiniciar o sistema para que as permissões de grupo tenham efeito."
+
+#: src/MainWindow.py:466
 msgid "Screen Brightness:"
 msgstr "Brilho do ecrã:"
 
-#: src/MainWindow.py:499
-msgid "Error"
-msgstr "Erro"
+#: src/Notification.py:35
+msgid "Close"
+msgstr "Fechar"
